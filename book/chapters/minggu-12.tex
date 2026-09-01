@@ -1,0 +1,605 @@
+% =====================================================================
+%  chapters/minggu-12.tex
+%  Minggu 12 -- Pengenalan Tailwind CSS
+% =====================================================================
+
+\chapter{Pengenalan Tailwind CSS}
+\label{chap:mjs-12}
+
+% ---------------------------------------------------------------------
+% 1. CAPAIAN PEMBELAJARAN
+% ---------------------------------------------------------------------
+\begin{capaian}
+Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu:
+\begin{itemize}
+  \item menjelaskan perbedaan antara CSS tradisional dan pendekatan \emph{utility-first};
+  \item menyiapkan Tailwind CSS menggunakan \emph{CDN} di proyek HTML;
+  \item menggunakan \emph{utility class} dasar untuk tipografi, \emph{spacing}, warna, dan \emph{border};
+  \item membuat layout \emph{responsive} menggunakan \emph{Flexbox} dan \emph{Grid} Tailwind.
+\end{itemize}
+\end{capaian}
+
+% ---------------------------------------------------------------------
+% 2. TUJUAN PRAKTIK
+% ---------------------------------------------------------------------
+\begin{tujuanpraktik}
+Pada sesi praktik ini, mahasiswa akan:
+\begin{itemize}
+  \item mengonversi halaman CSS manual menjadi Tailwind CSS;
+  \item bereksperimen dengan \emph{utility class} di \emph{playground};
+  \item membangun layout \emph{responsive} dengan \emph{Flexbox} dan \emph{Grid}.
+\end{itemize}
+\end{tujuanpraktik}
+
+\begin{catatan}
+Tailwind CSS \textbf{bukan bahasa pemrograman}---ini adalah kumpulan \textbf{class CSS pendek} yang sudah ditulis untuk Anda. Alih-alih menulis \texttt{font-size: 18px; font-weight: bold;}, Anda cukup menulis \texttt{class="text-lg font-bold"}.
+\end{catatan}
+
+% =====================================================================
+\section{Konsep: Apa Itu Tailwind CSS?}
+\label{sec:12-konsep}
+% =====================================================================
+
+\subsection{CSS Tradisional vs Tailwind CSS}
+
+\textbf{CSS Tradisional:}
+
+\begin{lstlisting}[language=CSS, caption={Penulisan CSS tradisional}, label={lst:12-css-tradisional}]
+/* Di file terpisah (.css) */
+.card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+\end{lstlisting}
+
+\textbf{Dengan Tailwind:}
+
+\begin{lstlisting}[language=HTML, caption={Penulisan dengan Tailwind CSS}, label={lst:12-tailwind}]
+<!-- Tidak perlu file CSS terpisah -->
+<div class="bg-white rounded-lg p-4 shadow-md">
+    <h2 class="text-xl font-bold text-gray-800 mb-2">
+        Judul Card
+    </h2>
+</div>
+\end{lstlisting}
+
+\subsection{Mengapa Tailwind?}
+
+\begin{table}[htbp]
+\centering
+\caption{Kelebihan Tailwind CSS}
+\label{tab:12-kelebihan}
+\begin{tabular}{ll}
+\toprule
+\textbf{Kelebihan} & \textbf{Penjelasan} \\
+\midrule
+Cepat & Tidak perlu bolak-balik ke file CSS \\
+Konsisten & \emph{Design system} built-in (spacing, warna, ukuran terstandarisasi) \\
+Ringan (\emph{production}) & Hanya class yang dipakai yang masuk ke CSS final \\
+Populer & Banyak digunakan di industri \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{catatan}
+CSS tradisional tetap berguna untuk memahami dasar \emph{styling} dan untuk \emph{selector} kompleks yang sulit dijangkau \emph{utility class}. Tailwind \textbf{bukan pengganti} CSS---ini \textbf{pendekatan berbeda} untuk menulis CSS.
+\end{catatan}
+
+% =====================================================================
+\section{Setup Tailwind di Proyek}
+\label{sec:12-setup}
+% =====================================================================
+
+Cara termudah adalah menggunakan \textbf{CDN}---tanpa instalasi, cocok untuk tujuan belajar.
+
+\begin{langkah}
+  \item Buat file baru \texttt{minggu12.html}.
+  \item Buka dengan Live Server. Jika halaman berlatar abu-abu dengan judul besar, Tailwind sudah berhasil dimuat!
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Setup Tailwind CSS via CDN}, label={lst:12-setup}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Minggu 12 -- Tailwind CSS</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <h1 class="text-3xl font-bold text-center py-10">
+        Halo, Tailwind CSS!
+    </h1>
+</body>
+</html>
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-12/tailwind-setup.png}
+  {Halaman dengan latar abu-abu terang dan teks judul besar yang sudah ter-\emph{style} oleh Tailwind.}
+  {Buka \texttt{minggu12.html} di peramban. Jika judul besar muncul dengan latar abu-abu, setup berhasil.}
+\end{tangkapanlayar}
+
+\begin{tip}
+Verifikasi dengan DevTools: buka tab Elements $\rightarrow$ \emph{inspect} pada elemen \texttt{<h1>}. Anda akan melihat \emph{class} Tailwind dikonversi menjadi CSS oleh JavaScript CDN.
+\end{tip}
+
+\begin{catatan}
+\textbf{Catatan CDN:} CDN ini cocok untuk pengembangan dan belajar. Untuk proyek \emph{production}, Tailwind biasanya diinstal via \emph{npm} dan di-\emph{build}.
+\end{catatan}
+
+% =====================================================================
+\section{Eksplorasi Utility Class Dasar}
+\label{sec:12-utility}
+% =====================================================================
+
+\subsection{Layout \& Spacing}
+
+\begin{lstlisting}[language=HTML, caption={Utility class untuk spacing}, label={lst:12-spacing}]
+<!-- Padding (p = semua sisi, px = horizontal, py = vertical) -->
+<div class="p-4">Padding 16px semua sisi</div>
+<div class="px-6 py-2">Padding horizontal 24px, vertical 8px</div>
+
+<!-- Margin (m = semua sisi, mx = horizontal, my = vertical) -->
+<div class="m-4">Margin 16px semua sisi</div>
+<div class="mx-auto">Margin horizontal auto (untuk center) -->
+
+<!-- Skala spacing: angka x 4 = pixel -->
+<!-- p-1 = 4px, p-2 = 8px, p-4 = 16px, p-8 = 32px -->
+\end{lstlisting}
+
+\subsection{Tipografi}
+
+\begin{lstlisting}[language=HTML, caption={Utility class untuk tipografi}, label={lst:12-tipografi}]
+<h1 class="text-4xl">Judul Besar (36px)</h1>
+<h2 class="text-2xl">Judul Sedang (24px)</h2>
+<p class="text-base">Teks normal (16px)</p>
+<p class="text-sm">Teks kecil (14px)</p>
+
+<p class="font-bold">Tebal</p>
+<p class="font-semibold">Agak tebal</p>
+<p class="font-light">Tipis</p>
+
+<p class="text-red-500">Merah</p>
+<p class="text-blue-600">Biru</p>
+<p class="text-center">Tengah</p>
+\end{lstlisting}
+
+\subsection{Warna \& Background}
+
+\begin{lstlisting}[language=HTML, caption={Utility class untuk warna}, label={lst:12-warna}]
+<div class="bg-white">Latar putih</div>
+<div class="bg-blue-500">Latar biru</div>
+<div class="bg-gray-200">Latar abu-abu terang</div>
+
+<!-- Skala warna Tailwind: 50 (paling terang) sampai 950 (paling gelap) -->
+<!-- blue-100 sangat terang, blue-900 sangat gelap -->
+\end{lstlisting}
+
+\subsection{Border \& Rounded}
+
+\begin{lstlisting}[language=HTML, caption={Utility class untuk border}, label={lst:12-border}]
+<div class="border border-gray-300">Batas abu-abu tipis</div>
+<div class="border-2 border-red-500">Batas merah tebal 2px</div>
+<div class="rounded-lg">Sudut membulat besar</div>
+<div class="rounded-full">Lingkaran penuh</div>
+\end{lstlisting}
+
+\subsection{Responsive (Mobile-First)}
+
+\begin{lstlisting}[language=HTML, caption={Kelas responsive Tailwind}, label={lst:12-responsive}]
+<!-- Dasar = mobile -->
+<!-- sm: >= 640px, md: >= 768px, lg: >= 1024px -->
+<div class="text-sm md:text-base lg:text-lg">
+    Teks kecil di HP, sedang di tablet, besar di desktop
+</div>
+
+<div class="flex flex-col md:flex-row">
+    <!-- Vertikal di HP, horizontal di tablet ke atas -->
+    <div class="w-full md:w-1/2">Kolom 1</div>
+    <div class="w-full md:w-1/2">Kolom 2</div>
+</div>
+\end{lstlisting}
+
+\subsection{Coba Sendiri: Playground}
+
+\begin{langkah}
+  \item Tambahkan kode berikut ke \texttt{minggu12.html} (ganti isi \texttt{<body>}).
+  \item \emph{Refresh} dan lihat hasilnya.
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Tailwind \emph{playground}---header, kartu, dan label warna}, label={lst:12-playground}]
+<body class="bg-gray-100 text-gray-800 p-6">
+    <header class="bg-blue-600 text-white p-4 rounded-lg mb-6">
+        <h1 class="text-2xl font-bold">Tailwind Playground</h1>
+        <p class="text-blue-100">
+            Mencoba utility class dasar
+        </p>
+    </header>
+
+    <div class="bg-white rounded-lg shadow-md p-6 mb-4">
+        <h2 class="text-xl font-semibold text-gray-800 mb-2">
+            Kartu Contoh
+        </h2>
+        <p class="text-gray-600 mb-4">
+            Ini adalah kartu dengan padding, shadow,
+            dan rounded corners -- semua dari class Tailwind.
+        </p>
+        <button class="bg-blue-500 hover:bg-blue-700
+                       text-white font-bold py-2 px-4 rounded">
+            Klik Saya
+        </button>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-2">
+            Daftar Warna
+        </h2>
+        <div class="flex flex-wrap gap-2">
+            <span class="bg-red-100 text-red-800
+                         px-3 py-1 rounded-full text-sm">
+                Red
+            </span>
+            <span class="bg-blue-100 text-blue-800
+                         px-3 py-1 rounded-full text-sm">
+                Blue
+            </span>
+            <span class="bg-green-100 text-green-800
+                         px-3 py-1 rounded-full text-sm">
+                Green
+            </span>
+            <span class="bg-yellow-100 text-yellow-800
+                         px-3 py-1 rounded-full text-sm">
+                Yellow
+            </span>
+        </div>
+    </div>
+</body>
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-12/tailwind-playground.png}
+  {Halaman dengan kartu, tombol, dan label warna yang sudah di-\emph{style} oleh Tailwind.}
+  {Buka \texttt{minggu12.html} di peramban dan bandingkan tampilan Anda.}
+\end{tangkapanlayar}
+
+% =====================================================================
+\section{Konversi: CSS Manual ke Tailwind}
+\label{sec:12-konversi}
+% =====================================================================
+
+\begin{langkah}
+  \item Buat file \texttt{kartu-profil-css.html} menggunakan CSS manual berikut.
+  \item Buat file \texttt{kartu-profil-tailwind.html} menggunakan versi Tailwind.
+  \item Bandingkan keduanya di tab browser berbeda.
+\end{langkah}
+
+\textbf{Versi CSS Manual:}
+
+\begin{lstlisting}[language=HTML, caption={Kartu profil dengan CSS manual}, label={lst:12-kartu-css}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Kartu Profil -- CSS Manual</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex; justify-content: center;
+            align-items: center; min-height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background-color: white;
+            border-radius: 12px; padding: 32px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center; max-width: 320px;
+        }
+        .avatar {
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            background-color: #4A90D9;
+            margin: 0 auto 16px;
+            display: flex; align-items: center;
+            justify-content: center;
+            font-size: 40px; color: white;
+        }
+        .name {
+            font-size: 24px; font-weight: bold;
+            color: #333; margin-bottom: 4px;
+        }
+        .role {
+            font-size: 14px; color: #888;
+            margin-bottom: 16px;
+        }
+        .bio {
+            font-size: 14px; color: #666;
+            line-height: 1.6; margin-bottom: 20px;
+        }
+        .btn {
+            background-color: #4A90D9; color: white;
+            border: none; padding: 10px 24px;
+            border-radius: 8px; font-size: 14px;
+            cursor: pointer;
+        }
+        .btn:hover { background-color: #357ABD; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="avatar">B</div>
+        <div class="name">Budi Santoso</div>
+        <div class="role">Mahasiswa D3 Informatika</div>
+        <div class="bio">
+            Siswa semester 1 yang tertarik dengan
+            web design dan UI/UX.
+        </div>
+        <button class="btn">Hubungi</button>
+    </div>
+</body>
+</html>
+\end{lstlisting}
+
+\textbf{Versi Tailwind CSS:}
+
+\begin{lstlisting}[language=HTML, caption={Kartu profil dengan Tailwind CSS}, label={lst:12-kartu-tailwind}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Kartu Profil -- Tailwind CSS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex justify-center
+             items-center min-h-screen">
+    <div class="bg-white rounded-xl p-8 shadow-lg
+                text-center max-w-xs">
+        <div class="w-24 h-24 rounded-full bg-blue-500
+                    mx-auto mb-4 flex items-center
+                    justify-center text-4xl text-white
+                    font-bold">
+            B
+        </div>
+        <div class="text-2xl font-bold text-gray-800
+                    mb-1">
+            Budi Santoso
+        </div>
+        <div class="text-sm text-gray-400 mb-4">
+            Mahasiswa D3 Informatika
+        </div>
+        <div class="text-sm text-gray-500
+                    leading-relaxed mb-5">
+            Siswa semester 1 yang tertarik dengan
+            web design dan UI/UX.
+        </div>
+        <button class="bg-blue-500 hover:bg-blue-700
+                       text-white font-semibold py-2 px-6
+                       rounded-lg transition duration-200">
+            Hubungi
+        </button>
+    </div>
+</body>
+</html>
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-12/kartu-perbandingan.png}
+  {Kartu profil versi Tailwind---tampilan seharusnya sama atau hampir identik dengan versi CSS manual.}
+  {Buka kedua file di tab browser berbeda dan bandingkan tampilannya.}
+\end{tangkapanlayar}
+
+\subsection{Pemetaan CSS ke Tailwind}
+
+\begin{table}[htbp]
+\centering
+\caption{Pemetaan properti CSS ke class Tailwind}
+\label{tab:12-pemetaan}
+\begin{tabular}{ll}
+\toprule
+\textbf{CSS Manual} & \textbf{Tailwind Equivalent} \\
+\midrule
+\texttt{background-color: \#f0f2f5;} & \texttt{bg-gray-100} \\
+\texttt{display: flex;} & \texttt{flex} \\
+\texttt{justify-content: center;} & \texttt{justify-center} \\
+\texttt{align-items: center;} & \texttt{items-center} \\
+\texttt{min-height: 100vh;} & \texttt{min-h-screen} \\
+\texttt{border-radius: 12px;} & \texttt{rounded-xl} \\
+\texttt{padding: 32px;} & \texttt{p-8} \\
+\texttt{box-shadow: ...;} & \texttt{shadow-lg} \\
+\texttt{text-align: center;} & \texttt{text-center} \\
+\texttt{max-width: 320px;} & \texttt{max-w-xs} \\
+\texttt{width: 100px;} & \texttt{w-24} \\
+\texttt{font-size: 24px; font-weight: bold;} & \texttt{text-2xl font-bold} \\
+\texttt{color: \#333;} & \texttt{text-gray-800} \\
+\texttt{font-size: 14px;} & \texttt{text-sm} \\
+\texttt{line-height: 1.6;} & \texttt{leading-relaxed} \\
+\texttt{:hover \{...\}} & \texttt{hover:bg-blue-700} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% =====================================================================
+\section{Layout dengan Tailwind: Flexbox \& Grid}
+\label{sec:12-layout}
+% =====================================================================
+
+\subsection{Flexbox dengan Tailwind}
+
+\begin{lstlisting}[language=HTML, caption={Flexbox: horizontal dan responsive}, label={lst:12-flexbox}]
+<!-- Flex Horizontal (baris) -->
+<h3 class="text-lg font-semibold mt-8 mb-3">
+    Flex Horizontal (baris)
+</h3>
+<div class="flex gap-4 bg-white p-4 rounded-lg shadow">
+    <div class="bg-blue-500 text-white p-4 rounded-lg
+                flex-1 text-center">1</div>
+    <div class="bg-green-500 text-white p-4 rounded-lg
+                flex-1 text-center">2</div>
+    <div class="bg-red-500 text-white p-4 rounded-lg
+                flex-1 text-center">3</div>
+</div>
+
+<!-- Flex Responsive: vertikal di HP, horizontal di desktop -->
+<h3 class="text-lg font-semibold mt-8 mb-3">
+    Flex Responsive
+</h3>
+<div class="flex flex-col md:flex-row gap-4
+            bg-white p-4 rounded-lg shadow">
+    <div class="bg-purple-500 text-white p-6 rounded-lg
+                md:flex-1 text-center">
+        Kolom 1
+    </div>
+    <div class="bg-yellow-500 text-gray-800 p-6 rounded-lg
+                md:flex-1 text-center">
+        Kolom 2
+    </div>
+    <div class="bg-teal-500 text-white p-6 rounded-lg
+                md:flex-1 text-center">
+        Kolom 3
+    </div>
+</div>
+\end{lstlisting}
+
+\subsection{Grid dengan Tailwind}
+
+\begin{lstlisting}[language=HTML, caption={Grid: 3 kolom responsive}, label={lst:12-grid}]
+<!-- Grid: 3 kolom responsive -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
+            gap-4 bg-white p-4 rounded-lg shadow">
+    <div class="bg-indigo-500 text-white p-6 rounded-lg
+                text-center">Card 1</div>
+    <div class="bg-indigo-500 text-white p-6 rounded-lg
+                text-center">Card 2</div>
+    <div class="bg-indigo-500 text-white p-6 rounded-lg
+                text-center">Card 3</div>
+    <div class="bg-indigo-500 text-white p-6 rounded-lg
+                text-center">Card 4</div>
+    <div class="bg-indigo-500 text-white p-6 rounded-lg
+                text-center">Card 5</div>
+    <div class="bg-indigo-500 text-white p-6 rounded-lg
+                text-center">Card 6</div>
+</div>
+
+<!-- Penjelasan grid responsive:
+     grid-cols-1     = 1 kolom di HP
+     sm:grid-cols-2  = 2 kolom di tablet (>= 640px)
+     lg:grid-cols-3  = 3 kolom di desktop (>= 1024px) -->
+\end{lstlisting}
+
+\begin{langkah}
+  \item \emph{Refresh} halaman dan coba \emph{resize} browser untuk melihat layout \emph{responsive}.
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-12/tailwind-flexbox.png}
+  {Area \emph{flexbox}---tiga kotak berwarna dalam satu baris.}
+  {Buka \texttt{minggu12.html} di peramban dan gulir ke bagian Flexbox.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-12/tailwind-grid.png}
+  {Area \emph{grid}---kotak-kotak \emph{card} dalam format 3 kolom.}
+  {Gulir ke bagian Grid dan perhatikan tampilan kolom.}
+\end{tangkapanlayar}
+
+% =====================================================================
+\section{Latihan}
+\label{sec:12-latihan}
+% =====================================================================
+
+\begin{latihan}[Konversi Halaman]
+Ambil salah satu halaman HTML yang sudah Anda buat di minggu 5--7 (halaman statis dengan CSS). Buat versi baru menggunakan Tailwind CSS.
+
+\begin{enumerate}
+  \item Salin file HTML lama ke file baru.
+  \item Hapus semua isi \texttt{<style>}.
+  \item Tambahkan CDN Tailwind di \texttt{<head>}.
+  \item Ganti semua \emph{selector} CSS dengan \emph{class} Tailwind yang sesuai.
+\end{enumerate}
+
+\textbf{Output yang diharapkan:}
+\begin{itemize}
+  \item Halaman terlihat sama atau hampir sama dengan versi CSS manual.
+  \item Semua \emph{style} menggunakan \emph{class} Tailwind, tidak ada \texttt{<style>} tersisa.
+\end{itemize}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-12/latihan1-konversi.png}
+  {Halaman hasil konversi---tampilan sebelah kiri (CSS manual) vs kanan (Tailwind).}
+  {Bandingkan halaman asli dengan hasil konversi Tailwind Anda.}
+\end{tangkapanlayar}
+\end{latihan}
+
+\begin{latihan}[Card Layout Responsive]
+Buat file \texttt{latihan12-2.html} yang menampilkan \textbf{3 kartu produk} dalam layout \emph{responsive}:
+\begin{enumerate}
+  \item Setiap kartu memiliki: gambar \emph{placeholder} (\texttt{bg-gray-300} dengan teks ``Gambar Produk''), nama produk, harga, dan tombol ``Beli''.
+  \item Di \emph{mobile}: kartu tampil secara vertikal (1 kolom).
+  \item Di tablet ($\geq$ 640\,px): 2 kolom.
+  \item Di desktop ($\geq$ 1024\,px): 3 kolom.
+\end{enumerate}
+
+Gunakan hanya Tailwind CSS---tidak ada CSS manual.
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-12/latihan2-card.png}
+  {Kartu produk \emph{responsive}---coba di berbagai ukuran browser.}
+  {Buka \texttt{latihan12-2.html} di peramban dan \emph{resize} untuk melihat perubahan kolom.}
+\end{tangkapanlayar}
+\end{latihan}
+
+\begin{latihan}[Navbar Responsive --- Opsional]
+Buat file \texttt{latihan12-3.html} dengan \emph{navbar} yang:
+\begin{enumerate}
+  \item Horizontal di desktop (logo + navigasi berdampingan).
+  \item Di \emph{mobile}: logo di kiri, tombol \emph{hamburger} di kanan, navigasi muncul saat tombol diklik (gunakan JavaScript dari Minggu 11).
+  \item Semua \emph{styling} dengan Tailwind CSS.
+\end{enumerate}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-12/latihan3-navbar.png}
+  {\emph{Navbar} dalam tampilan desktop dan \emph{mobile}.}
+  {Buka \texttt{latihan12-3.html} di peramban dan \emph{resize} untuk melihat perubahan layout.}
+\end{tangkapanlayar}
+\end{latihan}
+
+% =====================================================================
+\section{Troubleshooting}
+\label{sec:12-troubleshooting}
+% =====================================================================
+
+\begin{peringatan}
+\textbf{Style Tailwind tidak muncul} --- pastikan \texttt{<script src="https://cdn.tailwindcss.com">} ada di \texttt{<head>}, periksa koneksi internet, periksa ejaan nama \emph{class} (Tailwind sangat spesifik: \texttt{bg-blue-500} $\neq$ \texttt{bg-blue-5000}), dan coba \emph{hard refresh} (\texttt{Ctrl+Shift+R}).
+\end{peringatan}
+
+\begin{tip}
+\textbf{Tidak tahu nama class yang tepat} --- gunakan \href{https://tailwindcss.com/docs}{Tailwind Docs} sebagai referensi. Cari kategori (mis.\ ``padding'', ``background color'') lalu \emph{copy-paste} \emph{class}. Anda tidak perlu menghafal semua \emph{class}!
+\end{tip}
+
+\begin{catatan}
+\textbf{Konflik dengan CSS manual} --- jangan campur Tailwind dengan \emph{style} manual yang konflik. Gunakan salah satu: Tailwind SAJA atau CSS manual SAJA.
+\end{catatan}
+
+\begin{catatan}
+\textbf{CDN lambat atau tidak termuat} --- gunakan versi tertentu (\texttt{https://cdn.tailwindcss.com/3.4.1}). Jika tidak ada internet, kembali ke CSS manual untuk proyek ini.
+\end{catatan}
+
+\begin{catatan}
+\textbf{Kelas responsive tidak bekerja} --- Tailwind menggunakan \textbf{mobile-first}. Urutan yang benar: \emph{default} (mobile) $\rightarrow$ \texttt{sm} $\rightarrow$ \texttt{md} $\rightarrow$ \texttt{lg} $\rightarrow$ \texttt{xl}.
+\end{catatan}

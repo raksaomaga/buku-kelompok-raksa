@@ -1,0 +1,616 @@
+% =====================================================================
+%  chapters/minggu-03.tex
+%  Minggu 3 — HTML Dasar: Struktur & Semantic Tag
+% =====================================================================
+
+\chapter{HTML Dasar: Struktur \& Semantic Tag}
+\label{chap:minggu-03}
+
+% ---------------------------------------------------------------------
+% 1. CAPAIAN PEMBELAJARAN
+% ---------------------------------------------------------------------
+\begin{capaian}
+Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu:
+\begin{itemize}
+  \item menjelaskan struktur dasar dokumen HTML (\emph{doctype}, \texttt{html}, \texttt{head}, \texttt{body});
+  \item menggunakan elemen HTML dasar: \emph{heading}, paragraf, tautan, gambar, dan daftar;
+  \item membedakan dan menggunakan \emph{semantic tag} (\texttt{<header>}, \texttt{<nav>}, \texttt{<main>}, \texttt{<section>}, \texttt{<footer>}, dsb.);
+  \item menulis HTML yang valid menggunakan W3C Validator;
+  \item menghubungkan file HTML ke file CSS eksternal secara dasar.
+\end{itemize}
+\end{capaian}
+
+% ---------------------------------------------------------------------
+% 2. TUJUAN PRAKTIK
+% ---------------------------------------------------------------------
+\begin{tujuanpraktik}
+Pada sesi praktik ini, mahasiswa akan:
+\begin{itemize}
+  \item membuat dokumen HTML dengan struktur yang benar;
+  \item berlatih menggunakan elemen dasar HTML;
+  \item membangun halaman profil dengan \emph{semantic tag};
+  \item menghubungkan file HTML ke file CSS;
+  \item memvalidasi kode HTML melalui W3C Validator.
+\end{itemize}
+\end{tujuanpraktik}
+
+% ---------------------------------------------------------------------
+% 3. STRUKTUR DOKUMEN HTML
+% ---------------------------------------------------------------------
+\section{Struktur Dokumen HTML}
+\label{sec:m03-struktur}
+
+\subsection{Proyek Baru}
+
+\begin{langkah}
+  \item Di VS Code, buat folder baru: \textbf{File\,$\rightarrow$\,Open Folder\,$\rightarrow$\,New Folder}, beri nama \texttt{latihan-web-3}.
+  \item Buat file baru: \texttt{index.html}.
+\end{langkah}
+
+\subsection{Struktur Dasar}
+
+Ketik kode berikut di \texttt{index.html}:
+
+\begin{lstlisting}[language=HTML, caption={Struktur dasar dokumen HTML}, label={lst:m03-struktur}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan HTML --- Minggu 3</title>
+</head>
+<body>
+    <h1>Halo dari HTML!</h1>
+</body>
+</html>
+\end{lstlisting}
+
+Penjelasan tiap baris:
+
+\begin{table}[ht]
+\centering
+\caption{Penjelasan struktur dasar HTML}
+\label{tab:m03-baris}
+\begin{tabular}{p{4cm}p{8cm}}
+\toprule
+\textbf{Baris} & \textbf{Fungsi} \\
+\midrule
+\texttt{<!DOCTYPE html>} & Memberitahu peramban bahwa ini dokumen HTML5 \\
+\texttt{<html lang="id">} & Elemen root; \texttt{lang="id"} menandakan bahasa Indonesia \\
+\texttt{<head>} & Metadata --- tidak terlihat di halaman, tapi penting untuk peramban \& SEO \\
+\texttt{<meta charset>} & Set karakter \emph{encoding} (agar huruf seperti é, ü muncul benar) \\
+\texttt{<meta name="viewport">} & Agar halaman responsif di \emph{mobile} \\
+\texttt{<title>} & Judul yang muncul di tab peramban \\
+\texttt{<body>} & Konten yang terlihat oleh pengguna \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------
+% 4. ELEMEN DASAR HTML
+% ---------------------------------------------------------------------
+\section{Elemen-Elemen Dasar HTML}
+\label{sec:m03-elemen}
+
+\begin{langkah}
+  \item Tambahkan kode berikut di dalam \texttt{<body>}, di bawah \texttt{<h1>}.
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Kumpulan elemen HTML dasar}, label={lst:m03-elemen}]
+<!-- Heading: h1 sampai h6 -->
+<h1>Ini Heading 1 (Judul Utama)</h1>
+<h2>Ini Heading 2 (Judul Section)</h2>
+<h3>Ini Heading 3 (Sub-judul)</h3>
+
+<!-- Paragraph -->
+<p>Ini adalah paragraf biasa. HTML menggunakan tag
+   untuk mendefinisikan konten.</p>
+<p>Paragraf kedua. Setiap tag &lt;p&gt; akan membuat
+   baris baru.</p>
+
+<!-- Link (Anchor) -->
+<p>Kunjungi <a href="https://developer.mozilla.org"
+   target="_blank">MDN Web Docs</a> untuk belajar
+   HTML lebih lanjut.</p>
+
+<!-- Image (gambar dari internet) -->
+<img src="https://placehold.co/600x300"
+     alt="Contoh gambar placeholder"
+     width="600" height="300">
+
+<!-- List tidak berurut (Unordered List) -->
+<h3>Tools yang Kita Gunakan:</h3>
+<ul>
+    <li>VS Code --- editor kode</li>
+    <li>Live Server --- preview otomatis</li>
+    <li>Browser --- melihat hasil</li>
+    <li>GitHub --- menyimpan kode</li>
+</ul>
+
+<!-- List berurut (Ordered List) -->
+<h3>Langkah Instalasi:</h3>
+<ol>
+    <li>Download VS Code dari website resmi</li>
+    <li>Install ekstensi Live Server</li>
+    <li>Buat file index.html</li>
+    <li>Klik kanan &rarr; Open with Live Server</li>
+</ol>
+
+<!-- Horizontal Rule -->
+<hr>
+
+<!-- Strong & Emphasis -->
+<p>HTML itu <strong>sangat penting</strong> untuk
+   dipelajari karena fondasi semua website.</p>
+<p>Kamu pasti <em>bisa</em> menguasai ini!</p>
+\end{lstlisting}
+
+Simpan file (\textbf{Ctrl + S}) $\rightarrow$ buka dengan \emph{Live Server}.
+
+\begin{tip}
+Periksa di peramban: apakah terlihat 3 \emph{heading} (h1, h2, h3) dengan ukuran berbeda, 2 paragraf, 1 tautan, 1 gambar \emph{placeholder}, 1 daftar \emph{bullet}, 1 daftar bernomor, 1 garis horizontal, 1 teks tebal, dan 1 teks miring?
+\end{tip}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-03/browser-elemen-dasar.png}
+  {Peramban yang menampilkan hasil elemen HTML dasar.}
+  {Pastikan terlihat heading, paragraph, link, gambar, lists, strong, em.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 5. SEMANTIC HTML
+% ---------------------------------------------------------------------
+\section{Semantic HTML}
+\label{sec:m03-semantic}
+
+\begin{catatan}
+\textbf{Semantic HTML} adalah penggunaan tag yang tidak hanya mendeskripsikan tampilan, tapi juga \textbf{makna} konten. Ini penting untuk SEO, aksesibilitas, dan keterbacaan kode.
+\end{catatan}
+
+Perbedaan \emph{semantic} vs \emph{non-semantic}:
+
+\begin{table}[ht]
+\centering
+\caption{Perbandingan tag semantic dan non-semantic}
+\label{tab:m03-semantic}
+\small
+\begin{tabular}{p{3.5cm}p{3.5cm}p{5cm}}
+\toprule
+\textbf{Non-Semantic} & \textbf{Semantic} & \textbf{Kapan Menggunakan} \\
+\midrule
+\texttt{<div>} untuk semua \emph{section} & \texttt{<header>} untuk bagian atas & Gunakan tag semantik saat konten punya peran jelas \\
+\texttt{<div>} untuk daftar menu & \texttt{<nav>} untuk navigasi & \texttt{<nav>} memberitahu peramban ini bagian navigasi \\
+\texttt{<div>} untuk konten utama & \texttt{<main>} untuk konten utama & Hanya ada satu \texttt{<main>} per halaman \\
+\texttt{<div>} untuk footer & \texttt{<footer>} untuk bagian bawah & Setiap halaman sebaiknya punya \texttt{<footer>} \\
+\texttt{<div>} untuk \emph{section} & \texttt{<section>} atau \texttt{<article>} & \texttt{<section>} = bagian tematik; \texttt{<article>} = konten mandiri \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Rekonstruksi dengan Semantic Tag}
+
+Buat file baru bernama \texttt{profil.html} di folder yang sama. Ketik kode berikut:
+
+\begin{lstlisting}[language=HTML, caption={Halaman profil dengan semantic HTML}, label={lst:m03-profil}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Profil Diri --- Latihan Semantic HTML</title>
+</head>
+<body>
+
+    <!-- HEADER: Berisi navigasi -->
+    <header>
+        <h1>Portfolio Saya</h1>
+        <nav>
+            <ul>
+                <li><a href="#tentang">Tentang</a></li>
+                <li><a href="#keahlian">Keahlian</a></li>
+                <li><a href="#proyek">Proyek</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- MAIN: Konten utama halaman -->
+    <main>
+
+        <!-- SECTION: Tentang Saya -->
+        <section id="tentang">
+            <h2>Tentang Saya</h2>
+            <img src="https://placehold.co/200x200"
+                 alt="Foto profil"
+                 width="200" height="200">
+            <p>Halo! Nama saya [Nama Lengkap], mahasiswa
+               semester 1 D3 Informatika di [Nama Kampus].
+               Saya tertarik dengan dunia desain web dan
+               ingin belajar membangun website yang menarik
+               dan mudah digunakan.</p>
+        </section>
+
+        <!-- SECTION: Keahlian -->
+        <section id="keahlian">
+            <h2>Keahlian</h2>
+            <ul>
+                <li>HTML &amp; dasar CSS</li>
+                <li>Figma (wireframing)</li>
+                <li>Microsoft Office</li>
+                <li>Dasar pemrograman (belajar)</li>
+            </ul>
+        </section>
+
+        <!-- SECTION: Proyek -->
+        <section id="proyek">
+            <h2>Proyek</h2>
+
+            <!-- ARTICLE: Konten mandiri tentang 1 proyek -->
+            <article>
+                <h3>Website Profil Diri</h3>
+                <p>Website statis pertama saya yang dibuat
+                   dengan HTML dan CSS. Berisi informasi
+                   profil diri, daftar keahlian, dan cara
+                   menghubungi saya.</p>
+                <p><strong>Teknologi:</strong> HTML, CSS</p>
+            </article>
+
+            <article>
+                <h3>Landing Page Produk</h3>
+                <p>Halaman promosi produk sederhana yang
+                   dibuat sebagai latihan layout dengan
+                   Flexbox.</p>
+                <p><strong>Teknologi:</strong> HTML, CSS</p>
+            </article>
+        </section>
+
+        <!-- SECTION: Kontak -->
+        <section id="kontak">
+            <h2>Kontak</h2>
+            <p>Email: <a href="mailto:nama@email.com">
+               nama@email.com</a></p>
+            <p>GitHub: <a href="https://github.com/username"
+               target="_blank">github.com/username</a></p>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 [Nama Lengkap]. Dibuat untuk
+           mata kuliah Desain Web.</p>
+    </footer>
+
+</body>
+</html>
+\end{lstlisting}
+
+Simpan file $\rightarrow$ buka dengan \emph{Live Server}.
+
+\subsection{Perbandingan dengan Non-Semantic}
+
+\begin{lstlisting}[language=HTML, caption={Perbandingan non-semantic vs semantic}, label={lst:m03-perbandingan}]
+<!-- Non-Semantic: semua pakai div -->
+<div class="header">
+    <div class="nav">
+        <div class="menu-item">Tentang</div>
+    </div>
+</div>
+<div class="main">
+    <div class="section">...</div>
+</div>
+<div class="footer">...</div>
+
+<!-- Semantic: menggunakan tag yang tepat -->
+<header>
+    <nav>
+        <a href="#tentang">Tentang</a>
+    </nav>
+</header>
+<main>
+    <section>...</section>
+</main>
+<footer>...</footer>
+\end{lstlisting}
+
+\begin{catatan}
+Kenapa \emph{semantic} lebih baik?
+\begin{enumerate}
+  \item \textbf{Screen reader} (untuk tunanetra) bisa membaca struktur halaman dengan benar.
+  \item \textbf{Search engine} (Google) lebih mudah memahami konten halaman.
+  \item \textbf{Developer lain} (dan kamu 3 bulan lagi) lebih mudah membaca kode.
+\end{enumerate}
+\end{catatan}
+
+% ---------------------------------------------------------------------
+% 6. ELEMEN PENDUKUNG PENTING
+% ---------------------------------------------------------------------
+\section{Elemen Pendukung Penting}
+\label{sec:m03-pendukung}
+
+\subsection{Anchor (Tautan) --- Detail Atribut}
+
+\begin{lstlisting}[language=HTML, caption={Berbagai jenis tautan}, label={lst:m03-link}]
+<!-- Link ke halaman lain -->
+<a href="https://www.google.com">Google</a>
+
+<!-- Link ke email -->
+<a href="mailto:budi@email.com">Kirim Email</a>
+
+<!-- Link ke section di halaman yang sama (anchor link) -->
+<a href="#keahlian">Lihat Keahlian</a>
+
+<!-- Buka di tab baru -->
+<a href="https://www.google.com"
+   target="_blank" rel="noopener noreferrer">
+    Google (tab baru)
+</a>
+
+<!-- Gambar sebagai link -->
+<a href="https://www.google.com">
+    <img src="logo.png" alt="Logo Google" width="100">
+</a>
+\end{lstlisting}
+
+\subsection{Image --- Detail Atribut}
+
+\begin{lstlisting}[language=HTML, caption={Berbagai cara menampilkan gambar}, label={lst:m03-img}]
+<!-- Gambar dasar -->
+<img src="foto.jpg" alt="Deskripsi gambar"
+     width="400" height="300">
+
+<!-- Gambar dari URL -->
+<img src="https://placehold.co/400x300" alt="Placeholder">
+
+<!-- Gambar dengan figure & caption -->
+<figure>
+    <img src="foto.jpg" alt="Foto profil"
+         width="200" height="200">
+    <figcaption>Foto profil saya --- diambil tahun 2026
+    </figcaption>
+</figure>
+\end{lstlisting}
+
+\begin{peringatan}
+Aturan penting untuk \texttt{alt} pada gambar:
+\begin{itemize}
+  \item \textbf{Selalu} isi atribut \texttt{alt}.
+  \item \texttt{alt} harus mendeskripsikan gambar, bukan hanya ``gambar'' atau ``foto''.
+  \item Jika gambar murni dekoratif, gunakan \texttt{alt=""} (kosong).
+\end{itemize}
+\end{peringatan}
+
+\subsection{Tabel Dasar (Preview)}
+
+\begin{lstlisting}[language=HTML, caption={Struktur tabel HTML sederhana}, label={lst:m03-tabel-preview}]
+<table>
+    <caption>Jadwal Kuliah Semester 1</caption>
+    <thead>
+        <tr>
+            <th>Hari</th>
+            <th>Mata Kuliah</th>
+            <th>Jam</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Senin</td>
+            <td>Desain Web</td>
+            <td>08:00 &ndash; 10:00</td>
+        </tr>
+        <tr>
+            <td>Rabu</td>
+            <td>Algoritma</td>
+            <td>10:00 &ndash; 12:00</td>
+        </tr>
+    </tbody>
+</table>
+\end{lstlisting}
+
+\begin{catatan}
+Tabel akan dibahas lebih dalam pada Bab~\ref{chap:minggu-04}.
+\end{catatan}
+
+% ---------------------------------------------------------------------
+% 7. MENGHUBUNGKAN HTML KE CSS
+% ---------------------------------------------------------------------
+\section{Menghubungkan HTML ke CSS (Dasar)}
+\label{sec:m03-css}
+
+\begin{catatan}
+CSS detail akan dipelajari di minggu-minggu berikutnya. Ini hanya pengenalan cara menghubungkan file.
+\end{catatan}
+
+\subsection{Buat File CSS}
+
+Di folder yang sama, buat file baru: \texttt{style.css}. Ketik kode berikut:
+
+\begin{lstlisting}[language=CSS, caption={File CSS dasar untuk halaman profil}, label={lst:m03-css}]
+/* Reset dasar */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Header */
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Main content */
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+/* Footer */
+footer {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+\end{lstlisting}
+
+\subsection{Hubungkan ke HTML}
+
+Di file \texttt{profil.html}, tambahkan tag \texttt{<link>} di dalam \texttt{<head>}:
+
+\begin{lstlisting}[language=HTML, caption={Menambahkan tautan CSS di HTML}, label={lst:m03-link-css}]
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Profil Diri --- Latihan Semantic HTML</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+\end{lstlisting}
+
+Simpan kedua file $\rightarrow$ buka \texttt{profil.html} via \emph{Live Server}.
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-03/profil-dengan-css.png}
+  {Halaman \texttt{profil.html} di peramban dengan CSS.}
+  {Pastikan terlihat \emph{header} berwarna gelap, layout terpusat, dan \emph{footer} berwarna gelap.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 8. VALIDASI HTML
+% ---------------------------------------------------------------------
+\section{Validasi HTML}
+\label{sec:m03-validasi}
+
+\begin{langkah}
+  \item Buka \texttt{https://validator.w3.org/\#validate\_by\_input}.
+  \item Pilih tab \textbf{Direct Input}.
+  \item Salin seluruh isi \texttt{profil.html} $\rightarrow$ tempel ke kolom teks.
+  \item Klik \textbf{Check}.
+  \item Pastikan hasil: ``Document checking completed. No errors or warnings to show.''
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-03/w3c-validasi.png}
+  {W3C HTML Validator yang menunjukkan hasil validasi tanpa error.}
+  {Pastikan terlihat pesan ``No errors or warnings to show''.}
+\end{tangkapanlayar}
+
+Jika ada error, perbaiki berdasarkan pesan yang diberikan validator, lalu cek ulang.
+
+% ---------------------------------------------------------------------
+% 9. LATIHAN MANDIRI
+% ---------------------------------------------------------------------
+\section{Latihan Mandiri}
+\label{sec:m03-latihan}
+
+\begin{latihan}[Halaman ``Tips Belajar HTML'']
+Buat file baru bernama \texttt{tips.html} dengan struktur \emph{semantic} HTML yang lengkap. Halaman ini berisi:
+\begin{enumerate}
+  \item \textbf{Header} dengan judul ``Tips Belajar HTML untuk Pemula'' dan \texttt{<nav>} (minimal 3 \emph{anchor link} ke \emph{section} di bawah).
+  \item \textbf{Section ``Mengapa HTML Penting''} --- 2 paragraf penjelasan.
+  \item \textbf{Section ``Tips Pertama''} --- \emph{ordered list} berisi minimal 5 tips.
+  \item \textbf{Section ``Kesalahan Umum''} --- \emph{unordered list} berisi minimal 4 kesalahan, masing-masing dijelaskan dalam paragraf terpisah.
+  \item \textbf{Section ``Sumber Belajar''} --- \emph{unordered list} berisi minimal 3 tautan ke website belajar HTML (MDN, W3Schools, dsb.). Setiap tautan harus menggunakan \texttt{target="\_blank"} dan \texttt{rel="noopener noreferrer"}.
+  \item \textbf{Footer} dengan hak cipta tahun 2026.
+\end{enumerate}
+Persyaratan teknis: gunakan hanya tag \emph{semantic}; tidak boleh ada \texttt{<div>} sebagai \emph{section placeholder}; semua gambar harus punya \texttt{alt} yang deskriptif; file harus valid di W3C Validator.
+\end{latihan}
+
+\begin{latihan}[Push ke GitHub]
+\begin{enumerate}
+  \item Inisialisasi Git di folder \texttt{latihan-web-3} dan buat \emph{repository} baru di GitHub (public, dengan README).
+  \item \emph{Push} kode:
+\end{enumerate}
+\end{latihan}
+
+\begin{lstlisting}[caption={Perintah push ke GitHub}, label={lst:m03-git}]
+git init
+git remote add origin https://github.com/NAMA_USER/latihan-web-3.git
+git add .
+git commit -m "Latihan HTML minggu 3: semantic tags"
+git branch -M main
+git push -u origin main
+\end{lstlisting}
+
+\begin{tip}
+Pastikan file \texttt{index.html}, \texttt{profil.html}, \texttt{tips.html}, dan \texttt{style.css} terlihat di \emph{repository} GitHub.
+\end{tip}
+
+% ---------------------------------------------------------------------
+% 10. TROUBLESHOOTING
+% ---------------------------------------------------------------------
+\section{Troubleshooting}
+\label{sec:m03-troubleshoot}
+
+\begin{table}[ht]
+\centering
+\caption{Masalah umum HTML dan solusinya}
+\label{tab:m03-troubleshoot}
+\small
+\begin{tabular}{p{4.5cm}p{8cm}}
+\toprule
+\textbf{Masalah} & \textbf{Solusi} \\
+\midrule
+Gambar tidak muncul di peramban & Periksa path \texttt{src} --- gunakan URL lengkap untuk gambar \emph{online}, atau pastikan nama file benar untuk gambar lokal \\
+Tautan tidak berfungsi (\emph{anchor}) & Pastikan \texttt{href="\#section-id"} cocok dengan \texttt{id="section-id"} pada \emph{section} target \\
+W3C Validator menampilkan error & Baca pesan error --- biasanya tag tidak ditutup (\texttt{</p>}) atau \emph{nesting} salah \\
+CSS tidak terlihat & Pastikan \texttt{<link rel="stylesheet" href="style.css">} ada di \texttt{<head>}, dan nama file CSS benar \\
+Halaman tidak responsif di \emph{mobile} & Tag \texttt{<meta name="viewport" ...>} harus ada di \texttt{<head>} \\
+Teks berantakan / paragraf tidak terpisah & Pastikan setiap paragraf dibungkus tag \texttt{<p>}, bukan hanya enter di kode \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------
+% 11. RANGKUMAN
+% ---------------------------------------------------------------------
+\section{Rangkuman}
+\label{sec:m03-rangkuman}
+
+\begin{itemize}
+  \item Struktur dasar dokumen HTML: \texttt{<!DOCTYPE html>}, \texttt{<html>}, \texttt{<head>}, \texttt{<body>}.
+  \item Elemen dasar: \emph{heading}, paragraf, tautan, gambar, daftar, \texttt{<strong>}, \texttt{<em>}, \texttt{<hr>}.
+  \item \emph{Semantic tags}: \texttt{<header>}, \texttt{<nav>}, \texttt{<main>}, \texttt{<section>}, \texttt{<article>}, \texttt{<footer>}.
+  \item Perbedaan \emph{semantic} vs \emph{non-semantic} HTML.
+  \item Menghubungkan HTML ke file CSS eksternal.
+  \item Validasi HTML menggunakan W3C Validator.
+\end{itemize}
+
+\begin{tip}
+\textbf{Cheat Sheet Tag Semantic:}
+\begin{itemize}
+  \item \texttt{<header>} $\rightarrow$ Bagian atas halaman (judul, \emph{nav})
+  \item \texttt{<nav>} $\rightarrow$ Navigasi / menu
+  \item \texttt{<main>} $\rightarrow$ Konten utama (hanya 1 per halaman)
+  \item \texttt{<section>} $\rightarrow$ Bagian tematik dalam \texttt{<main>}
+  \item \texttt{<article>} $\rightarrow$ Konten mandiri (bisa dipindah ke halaman lain)
+  \item \texttt{<aside>} $\rightarrow$ Konten sampingan (\emph{sidebar})
+  \item \texttt{<footer>} $\rightarrow$ Bagian bawah halaman
+  \item \texttt{<figure>} $\rightarrow$ Gambar + \emph{caption}
+  \item \texttt{<figcaption>} $\rightarrow$ \emph{Caption} untuk \texttt{<figure>}
+\end{itemize}
+\end{tip}

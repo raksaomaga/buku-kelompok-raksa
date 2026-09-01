@@ -1,0 +1,526 @@
+% =====================================================================
+%  chapters/minggu-05.tex
+%  Bab 5 — CSS Dasar: Selector, Box Model, Typography
+% =====================================================================
+
+\chapter{CSS Dasar: Selector, Box Model, Typography}
+\label{chap:css-dasar}
+
+% ---------------------------------------------------------------------
+% 1. CAPAIAN PEMBELAJARAN
+% ---------------------------------------------------------------------
+\begin{capaian}
+Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu:
+\begin{itemize}
+  \item menjelaskan peran CSS dalam halaman web;
+  \item menulis CSS dengan tiga cara: \emph{inline}, \emph{internal}, dan eksternal;
+  \item menggunakan berbagai jenis \emph{selector} (tag, class, id, \emph{descendant});
+  \item memahami dan menerapkan konsep \emph{box model} (\emph{margin}, \emph{border}, \emph{padding}, \emph{content});
+  \item menerapkan dasar \emph{typography}: \emph{font}, ukuran, warna, dan spasi teks.
+\end{itemize}
+\end{capaian}
+
+% ---------------------------------------------------------------------
+% 2. TUJUAN PRAKTIK
+% ---------------------------------------------------------------------
+\begin{tujuanpraktik}
+Pada sesi praktik ini, mahasiswa akan:
+\begin{itemize}
+  \item menyiapkan folder proyek \texttt{latihan-css};
+  \item menulis CSS dengan tiga pendekatan dan membandingkannya;
+  \item mempraktikkan \emph{selector} tag, class, id, dan \emph{descendant};
+  \item membuat elemen kotak untuk memahami \emph{box model};
+  \item mengatur tipografi pada halaman web.
+\end{itemize}
+\end{tujuanpraktik}
+
+% ---------------------------------------------------------------------
+% 3. RINGKASAN TEORI
+% ---------------------------------------------------------------------
+\section{Pengantar CSS}
+\label{sec:pengantar-css}
+
+CSS (\emph{Cascading Style Sheets}) adalah bahasa untuk mengatur \textbf{tampilan} halaman web.
+HTML menentukan \textbf{struktur}, sedangkan CSS menentukan \textbf{penampilan}.
+
+\begin{catatan}
+CSS tidak mengubah isi halaman---hanya cara halaman itu ditampilkan.
+\end{catatan}
+
+\subsection{Box Model}
+\label{subsec:box-model}
+
+Setiap elemen HTML dianggap sebagai sebuah \textbf{kotak} yang terdiri dari empat lapisan:
+
+\begin{lstlisting}[caption={Ilustrasi box model}, label={lst:box-model-illust}]
++---------------------------+
+|        margin             |
+|  +---------------------+  |
+|  |      border         |  |
+|  |  +---------------+  |  |
+|  |  |   padding     |  |  |
+|  |  |  +---------+  |  |  |
+|  |  |  | content |  |  |  |
+|  |  |  +---------+  |  |  |
+|  |  +---------------+  |  |
+|  +---------------------+  |
++---------------------------+
+\end{lstlisting}
+
+\begin{itemize}
+  \item \textbf{Content} --- isi elemen (teks/gambar).
+  \item \textbf{Padding} --- ruang di dalam \emph{border}, antara \emph{border} dan \emph{content}.
+  \item \textbf{Border} --- garis pembatas elemen.
+  \item \textbf{Margin} --- ruang di luar \emph{border}, antara elemen dan elemen lain.
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% 4. PRAKTIKUM 1 — MENYIAPKAN PROYEK
+% ---------------------------------------------------------------------
+\section{Praktikum 1 --- Menyiapkan Proyek}
+\label{sec:praktik-1}
+
+\begin{langkah}
+  \item Buka VSCode, lalu buat folder baru bernama \texttt{latihan-css}.
+  \item Di dalam folder tersebut, buat file baru bernama \texttt{index.html}.
+  \item Ketik struktur dasar HTML berikut.
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Struktur dasar HTML}, label={lst:html-dasar}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Latihan CSS</title>
+</head>
+<body>
+    <h1>Selamat Datang di Latihan CSS</h1>
+    <p>Ini adalah paragraf pertama saya.</p>
+    <p class="highlight">
+        Ini paragraf dengan class highlight.
+    </p>
+    <p id="spesial">
+        Ini paragraf dengan id spesial.
+    </p>
+</body>
+</html>
+\end{lstlisting}
+
+\begin{langkah}
+  \item Klik kanan pada file \texttt{index.html}, pilih \textbf{Open with Live Server}.
+  \item Buka browser; pastikan halaman tampil. Anda akan melihat teks polos tanpa \emph{styling}.
+\end{langkah}
+
+\begin{catatan}
+Belum ada CSS, jadi halaman tampil apa adanya (default browser).
+\end{catatan}
+
+% ---------------------------------------------------------------------
+% 5. PRAKTIKUM 2 — CARA MENULIS CSS
+% ---------------------------------------------------------------------
+\section{Praktikum 2 --- Cara Menulis CSS}
+\label{sec:praktik-2}
+
+Ada tiga cara menulis CSS. Kita akan mencoba semuanya.
+
+\subsection{Inline CSS (langsung di tag)}
+\label{subsec:inline-css}
+
+\begin{langkah}
+  \item Ubah tag \texttt{<h1>} menjadi:
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Inline CSS pada tag h1}, label={lst:inline-h1}]
+<h1 style="color: blue; text-align: center;">
+    Selamat Datang di Latihan CSS
+</h1>
+\end{lstlisting}
+
+\begin{langkah}
+  \item Simpan (\texttt{Ctrl+S}) dan lihat hasilnya di browser. Judul menjadi biru dan di tengah.
+\end{langkah}
+
+\begin{catatan}
+Inline CSS hanya berlaku untuk satu elemen. Cara ini jarang dipakai karena sulit dirawat.
+\end{catatan}
+
+\subsection{Internal CSS (di dalam tag \texttt{<style>})}
+\label{subsec:internal-css}
+
+\begin{langkah}
+  \item Di dalam \texttt{<head>}, tambahkan tag \texttt{<style>}:
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Internal CSS}, label={lst:internal-css}]
+<head>
+    <meta charset="UTF-8">
+    <title>Latihan CSS</title>
+    <style>
+        p {
+            color: green;
+            font-size: 18px;
+        }
+    </style>
+</head>
+\end{lstlisting}
+
+\begin{langkah}
+  \item Simpan dan lihat hasilnya. Semua paragraf menjadi hijau.
+\end{langkah}
+
+\subsection{Eksternal CSS (file terpisah)}
+\label{subsec:eksternal-css}
+
+\begin{tip}
+Gunakan \textbf{eksternal CSS} untuk proyek nyata karena mudah dirawat dan dipakai ulang.
+\end{tip}
+
+\begin{langkah}
+  \item Buat file baru bernama \texttt{style.css} di folder yang sama.
+  \item Ketik isi berikut.
+\end{langkah}
+
+\begin{lstlisting}[language=CSS, caption={Isi style.css}, label={lst:style-css}]
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 20px;
+}
+\end{lstlisting}
+
+\begin{langkah}
+  \item Hubungkan file CSS ke HTML. Di dalam \texttt{<head>}, tambahkan:
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Penghubung eksternal CSS}, label={lst:link-css}]
+<link rel="stylesheet" href="style.css">
+\end{lstlisting}
+
+\begin{langkah}
+  \item Hapus tag \texttt{<style>} dan atribut \texttt{style} yang tadi dibuat, supaya bersih.
+  \item Simpan dan lihat hasilnya. Latar belakang menjadi abu-abu muda dan teks memakai \emph{font} Arial.
+\end{langkah}
+
+% ---------------------------------------------------------------------
+% 6. PRAKTIKUM 3 — SELECTOR
+% ---------------------------------------------------------------------
+\section{Praktikum 3 --- Selector}
+\label{sec:praktik-selector}
+
+\emph{Selector} menentukan \textbf{elemen mana} yang akan diberi \emph{style}.
+
+\begin{langkah}
+  \item Buka file \texttt{style.css} dan tambahkan aturan berikut.
+\end{langkah}
+
+\begin{lstlisting}[language=CSS, caption={Berbagai jenis selector}, label={lst:selector}]
+/* 1. Selector tag: semua elemen <h1> */
+h1 {
+    color: navy;
+    text-align: center;
+}
+
+/* 2. Selector class: elemen dengan class="highlight" */
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+/* 3. Selector id: elemen dengan id="spesial" */
+#spesial {
+    color: red;
+    font-size: 24px;
+}
+
+/* 4. Selector descendant: <p> di dalam <div> */
+div p {
+    color: purple;
+}
+\end{lstlisting}
+
+\begin{langkah}
+  \item Tambahkan sebuah \texttt{<div>} di dalam \texttt{<body>}:
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Div dengan paragraf descendant}, label={lst:div-descendant}]
+<div>
+    <p>Ini paragraf di dalam div, warnanya ungu.</p>
+</div>
+\end{lstlisting}
+
+\begin{langkah}
+  \item Simpan dan amati hasilnya di browser.
+  \item Uji pemahaman---ubah warna pada masing-masing \emph{selector} dan lihat perubahannya.
+\end{langkah}
+
+\begin{tip}
+\begin{itemize}
+  \item \textbf{Class} (\texttt{.nama}) bisa dipakai banyak elemen $\rightarrow$ paling sering digunakan.
+  \item \textbf{Id} (\texttt{\#nama}) hanya untuk satu elemen unik.
+  \item \textbf{Selector tag} memengaruhi semua elemen dengan tag tersebut.
+\end{itemize}
+\end{tip}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-05/hasil-selector.png}
+  {Hasil \texttt{index.html} setelah menerapkan selector (judul navy, paragraf hijau, \emph{highlight} kuning, id merah, paragraf ungu di dalam div).}
+  {Buka \texttt{index.html} di peramban, lalu bandingkan tampilan Anda dengan contoh.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 7. PRAKTIKUM 4 — BOX MODEL
+% ---------------------------------------------------------------------
+\section{Praktikum 4 --- Box Model}
+\label{sec:praktik-boxmodel}
+
+\begin{langkah}
+  \item Buat file baru \texttt{box.html} dengan isi berikut.
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Struktur box.html}, label={lst:box-html}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Box Model</title>
+    <link rel="stylesheet" href="box.css">
+</head>
+<body>
+    <div class="kotak">Kotak 1</div>
+    <div class="kotak">Kotak 2</div>
+</body>
+</html>
+\end{lstlisting}
+
+\begin{langkah}
+  \item Buat file \texttt{box.css}:
+\end{langkah}
+
+\begin{lstlisting}[language=CSS, caption={Gaya box model pada .kotak}, label={lst:box-css}]
+.kotak {
+    width: 200px;
+    height: 100px;
+    background-color: lightblue;
+    border: 3px solid navy;
+    padding: 20px;
+    margin: 15px;
+    text-align: center;
+    line-height: 100px;
+}
+\end{lstlisting}
+
+\begin{langkah}
+  \item Buka \texttt{box.html} dengan Live Server. Amati jarak antar kotak (\emph{margin}), ruang dalam kotak (\emph{padding}), dan garis tepi (\emph{border}).
+  \item Ubah nilai-nilai berikut satu per satu dan amati perubahannya.
+\end{langkah}
+
+\begin{lstlisting}[language=CSS, caption={Variasi nilai box model}, label={lst:box-variasi}]
+.kotak {
+    padding: 5px;              /* coba ubah dari 20px */
+    margin: 50px;              /* coba ubah dari 15px */
+    border: 10px dashed red;   /* coba ubah */
+}
+\end{lstlisting}
+
+\begin{langkah}
+  \item Gunakan \textbf{DevTools} (\texttt{F12} $\rightarrow$ tab \emph{Elements} $\rightarrow$ tab \emph{Computed}) untuk melihat kotak model secara visual.
+\end{langkah}
+
+\begin{tip}
+Buat kotak dengan \texttt{border-radius: 50\%} dan amati hasilnya---kotak menjadi lingkaran.
+\end{tip}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-05/box-model-devtools.png}
+  {DevTools $\rightarrow$ tab \emph{Computed} yang menampilkan \emph{box model} salah satu kotak.}
+  {Buka DevTools, pilih elemen \texttt{.kotak}, lalu lihat diagram \emph{computed style}.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-05/hasil-box.html.png}
+  {Hasil \texttt{box.html} dengan dua kotak biru muda ber-\emph{border} navy dan jarak antar kotak.}
+  {Buka \texttt{box.html} di peramban dan bandingkan tampilan Anda.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 8. PRAKTIKUM 5 — TYPOGRAPHY
+% ---------------------------------------------------------------------
+\section{Praktikum 5 --- Typography}
+\label{sec:praktik-typography}
+
+\begin{langkah}
+  \item Buat file \texttt{tipografi.html}:
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Struktur tipografi.html}, label={lst:tipografi-html}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Tipografi</title>
+    <link rel="stylesheet" href="tipografi.css">
+</head>
+<body>
+    <h1>Judul Halaman</h1>
+    <h2>Sub Judul</h2>
+    <p class="paragraf-1">
+        Ini paragraf pertama dengan pengaturan
+        font dan spasi.
+    </p>
+    <p class="paragraf-2">
+        Ini paragraf kedua dengan gaya yang berbeda.
+    </p>
+</body>
+</html>
+\end{lstlisting}
+
+\begin{langkah}
+  \item Buat file \texttt{tipografi.css}:
+\end{langkah}
+
+\begin{lstlisting}[language=CSS, caption={Gaya tipografi}, label={lst:tipografi-css}]
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva,
+                 Verdana, sans-serif;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+}
+
+h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #2c3e50;
+    letter-spacing: 1px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: #34495e;
+}
+
+.paragraf-1 {
+    font-style: italic;
+    text-align: justify;
+}
+
+.paragraf-2 {
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+\end{lstlisting}
+
+\begin{langkah}
+  \item Buka di Live Server dan amati perbedaannya.
+  \item Coba ubah nilai \texttt{font-size}, \texttt{color}, \texttt{line-height}, dan \texttt{text-align} untuk melihat efeknya.
+\end{langkah}
+
+\begin{tip}
+Gunakan situs seperti \href{https://coolors.co}{coolors.co} atau \href{https://colorhunt.co}{colorhunt.co} untuk memilih palet warna yang serasi.
+\end{tip}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-05/hasil-tipografi.html.png}
+  {Hasil \texttt{tipografi.html} dengan judul, sub judul, dan dua paragraf bergaya berbeda.}
+  {Buka \texttt{tipografi.html} di peramban dan bandingkan.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 9. LATIHAN MANDIRI
+% ---------------------------------------------------------------------
+\section{Latihan Mandiri}
+\label{sec:latihan-mandiri}
+
+\begin{latihan}[Profil Saya]
+Buat halaman profil sederhana dengan ketentuan berikut.
+\begin{itemize}
+  \item Buat file \texttt{profil.html} dan \texttt{profil.css}.
+  \item Halaman berisi judul ``Profil Saya'', satu foto/\emph{placeholder} gambar, nama, NIM, program studi, dan paragraf singkat tentang diri Anda.
+  \item Terapkan \emph{selector} tag, class, dan id (minimal masing-masing 1).
+  \item Terapkan \emph{box model}: \emph{padding} dan \emph{margin} pada kartu profil.
+  \item Gunakan \emph{border} dengan \texttt{border-radius} agar sudut membulat.
+  \item Atur \emph{typography}: \emph{font} berbeda untuk judul dan isi, warna yang serasi.
+\end{itemize}
+\end{latihan}
+
+Struktur HTML yang disarankan:
+
+\begin{lstlisting}[language=HTML, caption={Kerangka kartu profil}, label={lst:profil-kartu}]
+<div class="kartu">
+    <img src="foto.jpg" alt="Foto Saya"
+         class="foto">
+    <h1 id="nama">Nama Anda</h1>
+    <p class="info">NIM: 12345678</p>
+    <p class="info">
+        Program Studi: D3 Informatika
+    </p>
+    <p class="deskripsi">Tentang saya...</p>
+</div>
+\end{lstlisting}
+
+% ---------------------------------------------------------------------
+% 10. HASIL YANG DIHARAPKAN
+% ---------------------------------------------------------------------
+\section{Hasil yang Diharapkan}
+\label{sec:hasil-diharapkan}
+
+Setelah menyelesaikan semua praktikum, Anda memiliki:
+\begin{itemize}
+  \item Folder \texttt{latihan-css} berisi minimal 6 file: \path{index.html}, \path{style.css}, \path{box.html}, \path{box.css}, \path{tipografi.html}, \path{tipografi.css}.
+  \item Halaman \texttt{index.html} dengan judul biru navy di tengah, paragraf hijau, satu paragraf berlatar kuning, satu paragraf merah, dan satu paragraf ungu.
+  \item Halaman \texttt{box.html} dengan dua kotak biru muda ber-\emph{border} navy, berjarak satu sama lain.
+  \item Halaman \texttt{tipografi.html} dengan judul besar, sub judul, dan dua paragraf bergaya berbeda.
+  \item Halaman \texttt{profil.html} (latihan mandiri) berupa kartu profil yang rapi.
+\end{itemize}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-05/hasil-profil.html.png}
+  {Hasil latihan mandiri \texttt{profil.html} (kartu profil).}
+  {Buat \texttt{profil.html} sesuai ketentuan latihan, lalu bandingkan tampilan Anda.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 11. TROUBLESHOOTING
+% ---------------------------------------------------------------------
+\section{Troubleshooting}
+\label{sec:troubleshooting}
+
+\begin{table}[h!]
+\centering
+\caption{Masalah umum dan solusinya}
+\label{tab:trouble-05}
+\begin{tabular}{|p{3.5cm}|p{4cm}|p{5cm}|}
+\hline
+\textbf{Masalah} & \textbf{Penyebab} & \textbf{Solusi} \\
+\hline
+CSS tidak berpengaruh & File CSS tidak terhubung & Pastikan ada \texttt{<link rel="stylesheet" href="style.css">} dan nama file benar \\
+\hline
+Perubahan tidak muncul di browser & Browser belum di-refresh & Simpan file (\texttt{Ctrl+S}) dan \emph{refresh} browser, atau pastikan Live Server aktif \\
+\hline
+\emph{Selector} tidak bekerja & Nama class/id salah ketik & Periksa penulisan \texttt{.nama} (class) vs \texttt{\#nama} (id) \\
+\hline
+Jarak antar elemen aneh & \emph{Margin}/\emph{padding} belum dipahami & Buka DevTools $\rightarrow$ \emph{Computed} untuk melihat \emph{box model} \\
+\hline
+\emph{Font} tidak berubah & \emph{Font} tidak tersedia di sistem & Gunakan \emph{font} umum seperti Arial, \texttt{sans-serif} sebagai \emph{fallback} \\
+\hline
+Gambar tidak muncul & Path salah & Pastikan file gambar ada di folder yang sama dan nama file benar \\
+\hline
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------
+% 12. RANGKUMAN
+% ---------------------------------------------------------------------
+\section{Rangkuman}
+\label{sec:rangkuman-minggu05}
+
+\begin{itemize}
+  \item CSS mengatur tampilan, HTML mengatur struktur.
+  \item Gunakan \textbf{eksternal CSS} untuk proyek nyata.
+  \item \emph{Selector}: tag, class (\texttt{.}), id (\texttt{\#}), \emph{descendant}.
+  \item \emph{Box model}: \emph{content} $\rightarrow$ \emph{padding} $\rightarrow$ \emph{border} $\rightarrow$ \emph{margin}.
+  \item \emph{Typography}: atur \emph{font}, ukuran, warna, dan spasi teks agar mudah dibaca.
+\end{itemize}

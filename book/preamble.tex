@@ -1,0 +1,264 @@
+% =====================================================================
+%  preamble.tex
+%  Preamble khusus Modul Perkuliahan Desain Web.
+%
+%  - Bahasa Indonesia (nama bab, gambar, tabel, dll. diterjemahkan)
+%  - Palet biru/teal yang terkendali (restrained blue/teal)
+%  - Lingkungan pedagogis yang dapat digunakan ulang:
+%      capaian, tujuanpraktik, langkah, catatan, tip,
+%      peringatan, latihan, tangkapanlayar (placeholder non-gambar)
+%
+%  File ini di-\input dari main.tex. Jangan kompilasi sendiri.
+% =====================================================================
+
+% ---------------------------------------------------------------------
+% 1. BAHASA INDONESIA
+%    ElegantBook memuat lang=en; kita terjemahkan label-label inti.
+% ---------------------------------------------------------------------
+\renewcommand{\chaptername}{Bab}
+\renewcommand{\contentsname}{Daftar Isi}
+\renewcommand{\listfigurename}{Daftar Gambar}
+\renewcommand{\listtablename}{Daftar Tabel}
+\renewcommand{\figurename}{Gambar}
+\renewcommand{\tablename}{Tabel}
+\renewcommand{\bibname}{Daftar Pustaka}
+\renewcommand{\indexname}{Indeks}
+\renewcommand{\appendixname}{Lampiran}
+\renewcommand{\proofname}{Bukti}
+\renewcommand{\notename}{Catatan}
+\renewcommand{\examplename}{Contoh}
+\renewcommand{\exercisename}{Latihan}
+\renewcommand{\problemname}{Soal}
+\renewcommand{\solutionname}{Penyelesaian}
+\renewcommand{\remarkname}{Catatan}
+\renewcommand{\assumptionname}{Asumsi}
+\renewcommand{\conclusionname}{Kesimpulan}
+\renewcommand{\propertyname}{Sifat}
+\renewcommand{\introductionname}{Pendahuluan}
+
+% ---------------------------------------------------------------------
+% 2. PALET WARNA — biru/teal yang terkendali
+%    ElegantBook color=blue memberi structurecolor RGB(60,113,183).
+%    Kita pertajam ke biru/teal yang lebih tenang tanpa mengubah
+%    arsitektur warna template (main/second/third tetap dipakai).
+% ---------------------------------------------------------------------
+\definecolor{structurecolor}{RGB}{38, 92, 148}   % biru utama (teal-leaning)
+\definecolor{main}{RGB}{38, 92, 148}             % biru utama
+\definecolor{second}{RGB}{0, 128, 128}           % teal (aksen sekunder)
+\definecolor{third}{RGB}{0, 105, 148}            % biru tua (aksen tersier)
+
+% Warna bantu untuk lingkungan pedagogis (tetap dalam keluarga biru/teal)
+\definecolor{pedagogyBlue}{RGB}{38, 92, 148}
+\definecolor{pedagogyTeal}{RGB}{0, 128, 128}
+\definecolor{pedagogyLight}{RGB}{232, 240, 248}
+\definecolor{pedagogyTealLight}{RGB}{224, 240, 240}
+\definecolor{pedagogyAmber}{RGB}{176, 130, 20}   % hanya untuk peringatan (kontras)
+\definecolor{pedagogyAmberLight}{RGB}{250, 244, 224}
+
+% ---------------------------------------------------------------------
+% 3. LINGKUNGAN PEDAGOGIS
+%    Dibangun di atas tcolorbox (sudah dimuat ElegantBook) agar
+%    konsisten dengan gaya visual template.
+% ---------------------------------------------------------------------
+
+% --- 3.1 capaian (Capaian Pembelajaran) ---
+\newtcolorbox{capaian}{
+  enhanced,
+  breakable,
+  colback=pedagogyLight,
+  colframe=pedagogyBlue,
+  coltitle=white,
+  colbacktitle=pedagogyBlue,
+  fonttitle=\bfseries,
+  title={Capaian Pembelajaran},
+  boxrule=0.8pt,
+  arc=2pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  before skip=10pt, after skip=10pt
+}
+
+% --- 3.2 tujuanpraktik (Tujuan Praktik) ---
+\newtcolorbox{tujuanpraktik}{
+  enhanced,
+  breakable,
+  colback=pedagogyTealLight,
+  colframe=pedagogyTeal,
+  coltitle=white,
+  colbacktitle=pedagogyTeal,
+  fonttitle=\bfseries,
+  title={Tujuan Praktik},
+  boxrule=0.8pt,
+  arc=2pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  before skip=10pt, after skip=10pt
+}
+
+% --- 3.3 langkah (Langkah Kerja) — daftar bernomor otomatis ---
+\newenvironment{langkah}{%
+  \par\noindent\textbf{\color{pedagogyBlue}Langkah Kerja}\par\nobreak
+  \begin{enumerate}[label=\textbf{\arabic*.}, leftmargin=2em, itemsep=2pt]
+}{%
+  \end{enumerate}
+}
+
+% --- 3.4 catatan (Catatan) ---
+\newtcolorbox{catatan}{
+  enhanced,
+  breakable,
+  colback=pedagogyLight,
+  colframe=pedagogyBlue,
+  coltitle=white,
+  colbacktitle=pedagogyBlue,
+  fonttitle=\bfseries,
+  title={Catatan},
+  boxrule=0.8pt,
+  arc=2pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  before skip=10pt, after skip=10pt
+}
+
+% --- 3.5 tip (Tips) ---
+\newtcolorbox{tip}{
+  enhanced,
+  breakable,
+  colback=pedagogyTealLight,
+  colframe=pedagogyTeal,
+  coltitle=white,
+  colbacktitle=pedagogyTeal,
+  fonttitle=\bfseries,
+  title={Tips},
+  boxrule=0.8pt,
+  arc=2pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  before skip=10pt, after skip=10pt
+}
+
+% --- 3.6 peringatan (Peringatan) ---
+\newtcolorbox{peringatan}{
+  enhanced,
+  breakable,
+  colback=pedagogyAmberLight,
+  colframe=pedagogyAmber,
+  coltitle=white,
+  colbacktitle=pedagogyAmber,
+  fonttitle=\bfseries,
+  title={Peringatan},
+  boxrule=0.8pt,
+  arc=2pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  before skip=10pt, after skip=10pt
+}
+
+% --- 3.7 latihan (Latihan) — wadah konten bebas (prosa, daftar, kode)
+%     Digunakan bab sebagai kotak latihan; isi boleh berupa paragraf,
+%     itemize/enumerate, atau lstlisting. Nomor latihan: bab.nomor.
+\newcounter{latihan}[chapter]
+\renewcommand{\thelatihan}{\thechapter.\arabic{latihan}}
+\newenvironment{latihan}[1][]{%
+  \refstepcounter{latihan}%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=pedagogyLight,
+    colframe=pedagogyBlue,
+    coltitle=white,
+    colbacktitle=pedagogyBlue,
+    fonttitle=\bfseries,
+    title={Latihan \thelatihan~#1},
+    boxrule=0.8pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    before skip=10pt, after skip=10pt
+  ]
+}{%
+  \end{tcolorbox}
+}
+
+% --- 3.8 tangkapanlayar (placeholder non-gambar)
+%     Input:  #1 = jalur aset yang diharapkan (mis. assets/images/bab1/halaman-utama.png)
+%             #2 = keterangan (caption)
+%             #3 = instruksi untuk mahasiswa
+%     Menampilkan kotak placeholder yang jelas, BUKAN gambar, sehingga
+%     penulis tahu aset apa yang harus disediakan.
+\NewDocumentEnvironment{tangkapanlayar}{ m m m }{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=pedagogyLight,
+    colframe=pedagogyBlue,
+    coltitle=white,
+    colbacktitle=pedagogyBlue,
+    fonttitle=\bfseries,
+    title={Tangkapan Layar (placeholder)},
+    boxrule=0.8pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    before skip=10pt, after skip=10pt
+  ]
+  \textbf{Jalur aset yang diharapkan:} \path{#1}\par
+  \textbf{Keterangan:} #2\par
+  \textbf{Instruksi mahasiswa:} #3\par
+  \medskip
+  \noindent\fbox{%
+    \parbox{0.92\linewidth}{%
+      \centering
+      \vspace{1.2em}
+      {\large\color{pedagogyBlue}\textbf{[ Tempatkan tangkapan layar di sini ]}}\\[0.4em]
+      {\small\color{black!60}Ganti blok ini dengan \texttt{\textbackslash includegraphics} setelah aset \texttt{#1} tersedia.}
+      \vspace{1.2em}
+    }%
+  }
+}{%
+  \end{tcolorbox}
+}
+
+% ---------------------------------------------------------------------
+% 3.9 Definisi bahasa untuk listings (css & javascript)
+%     Listings di TeX Live ini tidak memuat bahasa css/javascript secara
+%     bawaan; didefinisikan di sini agar blok kode bab dapat dikompilasi.
+% ---------------------------------------------------------------------
+\lstdefinelanguage{css}{
+  morekeywords={color,background,background-color,background-image,border,
+    border-radius,box-shadow,display,flex,flex-direction,flex-wrap,justify-content,
+    align-items,gap,grid,grid-template-columns,grid-template-rows,grid-gap,
+    margin,padding,width,height,max-width,min-width,font,font-family,font-size,
+    font-weight,text-align,text-decoration,line-height,position,top,right,bottom,
+    left,z-index,overflow,opacity,transition,transform,animation,media,float,
+    clear,list-style,content,cursor,visibility,vertical-align,white-space},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={break,case,catch,class,const,continue,debugger,default,delete,do,
+    else,export,extends,finally,for,function,if,import,in,instanceof,let,new,
+    return,super,switch,this,throw,try,typeof,var,void,while,with,yield,async,
+    await,of,static,get,set,true,false,null,undefined},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+% ---------------------------------------------------------------------
+% 4. KONVENSI ASET
+%    Jalur relatif terhadap folder book/.
+%    - Gambar:  assets/images/<bab>/<nama>.png
+%    - Kode:    assets/code/<bab>/<nama>.html
+%    Gunakan \figref{label} (disediakan ElegantBook) untuk referensi.
+% ---------------------------------------------------------------------
+\graphicspath{{assets/images/}}
+
+% ---------------------------------------------------------------------
+% 5. HIPERLINK — warna tautan mengikuti palet biru/teal
+% ---------------------------------------------------------------------
+\hypersetup{
+  colorlinks=true,
+  linkcolor=pedagogyBlue,
+  citecolor=pedagogyTeal,
+  urlcolor=pedagogyTeal
+}

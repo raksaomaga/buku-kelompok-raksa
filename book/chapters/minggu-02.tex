@@ -1,0 +1,378 @@
+% =====================================================================
+%  chapters/minggu-02.tex
+%  Minggu 2 — Figma Dasar & Pengantar UI/UX
+% =====================================================================
+
+\chapter{Figma Dasar \& Pengantar UI/UX}
+\label{chap:minggu-02}
+
+% ---------------------------------------------------------------------
+% 1. CAPAIAN PEMBELAJARAN
+% ---------------------------------------------------------------------
+\begin{capaian}
+Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu:
+\begin{itemize}
+  \item mengoperasikan antarmuka dasar Figma (frame, shape, text, layers);
+  \item membuat wireframe sederhana untuk satu halaman web;
+  \item menjelaskan tiga konsep dasar UI/UX: heuristik, hierarchy, dan aksesibilitas;
+  \item menerapkan konsep UI/UX ke dalam desain wireframe.
+\end{itemize}
+\end{capaian}
+
+% ---------------------------------------------------------------------
+% 2. TUJUAN PRAKTIK
+% ---------------------------------------------------------------------
+\begin{tujuanpraktik}
+Pada sesi praktik ini, mahasiswa akan:
+\begin{itemize}
+  \item mengenal antarmuka dan alat dasar Figma;
+  \item membuat wireframe halaman ``Profil Diri'' untuk perangkat \emph{mobile};
+  \item mempelajari tiga konsep UI/UX dan menerapkannya pada wireframe.
+\end{itemize}
+\end{tujuanpraktik}
+
+% ---------------------------------------------------------------------
+% 3. LIVE CODING: PENGENALAN FIGMA
+% ---------------------------------------------------------------------
+\section{Pengenalan Figma}
+\label{sec:m02-figma}
+
+\subsection{Akses Figma}
+
+\begin{langkah}
+  \item Buka \texttt{https://www.figma.com} di peramban.
+  \item Klik \textbf{Log in}, masuk dengan akun yang sudah dibuat (atau daftar jika belum).
+  \item Kamu akan melihat halaman \textbf{Drafts} --- ini adalah ruang kerja \emph{default}.
+\end{langkah}
+
+\begin{tip}
+Figma bisa digunakan langsung di peramban, tapi lebih nyaman menggunakan \textbf{Figma Desktop App} (unduh dari \texttt{https://www.figma.com/downloads/}).
+\end{tip}
+
+\subsection{Membuat File \& Frame Pertama}
+
+\begin{langkah}
+  \item Klik \textbf{New design file} (tombol biru di pojok kanan atas).
+  \item Di \emph{canvas} kosong, tekan \textbf{F} di keyboard $\rightarrow$ arahkan mouse ke \emph{canvas} $\rightarrow$ \emph{drag} untuk membuat sebuah \textbf{Frame}.
+  \item Di panel \textbf{Design} (kanan), atur ukuran frame: pilih preset \textbf{Web 1920} (1920\,$\times$\,1080\,px) atau \textbf{MacBook Air}.
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-02/figma-frame-kosong.png}
+  {Canvas Figma dengan satu frame kosong berukuran Web 1920.}
+  {Pastikan panel Design di kanan menunjukkan ukuran frame yang benar.}
+\end{tangkapanlayar}
+
+\subsection{Alat Dasar Figma}
+
+Pelajari toolbar di bagian atas \emph{canvas}:
+
+\begin{table}[ht]
+\centering
+\caption{Shortcut alat dasar Figma}
+\label{tab:m02-shortcut}
+\begin{tabular}{llp{6cm}}
+\toprule
+\textbf{Shortcut} & \textbf{Alat} & \textbf{Fungsi} \\
+\midrule
+V & Move & Memilih \& memindahkan objek \\
+F & Frame & Membuat \emph{frame} (artboard) \\
+R & Rectangle & Membuat kotak persegi \\
+O & Ellipse & Membuat lingkaran/oval \\
+T & Text & Membuat teks \\
+L & Line & Membuat garis \\
+P & Pen & Membuat bentuk bebas \\
+Ctrl + Z & Undo & Membatalkan aksi terakhir \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Latihan cepat:} Di dalam \emph{frame} yang sudah dibuat, coba:
+\begin{enumerate}
+  \item Tekan \textbf{R} $\rightarrow$ \emph{drag} di dalam \emph{frame} untuk membuat kotak.
+  \item Tekan \textbf{T} $\rightarrow$ klik di dalam \emph{frame} $\rightarrow$ ketik ``Hello Figma''.
+  \item Tekan \textbf{V} $\rightarrow$ klik objek untuk memilih $\rightarrow$ \emph{drag} untuk memindahkan.
+\end{enumerate}
+
+\subsection{Panel Layers \& Properties}
+
+Di panel kiri terdapat \textbf{Layers} --- setiap objek yang dibuat akan muncul sebagai \emph{layer}.
+
+\begin{itemize}
+  \item \textbf{Klik ganda} \emph{layer} untuk mengganti nama (misal: ``Rectangle 1'' menjadi ``Header Background'').
+  \item \textbf{Urutan layer} = urutan di atas \emph{canvas} (layer di atas menimpa layer di bawah).
+\end{itemize}
+
+Di panel kanan terdapat \textbf{Design Properties} --- ubah:
+\begin{itemize}
+  \item \textbf{Fill:} warna isi objek
+  \item \textbf{Stroke:} garis tepi
+  \item \textbf{Corner Radius:} sudut membulat
+  \item \textbf{Font \& Size:} untuk objek teks
+\end{itemize}
+
+\begin{tip}
+Ubah warna kotak yang sudah dibuat menjadi biru, dan ubah teks ``Hello Figma'' menjadi ukuran 24\,px untuk berlatih mengatur \emph{properties}.
+\end{tip}
+
+% ---------------------------------------------------------------------
+% 4. LIVE CODING: MEMBUAT WIREFRAME
+% ---------------------------------------------------------------------
+\section{Membuat Wireframe Halaman Web}
+\label{sec:m02-wireframe}
+
+\begin{catatan}
+\textbf{Wireframe} adalah sketsa rendah detail yang menunjukkan struktur dan penempatan elemen halaman. Bukan desain final.
+\end{catatan}
+
+\begin{table}[ht]
+\centering
+\caption{Tingkatan detail desain}
+\label{tab:m02-tingkatan}
+\begin{tabular}{llp{6cm}}
+\toprule
+\textbf{Tingkat Detail} & \textbf{Nama} & \textbf{Fungsi} \\
+\midrule
+Rendah & Wireframe & Menunjukkan layout \& struktur (tanpa warna/font detail) \\
+Sedang & Mockup & Menambahkan warna, font, gambar (visual lebih realistis) \\
+Tinggi & Prototype & Interaktif --- bisa diklik dan dinavigasi \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Kita mulai dari \textbf{wireframe} (tingkat rendah) karena fokusnya adalah struktur, bukan tampilan cantik.
+
+\subsection{Langkah 1: Buat Frame untuk \emph{Mobile}}
+
+\begin{langkah}
+  \item Tekan \textbf{F} $\rightarrow$ pilih preset \textbf{iPhone 14} (390\,$\times$\,844\,px) di panel kanan.
+  \item \emph{Rename layer frame} ini menjadi \texttt{Wireframe - Profil Diri (Mobile)}.
+\end{langkah}
+
+\subsection{Langkah 2: Header / Navigasi}
+
+\begin{langkah}
+  \item Tekan \textbf{R} $\rightarrow$ buat \emph{rectangle} di bagian atas \emph{frame} (lebar penuh 390\,px, tinggi \~{}60\,px). \emph{Rename} layer jadi \texttt{Header}. Warna: abu-abu terang (\#E0E0E0).
+  \item Tekan \textbf{T} $\rightarrow$ klik di atas \emph{rectangle} header $\rightarrow$ ketik \texttt{Nama Kamu}. Posisikan di kiri \emph{header}. Font: regular, 16\,px.
+\end{langkah}
+
+\subsection{Langkah 3: Hero / Foto Profil}
+
+\begin{langkah}
+  \item Tekan \textbf{O} $\rightarrow$ buat lingkaran di bawah \emph{header} (120\,$\times$\,120\,px, posisi center horizontal). Warna: abu-abu (\#CCCCCC). \emph{Rename} layer: \texttt{Foto Profil}.
+  \item Tekan \textbf{T} $\rightarrow$ di bawah lingkaran, ketik nama lengkap dan keterangan program studi. Font: \textbf{bold} untuk nama, regular untuk keterangan.
+\end{langkah}
+
+\subsection{Langkah 4: Bagian ``Tentang Saya''}
+
+\begin{langkah}
+  \item Tekan \textbf{T} $\rightarrow$ ketik \texttt{Tentang Saya} sebagai judul \emph{section}. Font: bold, 18\,px.
+  \item Tekan \textbf{R} $\rightarrow$ buat 2--3 \emph{rectangle} kecil di bawah judul sebagai \emph{placeholder} paragraf (lebar \~{}350\,px, tinggi \~{}16\,px $\times$ 3 baris). Warna: abu-abu sangat terang (\#F0F0F0).
+\end{langkah}
+
+\subsection{Langkah 5: Bagian ``Keahlian''}
+
+\begin{langkah}
+  \item Ketik judul \texttt{Keahlian}.
+  \item Buat 3--4 \emph{rectangle} kecil sebagai \emph{placeholder} ``skill card'' (ukuran \~{}160\,$\times$\,80\,px, sejajar horizontal atau \emph{grid} 2$\times$2). Di dalam masing-masing, tambahkan teks \texttt{Skill 1}, \texttt{Skill 2}, dst.
+\end{langkah}
+
+\subsection{Langkah 6: Footer}
+
+\begin{langkah}
+  \item Tekan \textbf{R} $\rightarrow$ buat \emph{rectangle} di bagian bawah \emph{frame} (lebar penuh, tinggi \~{}50\,px). Warna: abu-abu gelap (\#999999).
+  \item Tambahkan teks: \texttt{© 2026 Nama Kamu}.
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-02/wireframe-profil-diri.png}
+  {Wireframe halaman ``Profil Diri'' di Figma.}
+  {Pastikan terlihat section: Header, Foto Profil, Tentang Saya, Keahlian, dan Footer dengan rapi.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 5. TIGA KONSEP DASAR UI/UX
+% ---------------------------------------------------------------------
+\section{Tiga Konsep Dasar UI/UX}
+\label{sec:m02-uiux}
+
+\subsection{Heuristik (Evaluasi Kegunaan)}
+
+\textbf{Heuristik} adalah aturan umum desain yang membantu agar antarmuka pengguna (\emph{UI}) mudah digunakan. Berikut tiga heuristik paling relevan untuk pemula:
+
+\begin{table}[ht]
+\centering
+\caption{Tiga heuristik utama}
+\label{tab:m02-heuristik}
+\small
+\begin{tabular}{lp{4cm}p{5cm}}
+\toprule
+\textbf{Heuristik} & \textbf{Penjelasan} & \textbf{Contoh Penerapan di Wireframe} \\
+\midrule
+Visibility of System Status & Pengguna harus tahu apa yang sedang terjadi & Tambahkan indikator \emph{loading} saat halaman memuat \\
+Match Between System and Real World & Gunakan bahasa yang dipahami pengguna & Judul ``Tentang Saya'' lebih jelas daripada ``Bio Data Seksi 4'' \\
+Error Prevention & Cegah kesalahan pengguna sebelum terjadi & Form input harus punya \emph{placeholder}/label yang jelas \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{catatan}
+Ada 10 heuristik Nielsen Norman Group secara lengkap. Tiga di atas adalah yang paling sering ditemui dan paling mudah diterapkan untuk pemula.
+\end{catatan}
+
+\subsection{Hierarchy (Hierarki Visual)}
+
+\textbf{Hierarchy} adalah pengaturan elemen agar mata pembaca tahu mana yang dilihat duluan.
+
+\begin{table}[ht]
+\centering
+\caption{Jenis hierarki visual}
+\label{tab:m02-hierarchy}
+\begin{tabular}{llp{5cm}}
+\toprule
+\textbf{Jenis} & \textbf{Fungsi} & \textbf{Contoh} \\
+\midrule
+Hierarki ukuran & Elemen lebih besar = lebih penting & Nama besar di atas, deskripsi kecil di bawah \\
+Hierarki warna & Warna kontras menarik perhatian & Tombol ``Hubungi Saya'' berwarna biru di antara elemen abu-abu \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Latihan di Figma:} Pastikan di wireframe yang sudah dibuat:
+\begin{enumerate}
+  \item Nama di bagian Hero \textbf{lebih besar} dari teks deskripsi.
+  \item Judul section (Tentang Saya, Keahlian) \textbf{lebih besar} dari konten di bawahnya.
+  \item Jika belum, ubah ukuran teks di Figma untuk mencerminkan hierarchy.
+\end{enumerate}
+
+\subsection{Aksesibilitas (\emph{Accessibility})}
+
+\textbf{Aksesibilitas} adalah desain yang bisa digunakan oleh semua orang, termasuk yang memiliki keterbatasan.
+
+\begin{table}[ht]
+\centering
+\caption{Aspek aksesibilitas untuk pemula}
+\label{tab:m02-akses}
+\begin{tabular}{lp{8cm}}
+\toprule
+\textbf{Aspek} & \textbf{Yang Harus Diperhatikan} \\
+\midrule
+Kontras warna & Teks harus terbaca dengan latar belakang. Rasio kontras minimal \textbf{4.5:1} untuk teks normal. \\
+Ukuran teks & Minimal \textbf{16\,px} untuk teks \emph{body}. Jangan gunakan ukuran yang terlalu kecil. \\
+Struktur heading & Gunakan heading secara berurutan (\texttt{<h1>} $\rightarrow$ \texttt{<h2>} $\rightarrow$ \texttt{<h3>}), jangan loncat-loncat. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{tip}
+Gunakan \textbf{WebAIM Contrast Checker} (\texttt{https://webaim.org/resources/contrastchecker/}) untuk mengecek kontras warna.
+\end{tip}
+
+\textbf{Latihan di Figma:}
+\begin{enumerate}
+  \item Di wireframe, pastikan warna teks di atas \emph{background} cukup kontras.
+  \item Jika menggunakan warna abu-abu di atas putih, pastikan tidak terlalu tipis/pucat.
+\end{enumerate}
+
+% ---------------------------------------------------------------------
+% 6. LATIHAN MANDIRI
+% ---------------------------------------------------------------------
+\section{Latihan Mandiri}
+\label{sec:m02-latihan}
+
+\begin{latihan}[Wireframe Halaman ``Portofolio'' (Desktop)]
+Buat wireframe baru untuk halaman portofolio di Figma dengan spesifikasi:
+\begin{itemize}
+  \item \textbf{Frame:} Web 1920 (1920\,$\times$\,1080\,px).
+  \item \textbf{Section yang wajib ada:}
+  \begin{enumerate}
+    \item \textbf{Navbar} --- logo di kiri, 3--4 menu di kanan (Home, Portofolio, About, Contact).
+    \item \textbf{Hero} --- judul besar + tombol ``Lihat Proyek''.
+    \item \textbf{Grid Proyek} --- minimal 6 kotak (\emph{card}) yang mewakili proyek.
+    \item \textbf{Tentang Saya} --- foto \emph{placeholder} + teks deskripsi.
+    \item \textbf{Footer} --- hak cipta \& ikon media sosial \emph{placeholder}.
+  \end{enumerate}
+\end{itemize}
+\end{latihan}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-02/wireframe-portofolio.png}
+  {Wireframe halaman Portfolio di Figma (tampilan penuh).}
+  {Pastikan terlihat Navbar, Hero, Grid Proyek, Tentang Saya, dan Footer.}
+\end{tangkapanlayar}
+
+\begin{latihan}[Evaluasi Heuristik pada Website Nyata]
+\begin{enumerate}
+  \item Buka salah satu website berikut: \texttt{google.com}, \texttt{tokopedia.com}, atau \texttt{instagram.com} (halaman login).
+  \item Evaluasi website tersebut menggunakan tiga heuristik yang sudah dipelajari dan catat hasilnya:
+\end{enumerate}
+\end{latihan}
+
+\begin{table}[ht]
+\centering
+\caption{Template evaluasi heuristik}
+\label{tab:m02-eval}
+\begin{tabular}{p{4.5cm}cp{5cm}}
+\toprule
+\textbf{Heuristik} & \textbf{Ya/Tidak} & \textbf{Bukti / Contoh} \\
+\midrule
+Visibility of System Status & & \\
+Match Between System and Real World & & \\
+Error Prevention & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{latihan}[Cek Kontras Aksesibilitas]
+\begin{enumerate}
+  \item Pilih 2 kombinasi warna dari wireframe yang kamu buat.
+  \item Buka \texttt{https://webaim.org/resources/contrastchecker/}.
+  \item Masukkan warna teks dan \emph{background}, cek rasio kontras.
+  \item Pastikan minimal satu kombinasi memenuhi \textbf{WCAG AA} (4.5:1 untuk teks normal).
+\end{enumerate}
+\end{latihan}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-02/webaim-contrast-checker.png}
+  {WebAIM Contrast Checker dengan hasil pengecekan.}
+  {Pastikan terlihat rasio kontras dan status ``Pass'' atau ``Fail''.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 7. TROUBLESHOOTING
+% ---------------------------------------------------------------------
+\section{Troubleshooting}
+\label{sec:m02-troubleshoot}
+
+\begin{table}[ht]
+\centering
+\caption{Masalah umum Figma dan solusinya}
+\label{tab:m02-troubleshoot}
+\small
+\begin{tabular}{p{4.5cm}p{8cm}}
+\toprule
+\textbf{Masalah} & \textbf{Solusi} \\
+\midrule
+Figma tidak bisa dibuka di peramban & Gunakan Figma Desktop App, atau coba peramban Chrome/Firefox versi terbaru \\
+Frame tidak bisa dibuat & Tekan shortcut \textbf{F} (huruf F, bukan \emph{function key}) untuk aktifkan alat Frame \\
+Objek tidak bisa dipindahkan & Pastikan alat \textbf{Move (V)} aktif, bukan alat lain \\
+Layer tidak muncul di panel & \emph{Scroll} panel Layers di sebelah kiri \emph{canvas} --- mungkin tersembunyi di bawah \\
+Perubahan tidak tersimpan & Figma \emph{auto-save}, tapi pastikan koneksi internet stabil. Cek ikon \emph{cloud} di pojok kanan atas \\
+Tidak bisa membuat duplikat & Pilih objek $\rightarrow$ tekan \textbf{Ctrl + D} (Windows) atau \textbf{Cmd + D} (Mac) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------
+% 8. RANGKUMAN
+% ---------------------------------------------------------------------
+\section{Rangkuman}
+\label{sec:m02-rangkuman}
+
+\begin{itemize}
+  \item Mengoperasikan Figma: membuat \emph{frame}, \emph{shapes}, teks, mengatur \emph{properties}.
+  \item Membuat wireframe sederhana untuk halaman web (5 section: Header, Foto, Tentang Saya, Keahlian, Footer).
+  \item Tiga konsep dasar UI/UX: Heuristik, Hierarchy, Aksesibilitas.
+  \item Menerapkan \emph{hierarchy} dan aksesibilitas di wireframe.
+  \item Mengecek kontras warna dengan WebAIM Contrast Checker.
+\end{itemize}

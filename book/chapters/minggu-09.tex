@@ -1,0 +1,515 @@
+% =====================================================================
+%  chapters/minggu-09.tex
+%  Bab 9 — GitHub Kolaborasi: Branch, Pull Request, GitHub Pages
+% =====================================================================
+
+\chapter{GitHub Kolaborasi: Branch, Pull Request, GitHub Pages}
+\label{chap:github-kolaborasi}
+
+% ---------------------------------------------------------------------
+% 1. CAPAIAN PEMBELAJARAN
+% ---------------------------------------------------------------------
+\begin{capaian}
+Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu:
+\begin{itemize}
+  \item membuat dan berpindah branch di Git;
+  \item menggabungkan branch (\emph{merge});
+  \item membuat \emph{pull request} (PR) di GitHub;
+  \item men-\emph{deploy} website statis ke GitHub Pages;
+  \item menjelaskan alur kerja kolaborasi dasar dengan Git/GitHub.
+\end{itemize}
+\end{capaian}
+
+% ---------------------------------------------------------------------
+% 2. TUJUAN PRAKTIK
+% ---------------------------------------------------------------------
+\begin{tujuanpraktik}
+Pada sesi praktik ini, mahasiswa akan:
+\begin{itemize}
+  \item membuat branch baru dan bekerja di atasnya;
+  \item menggabungkan branch ke \texttt{main} dengan \emph{merge};
+  \item membuat dan menggabungkan \emph{pull request} di GitHub;
+  \item men-\emph{deploy} website statis ke GitHub Pages.
+\end{itemize}
+\end{tujuanpraktik}
+
+% ---------------------------------------------------------------------
+% 3. RINGKASAN TEORI
+% ---------------------------------------------------------------------
+\section{Apa itu Branch?}
+\label{sec:apa-itu-branch}
+
+Branch adalah \textbf{cabang} dari riwayat \emph{commit}. Branch memungkinkan Anda bekerja pada fitur baru \textbf{tanpa mengganggu} kode utama.
+
+\begin{lstlisting}[caption={Ilustrasi branch}, label={lst:branch-illust}]
+main:      A --- B --- C
+                           \
+fitur-navbar:              D --- E
+\end{lstlisting}
+
+\begin{itemize}
+  \item \textbf{\texttt{main}} (atau \texttt{master}) --- branch utama, kode yang stabil.
+  \item \textbf{Branch fitur} --- cabang untuk mengerjakan fitur tertentu, lalu digabungkan kembali ke \texttt{main}.
+\end{itemize}
+
+\section{Apa itu Pull Request (PR)?}
+\label{sec:apa-itu-pr}
+
+\emph{Pull request} adalah \textbf{permintaan untuk menggabungkan} perubahan dari satu branch ke branch lain (biasanya ke \texttt{main}). PR memungkinkan orang lain \textbf{meninjau} kode sebelum digabung.
+
+\section{Apa itu GitHub Pages?}
+\label{sec:apa-itu-pages}
+
+GitHub Pages adalah layanan \textbf{hosting gratis} dari GitHub untuk website statis (HTML/CSS/JS). Website Anda akan dapat diakses publik melalui URL seperti:
+
+\begin{lstlisting}[caption={Format URL GitHub Pages}, label={lst:url-pages}]
+https://USERNAME.github.io/NAMA-REPO/
+\end{lstlisting}
+
+% ---------------------------------------------------------------------
+% 4. PRAKTIKUM 1 — MEMBUAT BRANCH
+% ---------------------------------------------------------------------
+\section{Praktikum 1 --- Membuat Branch}
+\label{sec:praktik-branch-1}
+
+\begin{langkah}
+  \item Buka folder proyek \texttt{latihan-css} di VSCode (pastikan sudah menjadi \emph{repository} Git dari Bab~8).
+  \item Periksa branch saat ini:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Melihat branch}, label={lst:git-branch}]
+git branch
+\end{lstlisting}
+
+\begin{langkah}
+  \item Anda akan melihat \texttt{* main} (tanda \texttt{*} menunjukkan branch aktif).
+  \item Buat branch baru bernama \texttt{fitur-navbar}:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Membuat branch baru}, label={lst:git-branch-baru}]
+git branch fitur-navbar
+\end{lstlisting}
+
+\begin{langkah}
+  \item Pindah ke branch baru:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Berpindah ke branch baru}, label={lst:git-checkout}]
+git checkout fitur-navbar
+\end{lstlisting}
+
+\begin{langkah}
+  \item Periksa lagi:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Memeriksa branch aktif}, label={lst:git-branch-check}]
+git branch
+\end{lstlisting}
+
+\begin{catatan}
+\textbf{Cara cepat:} \texttt{git checkout -b fitur-navbar} membuat branch \textbf{dan} langsung pindah ke sana dalam satu perintah.
+\end{catatan}
+
+% ---------------------------------------------------------------------
+% 5. PRAKTIKUM 2 — BEKERJA DI BRANCH BARU
+% ---------------------------------------------------------------------
+\section{Praktikum 2 --- Bekerja di Branch Baru}
+\label{sec:praktik-branch-2}
+
+\begin{langkah}
+  \item Di branch \texttt{fitur-navbar}, buat file baru bernama \texttt{navbar.html} (bisa salin dari Bab~6).
+  \item Tambahkan dan \emph{commit} perubahan:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Commit di branch fitur}, label={lst:git-commit-branch}]
+git add .
+git commit -m "Menambahkan halaman navbar"
+\end{lstlisting}
+
+\begin{langkah}
+  \item Periksa riwayat:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Riwayat commit di branch fitur}, label={lst:git-log-branch}]
+git log --oneline
+\end{lstlisting}
+
+\begin{langkah}
+  \item Sekarang pindah kembali ke \texttt{main}:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Kembali ke branch main}, label={lst:git-checkout-main}]
+git checkout main
+\end{lstlisting}
+
+\begin{langkah}
+  \item Periksa file di folder---\texttt{navbar.html} \textbf{tidak ada} di branch \texttt{main}, karena perubahan hanya ada di branch \texttt{fitur-navbar}.
+\end{langkah}
+
+\begin{catatan}
+\textbf{Konsep penting:} Setiap branch memiliki riwayat \emph{commit} sendiri. Perubahan di satu branch tidak terlihat di branch lain sampai digabungkan.
+\end{catatan}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-09/git-branch-list.png}
+  {Hasil \texttt{git branch} yang menampilkan branch \texttt{main} dan \texttt{fitur-navbar}.}
+  {Jalankan \texttt{git branch} dan pastikan kedua branch terdaftar.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-09/git-log-fitur.png}
+  {Hasil \texttt{git log --oneline} di branch \texttt{fitur-navbar} (menampilkan \emph{commit} tambahan).}
+  {Jalankan \texttt{git log --oneline} di branch \texttt{fitur-navbar} dan amati \emph{commit} baru.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 6. PRAKTIKUM 3 — MENGGABUNGKAN BRANCH (MERGE)
+% ---------------------------------------------------------------------
+\section{Praktikum 3 --- Menggabungkan Branch (Merge)}
+\label{sec:praktik-merge}
+
+\begin{langkah}
+  \item Pastikan Anda berada di branch \texttt{main}:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Pindah ke branch main}, label={lst:git-main-again}]
+git checkout main
+\end{lstlisting}
+
+\begin{langkah}
+  \item Gabungkan branch \texttt{fitur-navbar} ke \texttt{main}:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Merge branch fitur-navbar}, label={lst:git-merge}]
+git merge fitur-navbar
+\end{lstlisting}
+
+\begin{langkah}
+  \item Periksa file---\texttt{navbar.html} sekarang ada di \texttt{main}.
+  \item Periksa riwayat:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Riwayat setelah merge}, label={lst:git-log-merge}]
+git log --oneline
+\end{lstlisting}
+
+\begin{langkah}
+  \item \emph{Push} \texttt{main} ke GitHub:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Push main ke GitHub}, label={lst:git-push-main}]
+git push
+\end{lstlisting}
+
+\begin{catatan}
+Setelah \emph{merge}, branch \texttt{fitur-navbar} bisa dihapus jika tidak diperlukan: \texttt{git branch -d fitur-navbar}.
+\end{catatan}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-09/git-merge-success.png}
+  {Hasil \texttt{git merge fitur-navbar} yang berhasil.}
+  {Jalankan \texttt{git merge fitur-navbar} di branch \texttt{main} dan pastikan tidak ada konflik.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 7. PRAKTIKUM 4 — PUSH BRANCH KE GITHUB
+% ---------------------------------------------------------------------
+\section{Praktikum 4 --- Push Branch ke GitHub}
+\label{sec:praktik-push-branch}
+
+\begin{langkah}
+  \item Buat branch baru lagi:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Membuat branch fitur-kontak}, label={lst:git-branch-kontak}]
+git checkout -b fitur-kontak
+\end{lstlisting}
+
+\begin{langkah}
+  \item Buat file \texttt{kontak.html} sederhana dan \emph{commit}:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Commit file kontak}, label={lst:git-commit-kontak}]
+git add .
+git commit -m "Menambahkan halaman kontak"
+\end{lstlisting}
+
+\begin{langkah}
+  \item \emph{Push} branch baru ke GitHub:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Push branch fitur-kontak ke GitHub}, label={lst:git-push-kontak}]
+git push -u origin fitur-kontak
+\end{lstlisting}
+
+\begin{langkah}
+  \item Buka halaman \emph{repository} di GitHub. Klik dropdown \textbf{branch} (biasanya bertuliskan \texttt{main}). Anda akan melihat branch \texttt{fitur-kontak} di daftar.
+\end{langkah}
+
+\begin{catatan}
+\texttt{-u origin fitur-kontak} membuat branch lokal terhubung ke branch di GitHub.
+\end{catatan}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-09/github-dropdown-branch.png}
+  {Halaman GitHub yang menampilkan dropdown branch (ada \texttt{fitur-kontak}).}
+  {Buka halaman \emph{repository} di GitHub dan klik dropdown branch untuk melihat daftar branch.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 8. PRAKTIKUM 5 — MEMBUAT PULL REQUEST (PR)
+% ---------------------------------------------------------------------
+\section{Praktikum 5 --- Membuat Pull Request (PR)}
+\label{sec:praktik-pr}
+
+\begin{langkah}
+  \item Di halaman \emph{repository} GitHub, setelah \emph{push} branch \texttt{fitur-kontak}, akan muncul banner kuning ``Compare \& pull request''. Klik banner tersebut.
+  \item Jika banner tidak muncul, klik tab \textbf{Pull requests}, lalu tombol \textbf{New pull request}.
+  \item Atur:
+\end{langkah}
+
+\begin{itemize}
+  \item \textbf{base:} \texttt{main} (tujuan penggabungan).
+  \item \textbf{compare:} \texttt{fitur-kontak} (sumber perubahan).
+\end{itemize}
+
+\begin{langkah}
+  \item Isi judul PR, misalnya: ``Menambahkan halaman kontak''.
+  \item Isi deskripsi PR:
+\end{langkah}
+
+\begin{lstlisting}[caption={Contoh deskripsi PR}, label={lst:pr-deskripsi}]
+Menambahkan halaman kontak sederhana dengan form.
+- Form nama, email, dan pesan
+- Styling dasar dengan CSS
+\end{lstlisting}
+
+\begin{langkah}
+  \item Klik \textbf{Create pull request}.
+  \item Amati halaman PR. Anda bisa melihat:
+\end{langkah}
+
+\begin{itemize}
+  \item \textbf{Files changed} --- perbedaan kode yang diusulkan.
+  \item \textbf{Commits} --- daftar \emph{commit} dalam PR.
+  \item \textbf{Conversation} --- diskusi/\emph{review}.
+\end{itemize}
+
+\begin{tip}
+PR adalah tempat untuk \textbf{review} sebelum kode digabung. Rekan tim bisa memberi komentar pada baris kode tertentu.
+\end{tip}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-09/github-create-pr.png}
+  {Halaman pembuatan \emph{pull request} (base: main, compare: fitur-kontak).}
+  {Buka halaman PR di GitHub dan perhatikan perbandingan branch \texttt{main} dengan \texttt{fitur-kontak}.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-09/github-pr-page.png}
+  {Halaman PR yang menampilkan tab \emph{Conversation}, \emph{Commits}, dan \emph{Files changed}.}
+  {Jelajahi tab-tab di halaman PR untuk memahami alur \emph{review}.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 9. PRAKTIKUM 6 — MERGE PULL REQUEST
+% ---------------------------------------------------------------------
+\section{Praktikum 6 --- Merge Pull Request}
+\label{sec:praktik-merge-pr}
+
+\begin{langkah}
+  \item Di halaman PR yang sudah dibuat, klik tombol \textbf{Merge pull request}.
+  \item Klik \textbf{Confirm merge}.
+  \item Klik \textbf{Delete branch} untuk membersihkan branch \texttt{fitur-kontak} di GitHub (opsional).
+  \item Kembali ke terminal VSCode. Ambil perubahan yang sudah di-\emph{merge}:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Ambil perubahan setelah merge PR}, label={lst:git-pull-merge}]
+git checkout main
+git pull
+\end{lstlisting}
+
+\begin{langkah}
+  \item Periksa bahwa \texttt{kontak.html} sekarang ada di \texttt{main} lokal.
+\end{langkah}
+
+\begin{catatan}
+\textbf{Alur kolaborasi lengkap:}
+\begin{enumerate}
+  \item Buat branch fitur.
+  \item Kerjakan dan \emph{commit}.
+  \item \emph{Push} branch ke GitHub.
+  \item Buat PR.
+  \item Review \& merge.
+  \item \texttt{git pull} di lokal.
+\end{enumerate}
+\end{catatan}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-09/github-pr-merged.png}
+  {Halaman PR setelah di-\emph{merge} (tombol ``Merged'').}
+  {Klik \textbf{Merge pull request} di GitHub dan amati status PR berubah menjadi ``Merged''.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 10. PRAKTIKUM 7 — MENYIAPKAN GITHUB PAGES
+% ---------------------------------------------------------------------
+\section{Praktikum 7 --- Menyiapkan GitHub Pages}
+\label{sec:praktik-pages}
+
+\begin{langkah}
+  \item Pastikan Anda berada di branch \texttt{main} dan semua perubahan sudah di-\emph{push}.
+  \item Buka halaman \emph{repository} di GitHub.
+  \item Klik tab \textbf{Settings}.
+  \item Di menu kiri, klik \textbf{Pages}.
+  \item Pada bagian \textbf{Build and deployment}:
+\end{langkah}
+
+\begin{itemize}
+  \item \textbf{Source:} pilih \textbf{Deploy from a branch}.
+  \item \textbf{Branch:} pilih \texttt{main} dan folder \texttt{/ (root)}.
+  \item Klik \textbf{Save}.
+\end{itemize}
+
+\begin{langkah}
+  \item Tunggu beberapa saat (1--2 menit) hingga proses \emph{build} selesai.
+  \item \emph{Refresh} halaman. Akan muncul URL website Anda, misalnya:
+\end{langkah}
+
+\begin{lstlisting}[caption={Format URL GitHub Pages}, label={lst:url-pages-contoh}]
+https://USERNAME.github.io/latihan-css/
+\end{lstlisting}
+
+\begin{langkah}
+  \item Klik URL tersebut atau buka di browser. Website Anda sekarang \textbf{live di internet}!
+\end{langkah}
+
+\begin{catatan}
+URL GitHub Pages mengikuti format \texttt{https://USERNAME.github.io/NAMA-REPO/}. Pastikan ada file \texttt{index.html} di \emph{root repository} agar website menampilkan halaman utama.
+\end{catatan}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-09/github-pages-settings.png}
+  {Halaman Settings $\rightarrow$ Pages yang menampilkan konfigurasi \emph{deploy} dari branch main.}
+  {Buka tab \textbf{Settings} $\rightarrow$ \textbf{Pages} di GitHub dan pastikan branch \texttt{main} terpilih.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-09/github-pages-live.png}
+  {Website yang ter-\emph{deploy} di GitHub Pages (tampil di browser).}
+  {Buka URL GitHub Pages di browser dan pastikan website Anda tampil.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 11. PRAKTIKUM 8 — MEMPERBARUI WEBSITE DI GITHUB PAGES
+% ---------------------------------------------------------------------
+\section{Praktikum 8 --- Memperbarui Website di GitHub Pages}
+\label{sec:praktik-update-pages}
+
+\begin{langkah}
+  \item Ubah salah satu file di proyek (mis.\ ganti judul di \texttt{index.html}).
+  \item \emph{Commit} dan \emph{push}:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Commit dan push pembaruan}, label={lst:git-push-update}]
+git add .
+git commit -m "Memperbarui judul halaman"
+git push
+\end{lstlisting}
+
+\begin{langkah}
+  \item Tunggu beberapa saat, lalu \emph{refresh} website Anda. Perubahan otomatis muncul.
+\end{langkah}
+
+\begin{catatan}
+GitHub Pages otomatis men-\emph{deploy} ulang setiap kali ada \emph{push} ke branch \texttt{main}. Tidak perlu konfigurasi tambahan.
+\end{catatan}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-09/github-pages-mobile.png}
+  {Website di GitHub Pages diakses dari ponsel (tampilan responsif).}
+  {Buka URL GitHub Pages di perangkat seluler untuk memverifikasi tampilan responsif.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 12. LATIHAN MANDIRI
+% ---------------------------------------------------------------------
+\section{Latihan Mandiri}
+\label{sec:pr-latihan}
+
+\begin{latihan}[Halaman Tentang]
+\begin{itemize}
+  \item Buat branch baru bernama \texttt{fitur-tentang}.
+  \item Buat file \texttt{tentang.html} berisi halaman ``Tentang'' sederhana.
+  \item \emph{Commit} dan \emph{push} branch ke GitHub.
+  \item Buat \emph{pull request} dari \texttt{fitur-tentang} ke \texttt{main}.
+  \item \emph{Merge} PR tersebut.
+  \item \texttt{git pull} di komputer lokal.
+  \item Pastikan GitHub Pages menampilkan halaman terbaru.
+  \item Buka website Anda di ponsel dan pastikan tampil dengan baik.
+\end{itemize}
+\end{latihan}
+
+% ---------------------------------------------------------------------
+% 13. HASIL YANG DIHARAPKAN
+% ---------------------------------------------------------------------
+\section{Hasil yang Diharapkan}
+\label{sec:pr-hasil}
+
+Setelah menyelesaikan semua praktikum, Anda memiliki:
+\begin{itemize}
+  \item Kemampuan membuat, berpindah, dan menggabungkan branch.
+  \item Pengalaman membuat dan \emph{merge pull request} di GitHub.
+  \item Website statis yang \textbf{ter-\emph{deploy}} di GitHub Pages dengan URL publik.
+  \item Pemahaman alur kerja kolaborasi: branch $\rightarrow$ commit $\rightarrow$ push $\rightarrow$ PR $\rightarrow$ merge $\rightarrow$ pull.
+  \item \emph{Repository} GitHub dengan riwayat \emph{commit} yang rapi dan terstruktur.
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% 14. TROUBLESHOOTING
+% ---------------------------------------------------------------------
+\section{Troubleshooting}
+\label{sec:pr-trouble}
+
+\begin{table}[h!]
+\centering
+\caption{Masalah umum \emph{branch}, PR, dan GitHub Pages}
+\label{tab:trouble-09}
+\begin{tabular}{|p{3.5cm}|p{4cm}|p{5cm}|}
+\hline
+\textbf{Masalah} & \textbf{Penyebab} & \textbf{Solusi} \\
+\hline
+\texttt{git checkout} gagal & Ada perubahan yang belum di-\emph{commit} & \emph{Commit} atau \emph{stash} perubahan dulu: \texttt{git stash} \\
+\hline
+\emph{Merge conflict} & Dua branch mengubah file yang sama & Buka file yang konflik, pilih perubahan yang benar, hapus penanda \texttt{<<<<<<<}, lalu \emph{commit} \\
+\hline
+PR tidak muncul & Branch belum di-\emph{push} & Jalankan \texttt{git push -u origin NAMA-BRANCH} \\
+\hline
+GitHub Pages 404 & Tidak ada \texttt{index.html} di \emph{root} & Pastikan file \texttt{index.html} ada di \emph{root repository} \\
+\hline
+GitHub Pages belum muncul & Proses \emph{build} masih berjalan & Tunggu 1--2 menit, lalu \emph{refresh} \\
+\hline
+Website tidak update & \emph{Push} belum dilakukan / \emph{build} berjalan & Pastikan \texttt{git push} berhasil, tunggu \emph{build} selesai \\
+\hline
+URL tidak bisa diakses & \emph{Repository private} & GitHub Pages hanya untuk \emph{repository} \textbf{public} (atau akun Pro) \\
+\hline
+\emph{Merge conflict} saat \texttt{git pull} & Perubahan lokal dan \emph{remote} bentrok & \emph{Commit} perubahan lokal dulu, lalu \texttt{git pull} \\
+\hline
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------
+% 15. RANGKUMAN
+% ---------------------------------------------------------------------
+\section{Rangkuman}
+\label{sec:pr-rangkuman}
+
+\begin{itemize}
+  \item \textbf{Branch} memungkinkan bekerja pada fitur tanpa mengganggu \texttt{main}.
+  \item \texttt{git branch} --- lihat branch; \texttt{git checkout -b nama} --- buat \& pindah branch.
+  \item \texttt{git merge nama-branch} --- gabungkan branch ke branch aktif.
+  \item \textbf{Pull request} adalah permintaan penggabungan yang bisa direview.
+  \item \textbf{GitHub Pages} men-\emph{deploy} website statis secara gratis.
+  \item Alur kolaborasi: branch $\rightarrow$ commit $\rightarrow$ push $\rightarrow$ PR $\rightarrow$ merge $\rightarrow$ pull.
+  \item GitHub Pages otomatis update setiap \emph{push} ke \texttt{main}.
+\end{itemize}

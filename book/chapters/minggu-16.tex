@@ -1,0 +1,448 @@
+% =====================================================================
+%  chapters/minggu-16.tex
+%  Minggu 16 — Presentasi, Refleksi & Finalisasi Proyek Akhir
+% =====================================================================
+
+\chapter{Presentasi, Refleksi \& Finalisasi Proyek Akhir}
+\label{chap:minggu-16}
+
+% ---------------------------------------------------------------------
+% 1. CAPAIAN PEMBELAJARAN
+% ---------------------------------------------------------------------
+\begin{capaian}
+Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu:
+\begin{itemize}
+  \item mempresentasikan proses proyek redesign dari riset $\rightarrow$ desain $\rightarrow$ implementasi $\rightarrow$ deployment;
+  \item menjawab pertanyaan tentang kode dan keputusan desain secara individual;
+  \item merefleksikan perkembangan diri selama semester dalam mata kuliah ini;
+  \item menyelesaikan seluruh \emph{deliverable} proyek akhir.
+\end{itemize}
+\end{capaian}
+
+% ---------------------------------------------------------------------
+% 2. TUJUAN PRAKTIK
+% ---------------------------------------------------------------------
+\begin{tujuanpraktik}
+Pada sesi praktik ini, mahasiswa akan:
+\begin{itemize}
+  \item melakukan pengecekan kesiapan teknis sebelum presentasi;
+  \item mempresentasikan hasil proyek redesign di depan kelas;
+  \item menjawab pertanyaan individual dari pengajar;
+  \item mengisi refleksi diri akhir semester;
+  \item melakukan finalisasi \emph{repository}.
+\end{itemize}
+\end{tujuanpraktik}
+
+% ---------------------------------------------------------------------
+% 3. PERALATAN
+% ---------------------------------------------------------------------
+\section{Peralatan yang Dibutuhkan}
+\label{sec:peralatan-16}
+
+\begin{itemize}
+  \item \textbf{Browser} --- \emph{live demo} website.
+  \item \textbf{GitHub} --- menunjukkan \emph{repository} dan \emph{commit history}.
+  \item \textbf{Figma} --- menunjukkan file desain.
+  \item \textbf{Slide presentasi} --- pembukaan dan penutup (Google Slides / Markdown).
+  \item \textbf{VS Code} --- menunjukkan kode saat sesi tanya-jawab.
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% 4. PERSIAPAN SEBELUM PRESENTASI
+% ---------------------------------------------------------------------
+\section{Persiapan Sebelum Presentasi}
+\label{sec:persiapan-sebelum-presentasi}
+
+\subsection{Cek Kesiapan Teknis}
+\label{subsec:cek-kesiapan}
+
+\begin{langkah}
+  \item Buka website via GitHub Pages di browser --- coba navigasi seluruh halaman.
+  \item \emph{Resize} browser dari desktop ke mobile --- pastikan tampilan responsif.
+  \item Pastikan \emph{repository} GitHub bersih --- tidak ada file \emph{temporary} atau file yang tidak perlu.
+  \item Pastikan \texttt{README.md} sudah lengkap.
+  \item Pastikan semua anggota bisa mengakses \emph{repository} dari laptop masing-masing.
+\end{langkah}
+
+\subsection{Siapkan Tab Browser}
+\label{subsec:siapkan-tab}
+
+Buka semua tab berikut di browser sebelum giliran presentasi:
+\begin{enumerate}
+  \item Tab 1: Website hasil redesign (GitHub Pages).
+  \item Tab 2: Repository GitHub (terlihat \emph{commit history} \& README).
+  \item Tab 3: File desain Figma.
+  \item Tab 4: File \emph{heuristic evaluation} di GitHub (atau VS Code).
+\end{enumerate}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-16/persiapan-tab-browser.png}
+  {Persiapan presentasi --- browser dengan 4 tab terbuka.}
+  {Buka browser dan pastikan keempat tab sudah siap sebelum giliran presentasi kelompok Anda.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 5. PRESENTASI KELOMPOK
+% ---------------------------------------------------------------------
+\section{Presentasi Kelompok}
+\label{sec:presentasi}
+
+Gunakan \emph{outline} yang sudah disiapkan di minggu 15. Waktu per kelompok: 8--10 menit presentasi + 5 menit tanya-jawab.
+
+\subsection{Pembukaan (± 1 Menit)}
+\label{subsec:pembukaan}
+
+\begin{itemize}
+  \item Perkenalan anggota kelompok.
+  \item Nama website yang diriset dan URL-nya.
+  \item URL website redesign (GitHub Pages).
+\end{itemize}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-16/slide-pembukaan.png}
+  {Slide pembukaan --- nama kelompok, nama website.}
+  {Siapkan slide pembukaan yang memuat nama kelompok dan nama website yang diredesign.}
+\end{tangkapanlayar}
+
+\subsection{Riset UI/UX (± 2--3 Menit)}
+\label{subsec:presentasi-riset}
+
+Tampilkan:
+\begin{enumerate}
+  \item \emph{Screenshot} halaman asli website yang diriset.
+  \item Top 3 \emph{pain point} dari \emph{heuristic evaluation} --- jelaskan apa masalahnya dan mengapa itu masalah bagi pengguna.
+  \item 1--2 temuan \emph{benchmarking} --- apa yang dipelajari dari website lain.
+\end{enumerate}
+
+\begin{catatan}
+Contoh penyampaian: ``Di halaman asli, tombol `Ajukan Permohonan' tidak terlihat karena warnanya menyatu dengan \emph{background}. Ini melanggar heuristic \#1 --- Visibility of System Status.''
+\end{catatan}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-16/slide-riset-pain-point.png}
+  {Tampilan slide riset --- pain point utama.}
+  {Pastikan slide riset memuat \emph{screenshoot} halaman asli dan daftar \emph{pain point} utama.}
+\end{tangkapanlayar}
+
+\subsection{Desain Ulang (± 2--3 Menit)}
+\label{subsec:presentasi-desain}
+
+Tampilkan:
+\begin{enumerate}
+  \item \emph{Mockup} Figma (desktop \& mobile) --- tunjukkan langsung di Figma.
+  \item 3 keputusan desain utama, masing-masing dijelaskan dengan kaitannya terhadap temuan riset.
+\end{enumerate}
+
+\begin{tip}
+Contoh penyampaian: ``Keputusan 1: Kami memindahkan tombol CTA ke posisi lebih prominent. Ini karena di riset ditemukan bahwa tombol utama sulit ditemukan (\emph{pain point} \#1).''
+\end{tip}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-16/mockup-figma-desktop.png}
+  {Mockup Figma --- tampilan desktop.}
+  {Tunjukkan \emph{mockup} desktop di Figma, jelaskan keputusan desain utama.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-16/mockup-figma-mobile.png}
+  {Mockup Figma --- tampilan mobile.}
+  {Tunjukkan \emph{mockup} mobile di Figma, jelaskan bagaimana desain beradaptasi.}
+\end{tangkapanlayar}
+
+\subsection{Live Demo (± 2 Menit)}
+\label{subsec:live-demo}
+
+\begin{langkah}
+  \item Buka website di browser (GitHub Pages).
+  \item Tunjukkan fitur utama: navigasi, konten utama, responsif (resize browser dari desktop ke mobile).
+  \item Tunjukkan \emph{commit history} di GitHub --- siapa mengerjakan apa.
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-16/live-demo-desktop.png}
+  {Live demo website --- tampilan desktop.}
+  {Buka website di browser, tunjukkan navigasi dan konten utama.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-16/live-demo-mobile.png}
+  {Live demo website --- tampilan mobile.}
+  {Resize browser ke ukuran mobile, tunjukkan responsivitas.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-16/commit-history-github.png}
+  {Commit history di GitHub.}
+  {Buka tab GitHub, tunjukkan \emph{commit history} untuk membuktikan kontribusi per anggota.}
+\end{tangkapanlayar}
+
+\subsection{Pembagian Kerja dan Penggunaan AI (± 1 Menit)}
+\label{subsec:pembagian-kerja-presentasi}
+
+\begin{itemize}
+  \item Tampilkan tabel pembagian tugas beserta jumlah \emph{commit} per anggota.
+  \item Jelaskan tools apa yang dipakai (jika ada), di bagian mana, dan tunjukkan dokumentasi \emph{prompt}-nya.
+\end{itemize}
+
+\subsection{Penutup (± 1 Menit)}
+\label{subsec:penutup-presentasi}
+
+\begin{itemize}
+  \item Satu hal terpenting yang dipelajari dari proyek ini.
+  \item Satu tantangan terbesar yang dihadapi.
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% 6. TANYA-JAWAB INDIVIDUAL
+% ---------------------------------------------------------------------
+\section{Tanya-Jawab Individual}
+\label{sec:tanya-jawab}
+
+Setelah presentasi, pengajar mengajukan pertanyaan kepada setiap anggota secara individual ($\pm$ 5 menit per kelompok). Berikut contoh pertanyaan yang mungkin ditanyakan berdasarkan bagian yang dikerjakan:
+
+\begin{table}[htbp]
+\centering
+\caption{Contoh Pertanyaan Tanya-Jawab Individual}
+\label{tab:pertanyaan-tj}
+\small
+\begin{tabular}{@{}p{5cm}p{5cm}p{5cm}@{}}
+\toprule
+\textbf{Header/Navigasi} & \textbf{Konten Utama} & \textbf{Footer/Responsive} \\
+\midrule
+Bagaimana cara kerja navigasi di website ini? Jelaskan HTML-nya. & Kenapa formulir ini diletakkan di posisi ini? & Bagaimana cara \emph{media query} bekerja di CSS ini? \\
+Apa heuristik yang paling relevan dengan perubahan di header? & Bagaimana website ini mengatasi \emph{pain point} \#2? & Apa bedanya \texttt{flex-direction: row} dan \texttt{column} di kode ini? \\
+Jika saya ingin mengubah warna header, baris CSS mana yang perlu diubah? & Bisakah kamu menjelaskan alur pengguna mengisi formulir ini? & Di mana batas \emph{breakpoint} untuk mobile di CSS ini? \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{tip}
+Untuk mahasiswa: Buka VS Code saat sesi tanya-jawab --- tunjukkan kode langsung. Jujur jika tidak tahu, tapi tunjukkan usaha untuk mencari tahu. Hubungkan jawaban dengan riset --- misal: ``Ini kami buat karena di riset ditemukan\ldots''
+\end{tip}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-16/tanya-jawab-vscode.png}
+  {Sesi tanya-jawab --- anggota menjelaskan kode di VS Code.}
+  {Buka VS Code di layar, navigasi ke file yang relevan dengan pertanyaan pengajar.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 7. REFLEKSI INDIVIDU
+% ---------------------------------------------------------------------
+\section{Refleksi Individu}
+\label{sec:refleksi}
+
+Setelah semua kelompok selesai presentasi, setiap mahasiswa mengisi refleksi diri. Buka file \texttt{reflection.md} di \emph{repo} (atau gunakan form \emph{online} yang disediakan pengajar) dan jawab pertanyaan-pertanyaan berikut.
+
+\subsection{Perkembangan Skill}
+\label{subsec:perkembangan-skill}
+
+Buat tabel perbandingan perkembangan skill dari awal semester ke akhir semester untuk kompetensi: HTML, CSS, JavaScript, Figma, Git/GitHub, dan \emph{Heuristic Evaluation}.
+
+\subsection{Refleksi Proyek Akhir}
+\label{subsec:refleksi-proyek}
+
+Jawab pertanyaan-pertanyaan berikut secara jujur dan reflektif:
+\begin{enumerate}
+  \item Apa yang paling menantang dari proyek ini?
+  \item Apa yang paling memuaskan dari hasil kerja kelompok?
+  \item Jika bisa mengulang, apa yang akan dilakukan berbeda?
+  \item Bagian mana dari kode yang paling dipahami dan bisa dijelaskan dengan baik?
+  \item Bagian mana yang masih perlu dipelajari lebih lanjut?
+\end{enumerate}
+
+\subsection{Refleksi Pembelajaran}
+\label{subsec:refleksi-pembelajaran}
+
+Jawab pertanyaan-pertanyaan berikut:
+\begin{enumerate}
+  \item Satu hal terpenting yang dipelajari di mata kuliah ini.
+  \item Bagaimana mata kuliah ini mengubah cara pandang terhadap \emph{web development}.
+  \item Apakah ada topik yang ingin dipelajari lebih lanjut?
+\end{enumerate}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-16/refleksi-terisi.png}
+  {Formulir refleksi yang sudah diisi.}
+  {Buka \texttt{reflection.md} di VS Code, pastikan seluruh pertanyaan sudah dijawab.}
+\end{tangkapanlayar}
+
+\begin{langkah}
+  \item Isi seluruh pertanyaan refleksi di \texttt{reflection.md}.
+  \item \emph{Commit} dan \emph{push}:
+\begin{lstlisting}[language=bash, caption={Commit refleksi}]
+git add reflection.md
+git commit -m "docs: refleksi akhir semester - [nama]"
+git push
+\end{lstlisting}
+\end{langkah}
+
+% ---------------------------------------------------------------------
+% 8. FINALISASI REPOSITORY
+% ---------------------------------------------------------------------
+\section{Finalisasi Repository}
+\label{sec:finalisasi-repo}
+
+Pastikan \emph{repository} dalam kondisi final dan siap untuk portofolio.
+
+\subsection{Review Checklist Final}
+\label{subsec:checklist-final}
+
+\begin{langkah}
+  \item Pastikan \texttt{index.html} berfungsi dengan benar.
+  \item Pastikan CSS responsif (desktop \& mobile).
+  \item Pastikan JavaScript berfungsi (jika ada).
+  \item Pastikan gambar \& aset semua tampil.
+  \item Pastikan \texttt{README.md} lengkap.
+  \item Pastikan folder \texttt{research/} berisi \emph{heuristic evaluation} \& \emph{benchmarking}.
+  \item Pastikan file Figma sudah di-\emph{share} (tautan di README).
+  \item Pastikan website ter-deploy di GitHub Pages.
+  \item Pastikan \emph{commit history} mencerminkan kontribusi per anggota.
+  \item Pastikan tidak ada file \emph{temporary} (\texttt{.DS\_Store}, \texttt{Thumbs.db}, dsb).
+\end{langkah}
+
+\subsection{Tambahkan File .gitignore}
+\label{subsec:gitignore}
+
+Buat \texttt{.gitignore} di \emph{root repository} jika belum ada:
+
+\begin{lstlisting}[caption={Contoh file .gitignore}]
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/settings.json
+*.swp
+*.swo
+
+# Node modules (jika menggunakan Tailwind)
+node_modules/
+
+# Build output
+dist/
+\end{lstlisting}
+
+\subsection{Final Commit}
+\label{subsec:final-commit}
+
+\begin{lstlisting}[language=bash, caption={Final commit proyek akhir}]
+git add .
+git commit -m "chore: finalisasi repository proyek akhir"
+git push
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-16/repository-final-github.png}
+  {Repository GitHub --- tampilan root yang bersih dan lengkap.}
+  {Buka \emph{repository} di GitHub, pastikan seluruh struktur sudah sesuai dan tidak ada file yang tidak perlu.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-16/commit-history-akhir.png}
+  {Commit history akhir --- terlihat kontribusi merata per anggota.}
+  {Buka tab Insights $\rightarrow$ Contributors, pastikan kontribusi merata di antara anggota.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 9. STRUKTUR REPOSITORY FINAL
+% ---------------------------------------------------------------------
+\section{Struktur Repository Final}
+\label{sec:struktur-final}
+
+Berikut struktur \emph{repository} yang diharapkan setelah proyek akhir selesai:
+
+\begin{lstlisting}[caption={Struktur folder repository final}]
+nama-repo/
+  README.md
+  .gitignore
+  research/
+    heuristic-evaluation.md
+    benchmarking.md
+    rasional-desain.md
+  src/
+    index.html
+    css/
+      style.css
+    js/
+      script.js
+    assets/
+      logo.png
+  design/
+    figma-link.txt
+  docs/
+    presentasi-outline.md
+  reflection.md
+\end{lstlisting}
+
+% ---------------------------------------------------------------------
+% 10. DELIVERABLE AKHIR PROYEK
+% ---------------------------------------------------------------------
+\section{Deliverable Akhir Proyek}
+\label{sec:deliverable}
+
+Pastikan seluruh \emph{deliverable} berikut sudah selesai:
+\begin{itemize}
+  \item Dokumen hasil riset UI/UX (\texttt{research/heuristic-evaluation.md}).
+  \item Dokumen \emph{benchmarking} (\texttt{research/benchmarking.md}).
+  \item File Figma (\emph{wireframe} + \emph{mockup}) --- tautan di README.
+  \item Repository GitHub (\emph{source code} + README).
+  \item Website ter-deploy (GitHub Pages) --- tautan di README.
+  \item Pembagian tugas di README (\texttt{README.md}).
+  \item Dokumentasi penggunaan \emph{agentic coding} (jika ada).
+  \item Refleksi individu (\texttt{reflection.md}).
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% 11. TROUBLESHOOTING
+% ---------------------------------------------------------------------
+\section{Troubleshooting}
+\label{sec:troubleshooting-16}
+
+\begin{table}[htbp]
+\centering
+\caption{Masalah Umum dan Solusi --- Minggu 16}
+\label{tab:troubleshooting-16}
+\small
+\begin{tabular}{@{}p{5.5cm}p{8cm}@{}}
+\toprule
+\textbf{Masalah} & \textbf{Solusi} \\
+\midrule
+Website tidak bisa diakses saat presentasi & Buka file \texttt{index.html} langsung dari VS Code (Live Server) sebagai cadangan. Atau unduh \emph{repo} dan buka secara lokal. \\
+Figma tidak bisa dibuka & Pastikan akun Figma sudah \emph{login}. Jika di lab kampus, minta bantuan admin untuk install Figma \emph{desktop}. \\
+Lupa \emph{commit} bagian tertentu & Cek \texttt{git status} $\rightarrow$ jika ada file yang belum ter-\emph{commit}, lakukan \emph{commit} sekarang. Jangan lupa \emph{push}. \\
+Tidak sempat mengisi refleksi & Refleksi bisa diisi dan di-\emph{push} setelah kelas. Deadline: $1\times24$ jam setelah presentasi. \\
+Koneksi internet mati saat presentasi & Gunakan versi lokal (Live Server) sebagai cadangan. Pastikan sudah \emph{download} \emph{repo} sebelumnya. \\
+Anggota tidak bisa hadir & Hubungi pengajar sebelum kelas. Kemungkinan presentasi dijadwalkan ulang atau dilakukan \emph{remote}. \\
+Website \emph{deploy} expired/blank & Cek Settings $\rightarrow$ Pages di GitHub. Pastikan \emph{branch source} masih aktif. \emph{Push} ulang jika perlu. \\
+\emph{Merge conflict} di final \emph{commit} & Selesaikan conflict: buka file $\rightarrow$ pilih versi yang benar $\rightarrow$ hapus marker \texttt{<<<<<<<} $\rightarrow$ \emph{commit}. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------
+% 12. TAUTAN REFERENSI
+% ---------------------------------------------------------------------
+\section{Tautan Referensi}
+\label{sec:referensi-minggu-16}
+
+\begin{itemize}
+  \item GitHub Pages: \url{https://docs.github.com/en/pages}
+  \item Nielsen Norman Group: \url{https://www.nngroup.com/articles/ten-usability-heuristics/}
+  \item Figma: \url{https://www.figma.com}
+  \item MDN Web Docs: \url{https://developer.mozilla.org}
+  \item GitHub Skills: \url{https://skills.github.com}
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% 13. LATIHAN
+% ---------------------------------------------------------------------
+\section{Latihan Mandiri}
+\label{sec:latihan-minggu-16}
+
+\begin{latihan}[Refleksi dan Portofolio]
+\begin{enumerate}[label=\alph*., leftmargin=2em, itemsep=2pt]
+  \item Buka \emph{repository} proyek akhir Anda di GitHub. Tinjau \emph{commit history} dan identifikasi minggu mana yang memiliki kontribusi terbanyak. Apakah ada pola yang bisa diperbaiki di proyek berikutnya?
+  \item Buka website hasil redesign Anda di dua browser berbeda (misal Chrome dan Firefox). Catat minimal 1 perbedaan tampilan dan jelaskan penyebabnya.
+\end{enumerate}
+\end{latihan}

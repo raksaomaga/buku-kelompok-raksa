@@ -1,0 +1,306 @@
+% =====================================================================
+%  chapters/minggu-01.tex
+%  Minggu 1 — Pengantar Web \& Setup Lingkungan Kerja
+% =====================================================================
+
+\chapter{Pengantar Web \& Setup Lingkungan Kerja}
+\label{chap:minggu-01}
+
+% ---------------------------------------------------------------------
+% 1. CAPAIAN PEMBELAJARAN
+% ---------------------------------------------------------------------
+\begin{capaian}
+Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu:
+\begin{itemize}
+  \item menjelaskan alur kerja \emph{design-to-code} dalam pengembangan web;
+  \item menginstal dan mengonfigurasi VS Code beserta ekstensi yang diperlukan;
+  \item membuat akun GitHub dan melakukan \emph{push} pertama ke \emph{repository};
+  \item membuka file HTML di peramban menggunakan \emph{Live Server}.
+\end{itemize}
+\end{capaian}
+
+% ---------------------------------------------------------------------
+% 2. TUJUAN PRAKTIK
+% ---------------------------------------------------------------------
+\begin{tujuanpraktik}
+Pada sesi praktik ini, mahasiswa akan:
+\begin{itemize}
+  \item menginstal VS Code dan ekstensi pendukung;
+  \item membuat file HTML pertama dan melihat hasilnya di peramban;
+  \item membuat akun GitHub serta \emph{repository} pertama;
+  \item melakukan \emph{push} kode ke GitHub.
+\end{itemize}
+\end{tujuanpraktik}
+
+% ---------------------------------------------------------------------
+% 3. PENGANTAR: APA ITU WEB?
+% ---------------------------------------------------------------------
+\section{Pengenalan Web}
+\label{sec:m01-pengenalan}
+
+Website adalah kumpulan halaman yang diakses melalui peramban (\emph{browser}) seperti Chrome, Firefox, atau Edge. Setiap halaman web terdiri dari tiga lapis utama:
+
+\begin{table}[ht]
+\centering
+\caption{Tiga lapis utama halaman web}
+\label{tab:m01-lapis}
+\begin{tabular}{llp{7cm}}
+\toprule
+\textbf{Lapis} & \textbf{Bahasa} & \textbf{Fungsi} \\
+\midrule
+Struktur & HTML & ``Tulang'' — menentukan elemen apa yang ada di halaman \\
+Tampilan & CSS & ``Kulit'' — menentukan warna, ukuran, posisi, font \\
+Interaksi & JavaScript & ``Otot'' — menentukan apa yang terjadi saat diklik/di-scroll \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{catatan}
+Mahasiswa tidak perlu menghafal ketiga lapis ini sekarang. Cukup ketahui bahwa ada tiga lapis; di minggu-minggu berikutnya kita akan pelajari satu per satu.
+\end{catatan}
+
+% ---------------------------------------------------------------------
+% 4. ALUR KERJA DESIGN-TO-CODE
+% ---------------------------------------------------------------------
+\section{Alur Kerja \emph{Design-to-Code}}
+\label{sec:m01-alur}
+
+Alur kerja pengembangan web mengikuti urutan berikut:
+
+\begin{enumerate}
+  \item \textbf{Ide / Kebutuhan} — menentukan tujuan dan isi halaman.
+  \item \textbf{Figma} — mendesain tampilan visual.
+  \item \textbf{VS Code} — menulis kode HTML, CSS, dan JavaScript.
+  \item \textbf{Peramban} — melihat dan menguji hasil.
+  \item \textbf{GitHub} — menyimpan kode agar bisa diakses kapan saja.
+\end{enumerate}
+
+Intinya: desain di Figma\,$\rightarrow$\,implementasi di VS Code\,$\rightarrow$\,lihat hasil di peramban\,$\rightarrow$\,simpan di GitHub.
+
+% ---------------------------------------------------------------------
+% 5. LIVE CODING: INSTALASI VS CODE \& EKSTENSI
+% ---------------------------------------------------------------------
+\section{Instalasi VS Code \& Ekstensi}
+\label{sec:m01-instalasi}
+
+\subsection{Download \& Instal VS Code}
+
+\begin{langkah}
+  \item Buka peramban, kunjungi \texttt{https://code.visualstudio.com/}.
+  \item Klik tombol \textbf{Download for Windows} (atau sesuai OS).
+  \item Jalankan installer, klik \textbf{Next} di setiap langkah, pastikan opsi berikut diceklis:
+  \begin{itemize}
+    \item Add ``Open with Code'' action to Windows Explorer file context menu
+    \item Add ``Open with Code'' action to Windows Explorer directory context menu
+    \item Register Code as an editor for supported file types
+  \end{itemize}
+  \item Klik \textbf{Install}, tunggu selesai, lalu klik \textbf{Finish}.
+\end{langkah}
+
+\subsection{Instal Ekstensi Penting}
+
+Buka VS Code, tekan \textbf{Ctrl + Shift + X} untuk membuka panel \emph{Extensions}. Cari dan instal ekstensi berikut:
+
+\begin{table}[ht]
+\centering
+\caption{Ekstensi VS Code yang diperlukan}
+\label{tab:m01-ekstensi}
+\begin{tabular}{llp{6cm}}
+\toprule
+\textbf{No.} & \textbf{Nama Ekstensi} & \textbf{Fungsi} \\
+\midrule
+1 & Live Server (Ritwick Dey) & Preview halaman HTML otomatis di peramban saat file disimpan \\
+2 & HTML CSS Support & Autocomplete kelas CSS di file HTML \\
+3 & Prettier -- Code formatter & Format kode otomatis agar rapi \\
+4 & VS Code Intellicode & Saran kode cerdas dari AI \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Verifikasi Instalasi}
+
+\begin{langkah}
+  \item Buka VS Code.
+  \item Buat folder baru: \textbf{File\,$\rightarrow$\,Open Folder\,$\rightarrow$\,New Folder}, beri nama \texttt{latihan-web-1}.
+  \item Di dalam folder itu, buat file baru bernama \texttt{index.html}.
+  \item Ketik \texttt{!} lalu tekan \textbf{Tab} — VS Code akan mengisi template HTML secara otomatis (\emph{snippets} Emmet).
+  \item Ubah isi \texttt{<title>} menjadi \texttt{Halo Dunia}.
+  \item Tambahkan di dalam \texttt{<body>}:
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Kode ``Halo Dunia''}, label={lst:m01-halo}]
+<h1>Halo, Dunia!</h1>
+<p>Ini halaman web pertamaku.</p>
+\end{lstlisting}
+
+\begin{langkah}
+  \item Klik kanan di editor $\rightarrow$ \textbf{Open with Live Server}.
+  \item Peramban akan terbuka secara otomatis menampilkan teks ``Halo, Dunia!''.
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-01/vs-code-index.html.png}
+  {VS Code dengan file \texttt{index.html} terbuka.}
+  {Pastikan panel Explorer (kiri) menunjukkan folder \texttt{latihan-web-1} dan file \texttt{index.html}.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-01/browser-halo-dunia.png}
+  {Peramban menampilkan hasil ``Halo, Dunia!''}
+  {Pastikan URL di bilah alamat dimulai dengan \texttt{127.0.0.1:5500}.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 6. LIVE CODING: AKUN GITHUB \& REPOSITORY PERTAMA
+% ---------------------------------------------------------------------
+\section{Akun GitHub \& Repository Pertama}
+\label{sec:m01-github}
+
+\subsection{Buat Akun GitHub}
+
+\begin{langkah}
+  \item Buka \texttt{https://github.com}.
+  \item Klik \textbf{Sign up}.
+  \item Isi email, password, dan username (gunakan format: \texttt{nama-nim}, misal: \texttt{budi-2301001}).
+  \item Selesaikan verifikasi.
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-01/dashboard-github.png}
+  {Dashboard GitHub setelah berhasil login.}
+  {Pastikan username terlihat di pojok kanan atas.}
+\end{tangkapanlayar}
+
+\subsection{Buat Repository Baru}
+
+\begin{langkah}
+  \item Di dashboard GitHub, klik tombol \textbf{+} (pojok kanan atas) $\rightarrow$ \textbf{New repository}.
+  \item Isi form berikut:
+  \begin{itemize}
+    \item \textbf{Repository name:} \texttt{latihan-web-1}
+    \item \textbf{Description:} \texttt{Latihan pertama --- Halo Dunia}
+    \item Pilih \textbf{Public}
+    \item Centang \textbf{Add a README file}
+  \end{itemize}
+  \item Klik \textbf{Create repository}.
+\end{langkah}
+
+\subsection{Hubungkan Folder Lokal ke GitHub (\emph{Push} Pertama)}
+
+\begin{peringatan}
+Pastikan Git sudah terinstal di laptop. Jika belum, unduh dari \texttt{https://git-scm.com/download/win} dan instal dengan pengaturan default.
+\end{peringatan}
+
+Buka \textbf{Terminal} di VS Code (\textbf{Ctrl + \$} atau menu \textbf{Terminal\,$\rightarrow$\,New Terminal}), lalu ketik perintah berikut satu per satu:
+
+\begin{lstlisting}[language=bash, caption={Perintah push pertama ke GitHub}, label={lst:m01-git-push}]
+# 1. Inisialisasi Git di folder lokal
+git init
+
+# 2. Hubungkan ke remote repository
+#    (ganti NAMA_USER dengan username GitHub-mu)
+git remote add origin https://github.com/NAMA_USER/latihan-web-1.git
+
+# 3. Tambahkan semua file untuk di-commit
+git add .
+
+# 4. Buat commit pertama
+git commit -m "Commit pertama: Halo Dunia"
+
+# 5. Push ke GitHub
+git branch -M main
+git push -u origin main
+\end{lstlisting}
+
+\begin{catatan}
+Jika Git meminta \emph{credential} (username \& password), gunakan \textbf{Personal Access Token} sebagai password:
+\begin{enumerate}
+  \item Buka \texttt{https://github.com/settings/tokens}.
+  \item Klik \textbf{Generate new token (classic)}.
+  \item Beri nama token, centang \textbf{repo}, lalu klik \textbf{Generate}.
+  \item Salin token dan gunakan sebagai password saat Git meminta.
+\end{enumerate}
+\end{catatan}
+
+\subsection{Verifikasi}
+
+Buka \texttt{https://github.com/NAMA\_USER/latihan-web-1} di peramban. Pastikan file \texttt{index.html} terlihat di daftar file.
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-01/repository-github.png}
+  {Halaman repository GitHub \texttt{latihan-web-1}.}
+  {Pastikan file \texttt{index.html} terlihat di daftar file.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 7. LATIHAN MANDIRI
+% ---------------------------------------------------------------------
+\section{Latihan Mandiri}
+\label{sec:m01-latihan}
+
+\begin{latihan}[Perbarui Halaman]
+Buka file \texttt{index.html} di VS Code. Tambahkan elemen berikut di bawah \texttt{<p>} yang sudah ada:
+\begin{lstlisting}[language=HTML]
+<h2>Tentang Aku</h2>
+<p>Nama: [nama lengkap kamu]</p>
+<p>NIM: [NIM kamu]</p>
+<p>Prodi: D3 Informatika</p>
+\end{lstlisting}
+Simpan file (\textbf{Ctrl + S}), periksa peramban, lalu \emph{commit} dan \emph{push} perubahan ke GitHub.
+\end{latihan}
+
+\begin{latihan}[Eksperimen \emph{Live Server}]
+\begin{enumerate}
+  \item Matikan \emph{Live Server} (klik \textbf{Port: 5500\,$\rightarrow$\,Stop} di pojok kanan bawah VS Code).
+  \item Buka file \texttt{index.html} langsung dari File Explorer (klik ganda).
+  \item Perhatikan URL di peramban --- apakah berbeda dari URL \emph{Live Server}? (\texttt{file:///...} vs \texttt{127.0.0.1:5500})
+  \item Ubah salah satu teks di VS Code $\rightarrow$ simpan $\rightarrow$ muat ulang peramban secara manual.
+  \item Aktifkan kembali \emph{Live Server}. Ubah teks lagi $\rightarrow$ simpan $\rightarrow$ perhatikan apakah peramban memperbarui diri secara otomatis.
+\end{enumerate}
+\end{latihan}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-01/perbandingan-url.png}
+  {Perbandingan URL: \emph{Live Server} vs file langsung.}
+  {Kiri: \texttt{127.0.0.1:5500/index.html}; kanan: \texttt{file:///C:/.../index.html}.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 8. TROUBLESHOOTING
+% ---------------------------------------------------------------------
+\section{Troubleshooting}
+\label{sec:m01-troubleshoot}
+
+\begin{table}[ht]
+\centering
+\caption{Masalah umum dan solusinya}
+\label{tab:m01-troubleshoot}
+\small
+\begin{tabular}{p{4.5cm}p{8cm}}
+\toprule
+\textbf{Masalah} & \textbf{Solusi} \\
+\midrule
+\emph{Live Server} tidak muncul di menu kanan-klik & Pastikan ekstensi ``Live Server'' sudah terinstal dan VS Code di-\emph{restart} \\
+Peramban menampilkan \texttt{This site can't be reached} & Pastikan \emph{Live Server} sudah berjalan (lihat \emph{status bar} pojok kanan bawah VS Code) \\
+Git menolak \emph{push} karena ``repository not found'' & Periksa URL \emph{remote}: \texttt{git remote -v}, lalu perbaiki dengan \texttt{git remote set-url origin URL\_BARU} \\
+Git meminta \emph{password} tapi tidak bisa login & Gunakan \textbf{Personal Access Token} (bukan \emph{password} GitHub biasa) \\
+VS Code menampilkan error ``command not found: git'' & Instal Git dari \texttt{https://git-scm.com/download/win}, lalu \emph{restart} VS Code \\
+File \texttt{index.html} tidak muncul di GitHub & Pastikan sudah menjalankan \texttt{git add .}, \texttt{git commit}, dan \texttt{git push} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------
+% 9. RANGKUMAN
+% ---------------------------------------------------------------------
+\section{Rangkuman}
+\label{sec:m01-rangkuman}
+
+\begin{itemize}
+  \item Alur kerja \emph{design-to-code}: Figma $\rightarrow$ VS Code $\rightarrow$ Peramban $\rightarrow$ GitHub.
+  \item VS Code + ekstensi (\emph{Live Server}, Prettier, dll.) sudah terinstal.
+  \item File HTML pertama berhasil dibuat dan dilihat di peramban.
+  \item Akun GitHub dan \emph{repository} pertama sudah dibuat.
+  \item \emph{Push} pertama ke GitHub berhasil dilakukan.
+  \item \emph{Live Server} memberikan \emph{preview} otomatis tanpa \emph{reload}.
+\end{itemize}

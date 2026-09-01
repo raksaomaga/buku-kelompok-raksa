@@ -1,0 +1,1007 @@
+% =====================================================================
+%  chapters/minggu-04.tex
+%  Minggu 4 — HTML Lanjutan: Form, Tabel & Multimedia
+% =====================================================================
+
+\chapter{HTML Lanjutan: Form, Tabel \& Multimedia}
+\label{chap:minggu-04}
+
+% ---------------------------------------------------------------------
+% 1. CAPAIAN PEMBELAJARAN
+% ---------------------------------------------------------------------
+\begin{capaian}
+Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu:
+\begin{itemize}
+  \item membuat form HTML dengan berbagai jenis \emph{input} (\emph{text}, \emph{email}, \emph{password}, \emph{checkbox}, \emph{radio}, \emph{select}, \emph{textarea});
+  \item menggunakan \texttt{<label>}, \texttt{<fieldset>}, dan validasi form dasar;
+  \item membuat tabel HTML yang terstruktur dan aksesibel (\texttt{<thead>}, \texttt{<tbody>}, \texttt{scope});
+  \item menyisipkan elemen multimedia (gambar, video, audio) ke halaman HTML;
+  \item menggabungkan semua elemen ke dalam satu halaman yang rapi.
+\end{itemize}
+\end{capaian}
+
+% ---------------------------------------------------------------------
+% 2. TUJUAN PRAKTIK
+% ---------------------------------------------------------------------
+\begin{tujuanpraktik}
+Pada sesi praktik ini, mahasiswa akan:
+\begin{itemize}
+  \item membangun form pendaftaran akun dengan berbagai jenis \emph{input};
+  \item membuat tabel data mahasiswa dengan struktur aksesibel;
+  \item menyisipkan gambar, video, dan audio ke halaman HTML;
+  \item menggabungkan semua elemen ke dalam satu halaman praktikum.
+\end{itemize}
+\end{tujuanpraktik}
+
+% ---------------------------------------------------------------------
+% 3. FORM HTML
+% ---------------------------------------------------------------------
+\section{Form HTML}
+\label{sec:m04-form}
+
+\begin{catatan}
+\textbf{Form} adalah cara pengguna mengirim data ke server. Kita fokus pada struktur form-nya dulu; pengiriman data (\emph{submit}) akan dipelajari saat belajar JavaScript.
+\end{catatan}
+
+\subsection{Live Coding: Form Pendaftaran Akun}
+
+\begin{langkah}
+  \item Di folder \texttt{latihan-web-3} (atau buat folder baru \texttt{latihan-web-4}), buat file \texttt{form.html}.
+  \item Ketik struktur HTML dasar + hubungkan ke \texttt{style.css} (dari Bab~\ref{chap:minggu-03}), atau buat style \emph{inline} baru.
+  \item Ketik kode form berikut di dalam \texttt{<body>}.
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Form pendaftaran akun}, label={lst:m04-form}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Form Pendaftaran --- Latihan HTML Lanjutan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 { color: #2c3e50; }
+        form {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        fieldset {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 16px;
+        }
+        legend {
+            font-weight: bold;
+            padding: 0 8px;
+        }
+        .radio-group label,
+        .checkbox-group label {
+            display: inline;
+            font-weight: normal;
+        }
+        button {
+            margin-top: 16px;
+            padding: 10px 20px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover { background: #34495e; }
+    </style>
+</head>
+<body>
+
+    <h1>Form Pendaftaran Akun</h1>
+    <p>Isi form berikut untuk mendaftar.
+       Tanda <span style="color:red;">*</span>
+       wajib diisi.</p>
+
+    <form action="#" method="post">
+
+        <!-- FIELDSET 1: Data Diri -->
+        <fieldset>
+            <legend>Data Diri</legend>
+
+            <label for="nama">Nama Lengkap
+                <span style="color:red;">*</span></label>
+            <input type="text" id="nama" name="nama"
+                   placeholder="Masukkan nama lengkap"
+                   required>
+
+            <label for="email">Email
+                <span style="color:red;">*</span></label>
+            <input type="email" id="email" name="email"
+                   placeholder="contoh@email.com"
+                   required>
+
+            <label for="password">Password
+                <span style="color:red;">*</span></label>
+            <input type="password" id="password"
+                   name="password"
+                   placeholder="Minimal 8 karakter"
+                   minlength="8" required>
+
+            <label for="tanggal">Tanggal Lahir</label>
+            <input type="date" id="tanggal" name="tanggal">
+
+            <label for="jk">Jenis Kelamin
+                <span style="color:red;">*</span></label>
+            <div class="radio-group">
+                <input type="radio" id="laki" name="jk"
+                       value="laki-laki" required>
+                <label for="laki">Laki-laki</label>
+
+                <input type="radio" id="perempuan"
+                       name="jk" value="perempuan">
+                <label for="perempuan">Perempuan</label>
+            </div>
+        </fieldset>
+
+        <!-- FIELDSET 2: Informasi Akademik -->
+        <fieldset>
+            <legend>Informasi Akademik</legend>
+
+            <label for="prodi">Program Studi
+                <span style="color:red;">*</span></label>
+            <select id="prodi" name="prodi" required>
+                <option value="">-- Pilih Prodi --</option>
+                <option value="d3-informatika">
+                    D3 Informatika</option>
+                <option value="d3-multimedia">
+                    D3 Multimedia</option>
+                <option value="d3-akuntansi">
+                    D3 Akuntansi</option>
+                <option value="d3-administrasi">
+                    D3 Administrasi Bisnis</option>
+            </select>
+
+            <label for="angkatan">Angkatan</label>
+            <input type="number" id="angkatan"
+                   name="angkatan" min="2020" max="2030"
+                   placeholder="Contoh: 2026">
+
+            <label>Hobi / Minat (boleh pilih lebih dari
+                   1):</label>
+            <div class="checkbox-group">
+                <input type="checkbox" id="hobi-web"
+                       name="hobi" value="web-design">
+                <label for="hobi-web">Desain Web</label>
+                <br>
+                <input type="checkbox" id="hobi-mobile"
+                       name="hobi" value="mobile-app">
+                <label for="hobi-mobile">Mobile App</label>
+                <br>
+                <input type="checkbox" id="hobi-ai"
+                       name="hobi" value="ai">
+                <label for="hobi-ai">AI / Machine
+                    Learning</label>
+                <br>
+                <input type="checkbox" id="hobi-network"
+                       name="hobi" value="networking">
+                <label for="hobi-network">Jaringan</label>
+            </div>
+        </fieldset>
+
+        <!-- FIELDSET 3: Pesan -->
+        <fieldset>
+            <legend>Catatan Tambahan</legend>
+
+            <label for="pesan">Tulis pesan / motivasi
+                   kamu:</label>
+            <textarea id="pesan" name="pesan" rows="5"
+                      placeholder="Tulis di sini...">
+            </textarea>
+        </fieldset>
+
+        <!-- Tombol Submit -->
+        <button type="submit">Daftar Sekarang</button>
+
+    </form>
+
+</body>
+</html>
+\end{lstlisting}
+
+Simpan $\rightarrow$ buka dengan \emph{Live Server}.
+
+\subsection{Jenis-Jenis Input}
+
+\begin{table}[ht]
+\centering
+\caption{Jenis input form HTML}
+\label{tab:m04-input}
+\small
+\begin{tabular}{lp{3.5cm}p{5cm}}
+\toprule
+\textbf{Jenis Input} & \textbf{Fungsi} & \textbf{Contoh Penggunaan} \\
+\midrule
+\texttt{type="text"} & Teks biasa (satu baris) & Nama, judul \\
+\texttt{type="email"} & Teks + validasi format email & Alamat email \\
+\texttt{type="password"} & Teks tersembunyi (bullet) & Password \\
+\texttt{type="number"} & Hanya angka + tombol naik/turun & Usia, tahun \\
+\texttt{type="date"} & \emph{Date picker} (kalender) & Tanggal lahir \\
+\texttt{type="radio"} & Pilih satu dari beberapa opsi & Jenis kelamin \\
+\texttt{type="checkbox"} & Pilih beberapa opsi & Hobi, minat \\
+\texttt{type="tel"} & Nomor telepon & No.\ HP \\
+\texttt{type="url"} & Teks + validasi format URL & Website \\
+\texttt{type="file"} & \emph{Upload} file & Upload foto profil \\
+\texttt{<select>} & \emph{Dropdown} (daftar pilihan) & Program studi \\
+\texttt{<textarea>} & Teks panjang (multi-baris) & Pesan, komentar \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Pentingnya Label}
+
+\begin{lstlisting}[language=HTML, caption={Perbandingan label benar dan salah}, label={lst:m04-label}]
+<!-- Benar: label terhubung ke input via "for" = id -->
+<label for="nama">Nama Lengkap</label>
+<input type="text" id="nama" name="nama">
+
+<!-- Salah: label tidak terhubung -->
+<label>Nama Lengkap</label>
+<input type="text">
+\end{lstlisting}
+
+\begin{catatan}
+Kenapa harus pakai label?
+\begin{enumerate}
+  \item \textbf{Aksesibilitas:} \emph{Screen reader} bisa membaca ``Nama Lengkap'' saat input difokuskan.
+  \item \textbf{UX:} Klik pada label akan memfokuskan kursor ke input yang sesuai.
+  \item \textbf{Validasi:} Peramban menampilkan pesan error yang lebih informatif.
+\end{enumerate}
+\end{catatan}
+
+\subsection{Atribut Validasi Dasar}
+
+\begin{table}[ht]
+\centering
+\caption{Atribut validasi form}
+\label{tab:m04-validasi}
+\begin{tabular}{lp{4cm}p{5cm}}
+\toprule
+\textbf{Atribut} & \textbf{Fungsi} & \textbf{Contoh} \\
+\midrule
+\texttt{required} & Input wajib diisi & Semua field penting \\
+\texttt{minlength} / \texttt{maxlength} & Batas panjang teks & Password minimal 8 karakter \\
+\texttt{min} / \texttt{max} & Batas angka & Tahun 2020--2030 \\
+\texttt{placeholder} & Teks petunjuk di dalam input & ``Masukkan email'' \\
+\texttt{pattern} & Pola \emph{regex} untuk validasi & Format telepon tertentu \\
+\texttt{disabled} & Nonaktifkan input & Field yang belum tersedia \\
+\texttt{readonly} & Boleh dilihat, tidak bisa diedit & Field otomatis \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Verifikasi Form}
+
+Coba:
+\begin{enumerate}
+  \item Klik tombol \textbf{Daftar Sekarang} tanpa mengisi apapun $\rightarrow$ peramban harus menampilkan pesan error ``Please fill out this field'' pada field \texttt{required}.
+  \item Isi \emph{email} dengan format salah (misal: \texttt{bukanemail}) $\rightarrow$ tekan \emph{Submit} $\rightarrow$ peramban harus menampilkan pesan error tentang format email.
+  \item Isi \emph{password} kurang dari 8 karakter $\rightarrow$ peramban harus menolak.
+\end{enumerate}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-04/form-pendaftaran.png}
+  {Form pendaftaran di peramban.}
+  {Pastikan terlihat semua field (Data Diri, Info Akademik, Pesan) dan tombol ``Daftar Sekarang''.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 4. TABEL HTML
+% ---------------------------------------------------------------------
+\section{Tabel HTML}
+\label{sec:m04-tabel}
+
+\begin{catatan}
+\textbf{Tabel} digunakan untuk menampilkan data berbentuk baris dan kolom. Penting untuk data terstruktur seperti jadwal, perbandingan harga, statistik, dsb.
+\end{catatan}
+
+\subsection{Live Coding: Tabel Sederhana}
+
+Buat file baru: \texttt{tabel.html}. Ketik kode berikut:
+
+\begin{lstlisting}[language=HTML, caption={Tabel data mahasiswa dengan colspan dan rowspan}, label={lst:m04-tabel}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Tabel Data --- Latihan HTML Lanjutan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        thead { background-color: #2c3e50; color: white; }
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        caption {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Data Mahasiswa D3 Informatika</h1>
+
+    <!-- TABLE 1: Tabel Dasar -->
+    <table>
+        <caption>Jadwal Kuliah Semester 1</caption>
+        <thead>
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Mata Kuliah</th>
+                <th scope="col">Hari</th>
+                <th scope="col">Jam</th>
+                <th scope="col">SKS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Desain Web</td>
+                <td>Senin</td>
+                <td>08:00 &ndash; 10:00</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Algoritma Pemrograman</td>
+                <td>Selasa</td>
+                <td>10:00 &ndash; 12:00</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Basis Data</td>
+                <td>Rabu</td>
+                <td>13:00 &ndash; 15:00</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Matematika Diskrit</td>
+                <td>Kamis</td>
+                <td>08:00 &ndash; 10:00</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Bahasa Inggris Teknik</td>
+                <td>Jumat</td>
+                <td>10:00 &ndash; 12:00</td>
+                <td>2</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4"><strong>Total SKS</strong></td>
+                <td><strong>14</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <hr>
+
+    <!-- TABLE 2: Tabel dengan colspan & rowspan -->
+    <h2>Perbandingan Nilai UTS</h2>
+    <table>
+        <thead>
+            <tr>
+                <th rowspan="2" scope="col">Mata Kuliah</th>
+                <th colspan="3"
+                    scope="colgroup">Nilai Per Kelompok</th>
+            </tr>
+            <tr>
+                <th scope="col">Kelompok A</th>
+                <th scope="col">Kelompok B</th>
+                <th scope="col">Kelompok C</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Desain Web</td>
+                <td>85</td>
+                <td>78</td>
+                <td>90</td>
+            </tr>
+            <tr>
+                <td>Algoritma</td>
+                <td>72</td>
+                <td>88</td>
+                <td>81</td>
+            </tr>
+            <tr>
+                <td>Basis Data</td>
+                <td>91</td>
+                <td>76</td>
+                <td>85</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
+\end{lstlisting}
+
+Simpan $\rightarrow$ buka dengan \emph{Live Server}.
+
+\subsection{Struktur Tabel}
+
+\begin{lstlisting}[caption={Struktur dasar tabel HTML}, label={lst:m04-struktur-tabel}]
+<table>
+    <caption>   Judul tabel (wajib ada untuk aksesibilitas)
+    <thead>     Bagian kepala tabel (baris judul kolom)
+        <tr>    Table row (baris)
+        <th>    Table header (judul kolom/baris)
+    <tbody>     Bagian isi tabel (data)
+        <tr>
+        <td>    Table data (sel data)
+    <tfoot>     Bagian kaki tabel (total, ringkasan)
+        <tr>
+        <td>
+</table>
+\end{lstlisting}
+
+\subsection{Atribut Penting untuk Aksesibilitas}
+
+\begin{table}[ht]
+\centering
+\caption{Atribut tabel untuk aksesibilitas}
+\label{tab:m04-tabel-attr}
+\begin{tabular}{lp{3.5cm}p{5.5cm}}
+\toprule
+\textbf{Atribut} & \textbf{Fungsi} & \textbf{Contoh} \\
+\midrule
+\texttt{scope="col"} & Menandai header sebagai kolom & \texttt{<th scope="col">Nama</th>} \\
+\texttt{scope="row"} & Menandai header sebagai baris & \texttt{<th scope="row">Senin</th>} \\
+\texttt{colspan="N"} & Sel melebar N kolom & \texttt{<td colspan="3">Gabungan</td>} \\
+\texttt{rowspan="N"} & Sel melebar N baris & \texttt{<th rowspan="2">Header</th>} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{catatan}
+Atribut \texttt{scope} membantu \emph{screen reader} menavigasi tabel dengan benar.
+\end{catatan}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-04/tabel-data.png}
+  {Tabel data mahasiswa di peramban.}
+  {Pastikan terlihat 2 tabel: Jadwal Kuliah dan Perbandingan Nilai, dengan \emph{styling} yang rapi.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 5. MULTIMEDIA
+% ---------------------------------------------------------------------
+\section{Multimedia: Gambar, Video, Audio}
+\label{sec:m04-multimedia}
+
+\subsection{Gambar --- Review \& Lanjutan}
+
+Kita sudah belajar \texttt{<img>} di Bab~\ref{chap:minggu-03}. Sekarang tambahkan \texttt{<figure>}:
+
+\begin{lstlisting}[language=HTML, caption={Gambar dengan figure dan figcaption}, label={lst:m04-figure}]
+<figure>
+    <img src="https://placehold.co/600x400"
+         alt="Pemandangan gunung saat matahari terbit"
+         width="600" height="400"
+         loading="lazy">
+    <figcaption>Gambar 1 --- Pemandangan alam sebagai
+        contoh konten visual</figcaption>
+</figure>
+\end{lstlisting}
+
+Atribut tambahan \texttt{loading="lazy"}: gambar hanya dimuat saat pengguna \emph{scroll} ke bagian tersebut (hemat \emph{bandwidth} \& mempercepat \emph{loading} halaman pertama).
+
+\subsection{Video (HTML5)}
+
+\begin{lstlisting}[language=HTML, caption={Menyisipkan video HTML5}, label={lst:m04-video}]
+<!-- Video dari URL langsung -->
+<video width="640" height="360" controls>
+    <source src="video-tutorial.mp4" type="video/mp4">
+    Browser kamu tidak mendukung elemen video.
+</video>
+
+<!-- Contoh dengan video publik -->
+<video width="640" height="360" controls
+       poster="https://placehold.co/640x360">
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4"
+            type="video/mp4">
+    Browser kamu tidak mendukung elemen video.
+</video>
+\end{lstlisting}
+
+\begin{table}[ht]
+\centering
+\caption{Atribut elemen video}
+\label{tab:m04-video}
+\begin{tabular}{lp{8cm}}
+\toprule
+\textbf{Atribut} & \textbf{Fungsi} \\
+\midrule
+\texttt{controls} & Menampilkan tombol play/pause/volume \\
+\texttt{autoplay} & Video otomatis dimuat (hindari --- mengganggu pengguna) \\
+\texttt{loop} & Video diulang terus-menerus \\
+\texttt{muted} & Video tanpa suara \\
+\texttt{poster} & Gambar \emph{thumbnail} sebelum video dimainkan \\
+\texttt{width} / \texttt{height} & Ukuran tampilan video \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Audio (HTML5)}
+
+\begin{lstlisting}[language=HTML, caption={Menyisipkan elemen audio}, label={lst:m04-audio}]
+<audio controls>
+    <source src="https://www.w3schools.com/html/horse.mp3"
+            type="audio/mpeg">
+    Browser kamu tidak mendukung elemen audio.
+</audio>
+\end{lstlisting}
+
+\begin{table}[ht]
+\centering
+\caption{Atribut elemen audio}
+\label{tab:m04-audio}
+\begin{tabular}{lp{8cm}}
+\toprule
+\textbf{Atribut} & \textbf{Fungsi} \\
+\midrule
+\texttt{controls} & Menampilkan tombol play/pause/volume \\
+\texttt{autoplay} & Audio otomatis diputar (sangat tidak disarankan) \\
+\texttt{loop} & Audio diulang terus-menerus \\
+\texttt{muted} & Audio tanpa suara \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Iframe --- \emph{Embed} Konten Eksternal}
+
+\begin{lstlisting}[language=HTML, caption={Menyisipkan video YouTube via iframe}, label={lst:m04-iframe}]
+<!-- Embed YouTube video -->
+<iframe width="560" height="315"
+    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+    title="Contoh video YouTube"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write;
+           encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+</iframe>
+\end{lstlisting}
+
+\begin{peringatan}
+Selalu isi atribut \texttt{title} pada \texttt{<iframe>} untuk aksesibilitas.
+\end{peringatan}
+
+% ---------------------------------------------------------------------
+% 6. PRAKTIK: MENGGabungkan SEMUA ELEMEN
+% ---------------------------------------------------------------------
+\section{Praktik: Menggabungkan Semua Elemen}
+\label{sec:m04-gabung}
+
+\begin{langkah}
+  \item Buat file \texttt{praktikum-minggu-4.html} yang menggabungkan semua elemen yang sudah dipelajari.
+  \item Gunakan struktur \emph{semantic} HTML (\texttt{<header>}, \texttt{<nav>}, \texttt{<main>}, \texttt{<section>}, \texttt{<footer>}).
+  \item Sertakan section form, tabel, dan multimedia dalam satu halaman.
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Halaman praktikum minggu 4 (ringkasan struktur)}, label={lst:m04-gabung}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Praktikum Minggu 4 --- Form, Tabel &amp;
+           Multimedia</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 8px;
+        }
+        h2 { color: #34495e; margin-top: 40px; }
+        nav {
+            background: #2c3e50;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 12px;
+        }
+        nav a:hover { text-decoration: underline; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        thead { background: #2c3e50; color: white; }
+        caption {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        form {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            margin-top: 14px;
+            padding: 10px 24px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover { background: #34495e; }
+        figure {
+            margin: 20px 0;
+            text-align: center;
+        }
+        figcaption {
+            font-style: italic;
+            margin-top: 6px;
+            color: #666;
+        }
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER & NAV -->
+    <header>
+        <h1>Praktikum Minggu 4</h1>
+        <nav>
+            <a href="#form">Form</a>
+            <a href="#tabel">Tabel</a>
+            <a href="#multimedia">Multimedia</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- SECTION: FORM -->
+        <section id="form">
+            <h2>1. Form Pendaftaran</h2>
+            <form action="#" method="post">
+                <label for="p-nama">Nama Lengkap
+                    <span style="color:red;">*</span></label>
+                <input type="text" id="p-nama" name="nama"
+                       placeholder="Nama kamu" required>
+
+                <label for="p-email">Email
+                    <span style="color:red;">*</span></label>
+                <input type="email" id="p-email"
+                       name="email"
+                       placeholder="email@contoh.com"
+                       required>
+
+                <label for="p-prodi">Program Studi</label>
+                <select id="p-prodi" name="prodi">
+                    <option value="">-- Pilih --</option>
+                    <option value="d3-informatika">
+                        D3 Informatika</option>
+                    <option value="d3-multimedia">
+                        D3 Multimedia</option>
+                </select>
+
+                <label for="p-pesan">Pesan</label>
+                <textarea id="p-pesan" name="pesan"
+                          rows="4"
+                          placeholder="Tulis pesan...">
+                </textarea>
+
+                <button type="submit">Kirim</button>
+            </form>
+        </section>
+
+        <!-- SECTION: TABEL -->
+        <section id="tabel">
+            <h2>2. Tabel Perbandingan</h2>
+            <table>
+                <caption>Perbandingan Framework CSS</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Fitur</th>
+                        <th scope="col">CSS Biasa</th>
+                        <th scope="col">Tailwind CSS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cara penulisan</td>
+                        <td>File terpisah (.css)</td>
+                        <td>Class inline di HTML</td>
+                    </tr>
+                    <tr>
+                        <td>Learning curve</td>
+                        <td>Rendah</td>
+                        <td>Sedang</td>
+                    </tr>
+                    <tr>
+                        <td>Ukuran file akhir</td>
+                        <td>Terkontrol manual</td>
+                        <td>Di-browse otomatis</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- SECTION: MULTIMEDIA -->
+        <section id="multimedia">
+            <h2>3. Multimedia</h2>
+
+            <figure>
+                <img src="https://placehold.co/600x300"
+                     alt="Contoh gambar placeholder"
+                     width="600" height="300"
+                     loading="lazy">
+                <figcaption>Gambar 1 --- Demonstrasi
+                    elemen &lt;img&gt; dengan
+                    &lt;figure&gt;</figcaption>
+            </figure>
+
+            <h3>Video</h3>
+            <video width="100%" controls
+                   poster="https://placehold.co/640x360">
+                <source
+                    src="https://www.w3schools.com/html/mov_bbb.mp4"
+                    type="video/mp4">
+                Browser kamu tidak mendukung elemen video.
+            </video>
+
+            <h3>Audio</h3>
+            <audio controls style="width:100%;">
+                <source
+                    src="https://www.w3schools.com/html/horse.mp3"
+                    type="audio/mpeg">
+                Browser kamu tidak mendukung elemen audio.
+            </audio>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 --- Praktikum Minggu 4 |
+           D3 Informatika</p>
+    </footer>
+
+</body>
+</html>
+\end{lstlisting}
+
+\begin{tip}
+Pastikan di peramban:
+\begin{itemize}
+  \item Tautan \emph{anchor} (\#form, \#tabel, \#multimedia) berfungsi.
+  \item Form bisa diisi dan menampilkan pesan error jika field \emph{required} kosong.
+  \item Tabel muncul dengan benar.
+  \item Gambar muncul dengan \emph{caption}.
+  \item Video dan audio bisa diputar.
+  \item \emph{Footer} muncul di bagian bawah.
+\end{itemize}
+\end{tip}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-04/praktikum-section-form.png}
+  {Section Form di halaman praktikum.}
+  {Pastikan terlihat label, input field, select \emph{dropdown}, textarea, dan tombol \emph{submit}.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-04/praktikum-section-tabel-multimedia.png}
+  {Section Tabel dan Multimedia.}
+  {Pastikan terlihat tabel perbandingan, gambar dengan \emph{caption}, video \emph{player}, dan audio \emph{player}.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 7. VALIDASI & PUSH KE GITHUB
+% ---------------------------------------------------------------------
+\section{Validasi \& Push ke GitHub}
+\label{sec:m04-push}
+
+\subsection{Validasi HTML}
+
+\begin{langkah}
+  \item Buka \texttt{https://validator.w3.org/\#validate\_by\_input}.
+  \item Salin-tempel isi \texttt{praktikum-minggu-4.html} $\rightarrow$ klik \textbf{Check}.
+  \item Perbaiki semua error hingga hasilnya bersih.
+\end{langkah}
+
+\subsection{Push ke GitHub}
+
+\begin{lstlisting}[caption={Perintah push ke GitHub}, label={lst:m04-git}]
+# Inisialisasi (jika folder baru)
+git init
+git remote add origin https://github.com/NAMA_USER/latihan-web-4.git
+
+# Commit dan push
+git add .
+git commit -m "Latihan HTML minggu 4: form, tabel, multimedia"
+git branch -M main
+git push -u origin main
+\end{lstlisting}
+
+% ---------------------------------------------------------------------
+% 8. LATIHAN MANDIRI
+% ---------------------------------------------------------------------
+\section{Latihan Mandiri}
+\label{sec:m04-latihan}
+
+\begin{latihan}[Form ``Survei Kepuasan'']
+Buat halaman \texttt{survei.html} yang berisi form survei kepuasan mahasiswa terhadap layanan kampus. Field yang wajib ada:
+\begin{enumerate}
+  \item \textbf{Nama} --- \texttt{type="text"}, \texttt{required}
+  \item \textbf{NIM} --- \texttt{type="number"}, \texttt{required}, \texttt{minlength="8"}
+  \item \textbf{Email} --- \texttt{type="email"}, \texttt{required}
+  \item \textbf{Fakultas} --- \texttt{<select>} (minimal 4 pilihan), \texttt{required}
+  \item \textbf{Semester saat ini} --- \texttt{type="number"}, \texttt{min="1"} \texttt{max="8"}
+  \item \textbf{Tingkat kepuasan} --- \texttt{type="radio"} (1--5), \texttt{required}, gunakan \texttt{<fieldset>} + \texttt{<legend>}
+  \item \textbf{Saran/keluhan} --- \texttt{<textarea>}, \texttt{rows="5"}
+  \item \textbf{Setuju dihubungi} --- \texttt{type="checkbox"}
+\end{enumerate}
+Gunakan minimal 2 \texttt{<fieldset>} untuk mengelompokkan field. Setiap field harus punya \texttt{<label>} yang terhubung (\texttt{for} = \texttt{id}). Gunakan \texttt{<main>}, \texttt{<header>}, \texttt{<footer>} (\emph{semantic HTML}).
+\end{latihan}
+
+\begin{latihan}[Tabel ``Data Buku'']
+Buat halaman \texttt{buku.html} yang berisi tabel daftar buku dengan kolom: No, Judul Buku, Pengarang, Tahun, Harga. Persyaratan:
+\begin{itemize}
+  \item Minimal 8 baris data (buku).
+  \item Gunakan \texttt{<thead>}, \texttt{<tbody>}, \texttt{<tfoot>} (\texttt{<tfoot>} untuk total rata-rata harga).
+  \item Gunakan \texttt{scope="col"} pada header kolom.
+  \item Gunakan \texttt{colspan} di \emph{footer} untuk kolom ``Total''.
+  \item Tambahkan \texttt{<caption>} pada tabel.
+  \item Sertakan minimal 1 gambar (misal: sampul buku \emph{placeholder}) di atas tabel dengan \texttt{<figure>} + \texttt{<figcaption>}.
+\end{itemize}
+\end{latihan}
+
+\begin{latihan}[Push \& Screenshot]
+\begin{enumerate}
+  \item \emph{Push} semua file ke GitHub.
+  \item Ambil \emph{ screenshot} hasil latihan (form \& tabel).
+  \item Pastikan tidak ada \emph{warning} di W3C Validator.
+\end{enumerate}
+\end{latihan}
+
+% ---------------------------------------------------------------------
+% 9. TROUBLESHOOTING
+% ---------------------------------------------------------------------
+\section{Troubleshooting}
+\label{sec:m04-troubleshoot}
+
+\begin{table}[ht]
+\centering
+\caption{Masalah umum form, tabel, dan multimedia}
+\label{tab:m04-troubleshoot}
+\small
+\begin{tabular}{p{4.5cm}p{8cm}}
+\toprule
+\textbf{Masalah} & \textbf{Solusi} \\
+\midrule
+Form tidak melakukan apa-apa saat \emph{submit} & \texttt{action="\#"} hanya \emph{placeholder} --- tidak ada \emph{backend}. Validasi peramban tetap berjalan meskipun tidak ada server \\
+\emph{Radio button} bisa dipilih semua & Pastikan semua \emph{radio button} punya nama yang sama (\texttt{name="jk"}), sehingga hanya satu yang bisa dipilih \\
+Label tidak memfokuskan input saat diklik & Pastikan atribut \texttt{for} pada \texttt{<label>} = \texttt{id} pada \texttt{<input>} (harus sama persis) \\
+Tampilan tabel berantakan di \emph{mobile} & Tabel memang tidak responsif secara \emph{default} --- akan dipelajari cara membuatnya responsif di CSS \\
+Video/audio tidak muncul & Periksa URL/path file. Jika dari URL eksternal, pastikan URL masih aktif \\
+\texttt{<caption>} tidak terlihat & Pastikan \texttt{<caption>} adalah anak langsung \texttt{<table>} dan berada sebelum \texttt{<thead>} \\
+Tombol \emph{submit} me-\emph{reload} halaman & Normal --- karena \texttt{action="\#"}; saat belajar JavaScript, \emph{reload} akan dicegah dengan \texttt{event.preventDefault()} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------
+% 10. RANGKUMAN
+% ---------------------------------------------------------------------
+\section{Rangkuman}
+\label{sec:m04-rangkuman}
+
+\begin{itemize}
+  \item Membuat form HTML dengan berbagai jenis \emph{input}.
+  \item Menggunakan \texttt{<label>}, \texttt{<fieldset>}, \texttt{<legend>} untuk form yang rapi \& aksesibel.
+  \item Atribut validasi: \texttt{required}, \texttt{minlength}, \texttt{min}, \texttt{max}, \texttt{placeholder}.
+  \item Membuat tabel dengan \texttt{<table>}, \texttt{<caption>}, \texttt{<thead>}, \texttt{<tbody>}, \texttt{<tfoot>}.
+  \item Atribut tabel: \texttt{scope}, \texttt{colspan}, \texttt{rowspan}.
+  \item Menyisipkan multimedia: \texttt{<img>}, \texttt{<figure>}, \texttt{<video>}, \texttt{<audio>}, \texttt{<iframe>}.
+\end{itemize}
+
+\begin{tip}
+\textbf{Cheat Sheet Form Input Types:}
+\begin{itemize}
+  \item \texttt{text} $\rightarrow$ Teks biasa
+  \item \texttt{email} $\rightarrow$ Email (validasi format)
+  \item \texttt{password} $\rightarrow$ Teks tersembunyi
+  \item \texttt{number} $\rightarrow$ Angka + tombol +/--
+  \item \texttt{date} $\rightarrow$ \emph{Date picker} (kalender)
+  \item \texttt{tel} $\rightarrow$ Nomor telepon
+  \item \texttt{url} $\rightarrow$ URL (validasi format)
+  \item \texttt{radio} $\rightarrow$ Pilih 1 dari beberapa
+  \item \texttt{checkbox} $\rightarrow$ Pilih beberapa
+  \item \texttt{file} $\rightarrow$ \emph{Upload} file
+  \item \texttt{color} $\rightarrow$ \emph{Color picker}
+  \item \texttt{range} $\rightarrow$ Slider
+  \item \texttt{hidden} $\rightarrow$ Tersembunyi
+  \item \texttt{submit} $\rightarrow$ Tombol \emph{submit}
+  \item \texttt{reset} $\rightarrow$ Tombol \emph{reset} form
+\end{itemize}
+\end{tip}

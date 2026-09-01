@@ -1,0 +1,662 @@
+% =====================================================================
+%  chapters/minggu-11.tex
+%  Minggu 11 -- JavaScript: Event Handling & Manipulasi DOM
+% =====================================================================
+
+\chapter{JavaScript: Event Handling \& Manipulasi DOM}
+\label{chap:mjs-11}
+
+% ---------------------------------------------------------------------
+% 1. CAPAIAN PEMBELAJARAN
+% ---------------------------------------------------------------------
+\begin{capaian}
+Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu:
+\begin{itemize}
+  \item merespons interaksi pengguna (klik, input, \emph{submit}) menggunakan \emph{event handling};
+  \item membedakan penggunaan \texttt{onclick} dan \texttt{addEventListener};
+  \item memanipulasi konten DOM (\texttt{textContent}, \texttt{innerHTML}, \texttt{style}, \texttt{classList});
+  \item membuat dan menghapus elemen HTML secara dinamis.
+\end{itemize}
+\end{capaian}
+
+% ---------------------------------------------------------------------
+% 2. TUJUAN PRAKTIK
+% ---------------------------------------------------------------------
+\begin{tujuanpraktik}
+Pada sesi praktik ini, mahasiswa akan:
+\begin{itemize}
+  \item membuat halaman web interaktif dengan tombol dan form;
+  \item membangun daftar tugas yang bisa ditambah/dihapus;
+  \item menerapkan \emph{toggle menu mobile} sebagai mini proyek.
+\end{itemize}
+\end{tujuanpraktik}
+
+\begin{catatan}
+Pengingat cepat dari Minggu 10: \texttt{getElementById}, \texttt{querySelector}, \texttt{querySelectorAll}, \texttt{let}, \texttt{const}, \texttt{if}/\texttt{else}, fungsi.
+\end{catatan}
+
+% =====================================================================
+\section{Event Handling: onclick \& addEventListener}
+\label{sec:11-event-basic}
+% =====================================================================
+
+\textbf{Event} adalah sesuatu yang terjadi pada halaman web---misal: pengguna mengklik tombol, mengetik di \emph{input}, atau menggerakkan \emph{mouse}. Kita bisa \textbf{mendengarkan} event ini dan menjalankan JavaScript sebagai respons.
+
+\begin{langkah}
+  \item Buat file baru \texttt{minggu11.html} dengan kode berikut.
+  \item Buka dengan Live Server, klik kedua tombol, dan amati perubahan.
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Event handling: onclick dan addEventListener}, label={lst:11-event-basic}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minggu 11 -- Event Handling</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        button { padding: 10px 20px; font-size: 16px;
+                 cursor: pointer; margin: 5px; }
+        .aktif { background-color: #4CAF50; color: white; }
+        .output { background-color: #f0f0f0; padding: 15px;
+                  margin: 10px 0; border-radius: 5px;
+                  min-height: 30px; }
+    </style>
+</head>
+<body>
+    <h1>Event Handling</h1>
+
+    <!-- Cara 1: onclick langsung di HTML -->
+    <h2>Cara 1: onclick di HTML</h2>
+    <button onclick="sapa()">Klik Saya!</button>
+
+    <!-- Cara 2: addEventListener di JavaScript -->
+    <h2>Cara 2: addEventListener</h2>
+    <button id="tombol-hitung">Hitung Klik</button>
+    <span id="tampil-klik">0</span> kali diklik
+
+    <div class="output" id="area-output">
+        Output akan muncul di sini...
+    </div>
+
+    <script>
+        // Cara 1: onclick
+        function sapa() {
+            document.getElementById("area-output").textContent =
+                "Halo! Anda baru saja mengklik tombol sapa.";
+        }
+
+        // Cara 2: addEventListener (lebih disarankan)
+        let jumlahKlik = 0;
+        document.getElementById("tombol-hitung")
+            .addEventListener("click", function() {
+                jumlahKlik++;
+                document.getElementById("tampil-klik")
+                    .textContent = jumlahKlik;
+
+                if (jumlahKlik >= 5) {
+                    document.getElementById("area-output")
+                        .textContent = "Wah, Anda sudah mengklik "
+                            + jumlahKlik + " kali!";
+                } else {
+                    document.getElementById("area-output")
+                        .textContent = "Klik ke-" + jumlahKlik
+                            + ". Coba terus!";
+                }
+            });
+    </script>
+</body>
+</html>
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-11/event-basic.png}
+  {Halaman dengan tombol ``Hitung Klik'' yang sudah diklik beberapa kali dan angka penghitung.}
+  {Buka \texttt{minggu11.html} di peramban, klik tombol beberapa kali, dan bandingkan.}
+\end{tangkapanlayar}
+
+\subsection{Mengapa addEventListener Lebih Baik?}
+
+\begin{table}[htbp]
+\centering
+\caption{Perbandingan onclick dan addEventListener}
+\label{tab:11-perbandingan-event}
+\begin{tabular}{lll}
+\toprule
+\textbf{Aspek} & \textbf{onclick} & \textbf{addEventListener} \\
+\midrule
+Jumlah \emph{handler} & Hanya 1 & Banyak sekaligus \\
+Pemisahan kode & JS tercampur di HTML & JS terpisah di \texttt{<script>} \\
+Fleksibilitas & Terbatas & Bisa \emph{add}/\emph{remove listener} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{tip}
+Gunakan \texttt{addEventListener} untuk semua kebutuhan \emph{event handling}.
+\end{tip}
+
+\subsection{Event Populer}
+
+\begin{table}[htbp]
+\centering
+\caption{Event yang sering digunakan}
+\label{tab:11-event-populer}
+\begin{tabular}{ll}
+\toprule
+\textbf{Event} & \textbf{Kapan Terjadi} \\
+\midrule
+\texttt{click} & Elemen diklik \\
+\texttt{dblclick} & Elemen diklik dua kali \\
+\texttt{mouseover} & \emph{Mouse} masuk ke elemen \\
+\texttt{mouseout} & \emph{Mouse} keluar dari elemen \\
+\texttt{keydown} & Tombol \emph{keyboard} ditekan \\
+\texttt{input} & Nilai \emph{input} berubah \\
+\texttt{submit} & Form dikirim \\
+\texttt{load} & Halaman selesai dimuat \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% =====================================================================
+\section{Event pada Form \& Input}
+\label{sec:11-form-event}
+% =====================================================================
+
+\begin{langkah}
+  \item Tambahkan kode berikut \textbf{sebelum} \texttt{</body>} pada \texttt{minggu11.html} (ganti atau tambahkan \emph{script} baru).
+  \item Coba isi form dan \emph{submit}. Amati: jika field kosong $\rightarrow$ muncul pesan error; saat mengetik $\rightarrow$ muncul penghitung karakter \emph{real-time}; setelah \emph{submit} berhasil $\rightarrow$ form terkosongkan.
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Form sederhana dengan validasi dan penghitung karakter}, label={lst:11-form}]
+<h2>Form Sederhana</h2>
+<form id="form-mahasiswa">
+    <label for="input-nama">Nama:</label><br>
+    <input type="text" id="input-nama"
+           placeholder="Masukkan nama"><br><br>
+    <label for="input-email">Email:</label><br>
+    <input type="email" id="input-email"
+           placeholder="contoh@email.com"><br><br>
+    <button type="submit">Kirim</button>
+</form>
+
+<div class="output" id="hasil-form">
+    Data form akan muncul di sini...
+</div>
+
+<script>
+    // Event pada form submit
+    document.getElementById("form-mahasiswa")
+        .addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const nama = document.getElementById("input-nama").value;
+            const email = document.getElementById("input-email").value;
+
+            if (nama === "" || email === "") {
+                document.getElementById("hasil-form").textContent =
+                    "Semua field wajib diisi!";
+                document.getElementById("hasil-form")
+                    .style.backgroundColor = "#ffe0e0";
+                return;
+            }
+
+            document.getElementById("hasil-form").textContent =
+                "Data diterima -- Nama: " + nama
+                    + ", Email: " + email;
+            document.getElementById("hasil-form")
+                .style.backgroundColor = "#e0ffe0";
+
+            // Kosongkan form
+            document.getElementById("input-nama").value = "";
+            document.getElementById("input-email").value = "";
+        });
+
+    // Event pada input -- real-time feedback
+    document.getElementById("input-nama")
+        .addEventListener("input", function(event) {
+            const panjang = event.target.value.length;
+            if (panjang > 0) {
+                document.getElementById("hasil-form").textContent =
+                    "Anda mengetik " + panjang + " karakter...";
+                document.getElementById("hasil-form")
+                    .style.backgroundColor = "#f0f0f0";
+            } else {
+                document.getElementById("hasil-form").textContent =
+                    "Data form akan muncul di sini...";
+            }
+        });
+</script>
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-11/event-form.png}
+  {Form yang sudah diisi dengan data valid dan pesan sukses di area \emph{output}.}
+  {Isi form dengan nama dan email yang valid, lalu klik ``Kirim''.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-11/event-form-validasi.png}
+  {Form yang dikosongkan lalu disubmit---muncul pesan validasi error.}
+  {Kosongkan form lalu klik ``Kirim'' tanpa mengisi apapun.}
+\end{tangkapanlayar}
+
+% =====================================================================
+\section{Manipulasi DOM: Mengubah Konten}
+\label{sec:11-manipulasi-konten}
+% =====================================================================
+
+\begin{langkah}
+  \item Tambahkan kode berikut ke dalam \texttt{<body>} \texttt{minggu11.html}.
+  \item Klik setiap tombol satu per satu dan amati perubahan.
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Empat cara mengubah konten DOM}, label={lst:11-manipulasi-konten}]
+<h2>Mengubah Konten DOM</h2>
+<button id="btn-ubah-teks">Ubah Teks</button>
+<button id="btn-ubah-html">Ubah HTML</button>
+<button id="btn-ubah-style">Ubah Gaya</button>
+<button id="btn-ubah-class">Toggle Class</button>
+
+<div id="target-konten" class="output">
+    Ini adalah elemen yang akan diubah.
+</div>
+
+<script>
+    // 1. Mengubah teks (textContent)
+    document.getElementById("btn-ubah-teks")
+        .addEventListener("click", function() {
+            document.getElementById("target-konten")
+                .textContent = "Teks sudah berubah!";
+        });
+
+    // 2. Mengubah HTML (innerHTML)
+    document.getElementById("btn-ubah-html")
+        .addEventListener("click", function() {
+            document.getElementById("target-konten")
+                .innerHTML =
+                "<strong>Teks tebal</strong> dan "
+                + "<em>text miring</em> "
+                + "-- semua dari innerHTML!";
+        });
+
+    // 3. Mengubah gaya langsung (style)
+    document.getElementById("btn-ubah-style")
+        .addEventListener("click", function() {
+            const el = document.getElementById("target-konten");
+            el.style.backgroundColor = "#4CAF50";
+            el.style.color = "white";
+            el.style.padding = "20px";
+            el.style.borderRadius = "10px";
+            el.style.fontSize = "18px";
+        });
+
+    // 4. Toggle class (cara paling rapi untuk styling)
+    document.getElementById("btn-ubah-class")
+        .addEventListener("click", function() {
+            document.getElementById("target-konten")
+                .classList.toggle("aktif");
+        });
+</script>
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-11/manipulasi-konten.png}
+  {Area \emph{output} setelah diklik---tampilan berubah sesuai tombol yang ditekan.}
+  {Klik setiap tombol satu per satu dan bandingkan perubahan tampilan.}
+\end{tangkapanlayar}
+
+\begin{table}[htbp]
+\centering
+\caption{Ringkasan cara mengubah DOM}
+\label{tab:11-cara-dom}
+\begin{tabular}{lll}
+\toprule
+\textbf{Metode} & \textbf{Fungsi} & \textbf{Contoh} \\
+\midrule
+\texttt{textContent} & Mengubah teks mentah & \texttt{el.textContent = "Halo"} \\
+\texttt{innerHTML} & Mengubah isi HTML & \texttt{el.innerHTML = "<b>Halo</b>"} \\
+\texttt{style.prop} & Mengubah gaya CSS & \texttt{el.style.color = "red"} \\
+\texttt{classList.toggle()} & Tambah/hapus class & \texttt{el.classList.toggle("aktif")} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{peringatan}
+Hindari \texttt{innerHTML} untuk konten dari pengguna (bisa menyebabkan \textbf{XSS}). Untuk teks biasa, gunakan \texttt{textContent}.
+\end{peringatan}
+
+% =====================================================================
+\section{Manipulasi DOM: Membuat \& Menghapus Elemen}
+\label{sec:11-manipulasi-elemen}
+% =====================================================================
+
+\begin{langkah}
+  \item Tambahkan kode berikut ke dalam \texttt{<body>} \texttt{minggu11.html}.
+  \item Coba tambahkan beberapa item, hapus satu per satu, dan hapus semua.
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Membuat dan menghapus elemen secara dinamis}, label={lst:11-hapus-elemen}]
+<h2>Membuat & Menghapus Elemen</h2>
+<input type="text" id="input-item"
+       placeholder="Ketik item baru...">
+<button id="btn-tambah">Tambah</button>
+<button id="btn-hapus-terakhir">Hapus Terakhir</button>
+<button id="btn-hapus-semua">Hapus Semua</button>
+
+<ul id="daftar-item" style="list-style: none; padding: 0;">
+</ul>
+
+<script>
+    function buatItem(teksItem) {
+        const li = document.createElement("li");
+        li.textContent = teksItem;
+        li.style.padding = "8px 12px";
+        li.style.margin = "5px 0";
+        li.style.backgroundColor = "#e8f4f8";
+        li.style.borderRadius = "4px";
+        li.style.display = "flex";
+        li.style.justifyContent = "space-between";
+
+        const tombolHapus = document.createElement("button");
+        tombolHapus.textContent = "x";
+        tombolHapus.style.backgroundColor = "#ff6b6b";
+        tombolHapus.style.color = "white";
+        tombolHapus.style.border = "none";
+        tombolHapus.style.padding = "2px 8px";
+        tombolHapus.style.cursor = "pointer";
+        tombolHapus.style.borderRadius = "3px";
+
+        tombolHapus.addEventListener("click", function() {
+            li.remove();
+        });
+
+        li.appendChild(tombolHapus);
+        return li;
+    }
+
+    // Tambah item
+    document.getElementById("btn-tambah")
+        .addEventListener("click", function() {
+            const input = document.getElementById("input-item");
+            const teks = input.value.trim();
+            if (teks === "") {
+                alert("Masukkan teks terlebih dahulu!");
+                return;
+            }
+            document.getElementById("daftar-item")
+                .appendChild(buatItem(teks));
+            input.value = "";
+            input.focus();
+        });
+
+    // Tambah item dengan Enter
+    document.getElementById("input-item")
+        .addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                document.getElementById("btn-tambah").click();
+            }
+        });
+
+    // Hapus item terakhir
+    document.getElementById("btn-hapus-terakhir")
+        .addEventListener("click", function() {
+            const daftar = document.getElementById("daftar-item");
+            if (daftar.lastElementChild) {
+                daftar.lastElementChild.remove();
+            }
+        });
+
+    // Hapus semua item
+    document.getElementById("btn-hapus-semua")
+        .addEventListener("click", function() {
+            document.getElementById("daftar-item")
+                .innerHTML = "";
+        });
+</script>
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-11/manipulasi-elemen.png}
+  {Daftar item yang sudah ditambahkan beberapa item, dengan tombol hapus per item.}
+  {Buka \texttt{minggu11.html} di peramban, tambahkan item baru, lalu hapus satu per satu.}
+\end{tangkapanlayar}
+
+\subsection{Cara Membuat \& Menambah Elemen}
+
+\begin{lstlisting}[language=JavaScript, caption={Pola dasar pembuatan elemen DOM}, label={lst:11-pola-create}]
+// 1. Buat elemen baru
+const elemenBaru = document.createElement("div");
+
+// 2. Isi konten
+elemenBaru.textContent = "Ini elemen baru";
+elemenBaru.className = "kartu";
+
+// 3. Masukkan ke DOM (sebagai anak dari elemen lain)
+document.getElementById("induk").appendChild(elemenBaru);
+
+// Atau sisipkan di posisi tertentu
+document.getElementById("induk")
+    .insertBefore(elemenBaru, referensiElemen);
+
+// Hapus elemen
+elemenBaru.remove();
+\end{lstlisting}
+
+% =====================================================================
+\section{Mini Proyek: Toggle Menu Mobile}
+\label{sec:11-mini-proyek}
+% =====================================================================
+
+Membuat tombol \emph{hamburger} sederhana yang membuka/menutup menu navigasi---seperti yang sering Anda lihat di situs web pada tampilan \emph{mobile}.
+
+\begin{langkah}
+  \item Buat file baru \texttt{mini-proyek-menu.html}.
+  \item Buka dengan Live Server, lalu \textbf{resize browser ke bawah 600px} untuk melihat tampilan \emph{mobile}.
+  \item Klik tombol $\equiv$ dan amati menu terbuka. Klik $\times$ untuk menutup.
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Mini proyek: toggle menu mobile}, label={lst:11-toggle-menu}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Mini Proyek -- Toggle Menu</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; }
+
+        .navbar {
+            background-color: #333;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar .logo {
+            color: white; font-size: 20px; font-weight: bold;
+        }
+        .hamburger {
+            display: none; background: none; border: none;
+            color: white; font-size: 24px; cursor: pointer;
+            padding: 5px 10px;
+        }
+        .nav-menu {
+            list-style: none;
+            display: flex; gap: 15px;
+        }
+        .nav-menu a {
+            color: white; text-decoration: none;
+            padding: 5px 10px; border-radius: 3px;
+        }
+        .nav-menu a:hover { background-color: #555; }
+
+        @media (max-width: 600px) {
+            .hamburger { display: block; }
+            .nav-menu {
+                display: none;
+                flex-direction: vertical;
+                position: absolute; top: 60px;
+                left: 0; right: 0;
+                background-color: #444;
+                padding: 10px 20px;
+            }
+            .nav-menu.tampil { display: flex; }
+        }
+
+        .konten { padding: 20px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">MyWeb</div>
+        <button class="hamburger" id="hamburger">
+            &#9776;
+        </button>
+        <ul class="nav-menu" id="nav-menu">
+            <li><a href="#">Beranda</a></li>
+            <li><a href="#">Tentang</a></li>
+            <li><a href="#">Portofolio</a></li>
+            <li><a href="#">Kontak</a></li>
+        </ul>
+    </nav>
+
+    <div class="konten">
+        <h2>Selamat Datang!</h2>
+        <p>Coba ubah ukuran browser ke bawah 600px
+           (atau buka di hp) untuk melihat menu
+           hamburger muncul.</p>
+    </div>
+
+    <script>
+        const tombolHamburger =
+            document.getElementById("hamburger");
+        const navMenu = document.getElementById("nav-menu");
+
+        tombolHamburger.addEventListener("click", function() {
+            navMenu.classList.toggle("tampil");
+            if (navMenu.classList.contains("tampil")) {
+                tombolHamburger.textContent = "\u2715";
+            } else {
+                tombolHamburger.textContent = "\u2630";
+            }
+        });
+
+        document.addEventListener("click", function(event) {
+            if (!navMenu.contains(event.target)
+                && !tombolHamburger.contains(event.target)) {
+                navMenu.classList.remove("tampil");
+                tombolHamburger.textContent = "\u2630";
+            }
+        });
+    </script>
+</body>
+</html>
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-11/miniproject-desktop.png}
+  {Tampilan desktop---menu horizontal, tombol \emph{hamburger} tersembunyi.}
+  {Buka \texttt{mini-proyek-menu.html} di peramban dengan lebar penuh.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-11/miniproject-mobile.png}
+  {Tampilan \emph{mobile} (browser $<$ 600\,px)---tombol \emph{hamburger} terlihat, menu terbuka ke bawah.}
+  {Resize browser ke bawah 600\,px, lalu klik tombol $\equiv$.}
+\end{tangkapanlayar}
+
+% =====================================================================
+\section{Latihan}
+\label{sec:11-latihan}
+% =====================================================================
+
+\begin{latihan}[Kalkulator Sederhana]
+Buat file \texttt{latihan11-1.html} yang berisi:
+\begin{enumerate}
+  \item Dua \emph{input} angka (\texttt{<input type="number">}).
+  \item Empat tombol: Tambah, Kurang, Kalikan, Bagi.
+  \item Area \emph{output} untuk menampilkan hasil.
+  \item JavaScript yang menghitung sesuai tombol yang diklik.
+\end{enumerate}
+
+\textbf{Output yang diharapkan:}
+\begin{itemize}
+  \item Jika \emph{input} 10 dan 5, klik ``Kalikan'' $\rightarrow$ \emph{output} menampilkan \texttt{Hasil: 50}.
+  \item Jika \emph{input} 10 dan 0, klik ``Bagi'' $\rightarrow$ \emph{output} menampilkan \texttt{Error: Tidak bisa dibagi nol!}.
+\end{itemize}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-11/latihan1-kalkulator.png}
+  {Kalkulator berfungsi dengan hasil perhitungan.}
+  {Buka \texttt{latihan11-1.html} di peramban, masukkan dua angka, dan klik salah satu tombol.}
+\end{tangkapanlayar}
+\end{latihan}
+
+\begin{latihan}[Daftar Tugas dengan Checkbox]
+Buat file \texttt{latihan11-2.html} yang berisi:
+\begin{enumerate}
+  \item \emph{Input} untuk menambah tugas baru + tombol ``Tambah''.
+  \item Setiap tugas memiliki \emph{checkbox} dan tombol ``Hapus''.
+  \item Saat \emph{checkbox} dicentang, teks tugas dicoret (\emph{strikethrough}).
+  \item Total tugas dan tugas selesai ditampilkan di bawah daftar.
+\end{enumerate}
+
+\textbf{Output yang diharapkan:}
+\begin{itemize}
+  \item Menambah 3 tugas $\rightarrow$ \texttt{Total: 3, Selesai: 0}.
+  \item Mencentang 1 tugas $\rightarrow$ \texttt{Total: 3, Selesai: 1}, teks tugas tercoret.
+\end{itemize}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-11/latihan2-tugas.png}
+  {Daftar tugas dengan satu tugas tercentang dan \emph{counter} yang benar.}
+  {Buka \texttt{latihan11-2.html} di peramban, tambahkan 3 tugas, centang salah satu.}
+\end{tangkapanlayar}
+\end{latihan}
+
+\begin{latihan}[Light/Dark Mode Toggle --- Opsional]
+Buat file \texttt{latihan11-3.html} yang berisi:
+\begin{enumerate}
+  \item Tombol ``Dark Mode'' / ``Light Mode''.
+  \item Saat diklik, halaman berganti antara \emph{background} terang dan gelap.
+  \item Preferensi diingat selama sesi (boleh pakai \texttt{localStorage} jika sudah tahu, atau cukup \emph{toggle} CSS \emph{class}).
+\end{enumerate}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-11/latihan3-darkmode.png}
+  {Halaman dalam mode gelap dan mode terang.}
+  {Buka \texttt{latihan11-3.html} di peramban dan klik tombol \emph{toggle}.}
+\end{tangkapanlayar}
+\end{latihan}
+
+% =====================================================================
+\section{Troubleshooting}
+\label{sec:11-troubleshooting}
+% =====================================================================
+
+\begin{peringatan}
+\textbf{Event tidak merespons} --- pastikan elemen sudah ada di DOM saat script dijalankan (pindahkan \texttt{<script>} ke akhir \texttt{<body>} atau pakai \texttt{DOMContentLoaded}). Periksa \emph{selector} ID/\emph{class} di DevTools dan ejaan nama \emph{event} (mis.\ \texttt{"click"}, bukan \texttt{"clicl"}).
+\end{peringatan}
+
+\begin{catatan}
+\textbf{Form refresh saat dikirim} --- Anda lupa menambahkan \texttt{event.preventDefault()}. Bungkus \emph{handler} \texttt{submit} dengan:
+\end{catatan}
+
+\begin{lstlisting}[language=JavaScript, label={lst:11-prevent-default}]
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    // proses data...
+});
+\end{lstlisting}
+
+\begin{catatan}
+\textbf{Elemen baru tidak muncul di DOM} --- pastikan Anda memanggil \texttt{appendChild} atau \texttt{prepend} setelah \texttt{createElement}. Tanpa panggilan tersebut, elemen tidak akan muncul.
+\end{catatan}
+
+\begin{tip}
+\textbf{classList.toggle tidak berfungsi} --- periksa ejaan nama \emph{class} (\texttt{classList} bersifat \emph{case-sensitive}). Juga pastikan pengecekan \texttt{event.target} pada toggle menu benar menggunakan \texttt{contains()}.
+\end{tip}

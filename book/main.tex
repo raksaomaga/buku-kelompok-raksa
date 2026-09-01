@@ -1,0 +1,65 @@
+% =====================================================================
+%  main.tex
+%  Modul Perkuliahan Desain Web
+%  Berbasis template ElegantBook (ElegantLaTeX) — desain visual dipertahankan.
+%
+%  Kompilasi (wajib XeLaTeX):
+%    xelatex -synctex=1 -interaction=nonstopmode main.tex
+%    xelatex -synctex=1 -interaction=nonstopmode main.tex   (pass kedua utk referensi)
+%
+%  Lihat README.md untuk instruksi lengkap.
+% =====================================================================
+\documentclass[lang=en, color=blue, device=normal, mode=fancy, 11pt]{elegantbook}
+
+% --- Preamble khusus modul (bahasa Indonesia + lingkungan pedagogis) ---
+\input{preamble.tex}
+
+% =====================================================================
+%  METADATA BUKU
+% =====================================================================
+\title{Modul Perkuliahan Desain Web}
+\subtitle{Panduan Praktik dan Latihan Terstruktur}
+\author{Tim Pengampu Mata Kuliah Desain Web}
+\institute{Program Studi / Fakultas}
+\date{\today}
+\version{1.0}
+\bioinfo{Penggunaan}{Untuk kalangan mahasiswa}
+
+% =====================================================================
+%  DOKUMEN
+% =====================================================================
+\begin{document}
+
+\maketitle
+
+\frontmatter
+\tableofcontents
+\listoffigures
+\listoftables
+
+\mainmatter
+
+% --- Bab-bab modul (minggu 01–16) ---
+\input{chapters/minggu-01.tex}
+\input{chapters/minggu-02.tex}
+\input{chapters/minggu-03.tex}
+\input{chapters/minggu-04.tex}
+\input{chapters/minggu-05.tex}
+\input{chapters/minggu-06.tex}
+\input{chapters/minggu-07.tex}
+\input{chapters/minggu-08.tex}
+\input{chapters/minggu-09.tex}
+\input{chapters/minggu-10.tex}
+\input{chapters/minggu-11.tex}
+\input{chapters/minggu-12.tex}
+\input{chapters/minggu-13.tex}
+\input{chapters/minggu-14.tex}
+\input{chapters/minggu-15.tex}
+\input{chapters/minggu-16.tex}
+
+% =====================================================================
+%  BIBLIOGRAFI (opsional — aktifkan bila ada file reference.bib)
+% =====================================================================
+% \bibliography{reference}
+
+\end{document}

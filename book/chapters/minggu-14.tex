@@ -1,0 +1,381 @@
+% =====================================================================
+%  chapters/minggu-14.tex
+%  Minggu 14 — Workshop Proyek Akhir: Riset UI/UX & Perencanaan Desain
+% =====================================================================
+
+\chapter{Workshop Proyek Akhir --- Riset UI/UX \& Perencanaan Desain}
+\label{chap:minggu-14}
+
+% ---------------------------------------------------------------------
+% 1. CAPAIAN PEMBELAJARAN
+% ---------------------------------------------------------------------
+\begin{capaian}
+Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu:
+\begin{itemize}
+  \item melakukan \emph{heuristic evaluation} terhadap halaman website \emph{e-governance} menggunakan 10 \emph{Usability Heuristics} (Nielsen Norman Group);
+  \item mendokumentasikan \emph{pain point} dan hasil \emph{benchmarking} secara terstruktur;
+  \item membuat \emph{wireframe} dan \emph{mockup} desain ulang di Figma berdasarkan temuan riset;
+  \item menyusun rasional desain yang menghubungkan temuan riset dengan keputusan desain.
+\end{itemize}
+\end{capaian}
+
+% ---------------------------------------------------------------------
+% 2. TUJUAN PRAKTIK
+% ---------------------------------------------------------------------
+\begin{tujuanpraktik}
+Pada sesi praktik ini, mahasiswa akan:
+\begin{itemize}
+  \item menyiapkan struktur \emph{repository} dan \emph{branch} untuk proyek akhir;
+  \item mengidentifikasi halaman website target dan mendokumentasikannya;
+  \item melakukan \emph{heuristic evaluation} dan \emph{benchmarking};
+  \item membuat \emph{wireframe} dan \emph{mockup} di Figma;
+  \item menulis rasional desain.
+\end{itemize}
+\end{tujuanpraktik}
+
+% ---------------------------------------------------------------------
+% 3. PERSIAPAN KELOMPOK
+% ---------------------------------------------------------------------
+\section{Persiapan Kelompok}
+\label{sec:persiapan-kelompok}
+
+Setiap kelompok terdiri atas 3 orang. Berikut peralatan yang dibutuhkan:
+
+\begin{itemize}
+  \item \textbf{Browser} (Chrome/Firefox) --- akses website target dan \emph{heuristic checklist}.
+  \item \textbf{Figma} (akun gratis) --- \emph{wireframing} dan \emph{mockup}.
+  \item \textbf{VS Code} --- persiapan untuk minggu 15.
+  \item \textbf{GitHub} --- \emph{repository} proyek akhir.
+  \item \textbf{Google Docs / Markdown editor} --- dokumentasi hasil riset.
+\end{itemize}
+
+\subsection{Inisialisasi Repository}
+\label{subsec:inisialisasi-repo}
+
+\begin{langkah}
+  \item Buka \emph{repository} GitHub kelompok (yang sudah dibuat dari minggu 8--9 atau buat baru).
+  \item Buat \emph{branch} baru untuk proyek akhir:
+\begin{lstlisting}[language=bash, caption={Membuat branch final-project}]
+git checkout -b final-project
+\end{lstlisting}
+  \item Buat struktur folder di dalam \emph{repo}:
+\begin{lstlisting}[caption={Struktur folder proyek akhir}]
+final-project/
+  research/
+    heuristic-evaluation.md
+    benchmarking.md
+  design/
+  src/
+    index.html
+    css/
+    js/
+    assets/
+  README.md
+\end{lstlisting}
+  \item \emph{Push branch} ke GitHub:
+\begin{lstlisting}[language=bash, caption={Push awal}]
+git add .
+git commit -m "feat: inisialisasi struktur folder proyek akhir"
+git push -u origin final-project
+\end{lstlisting}
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-14/struktur-folder-repo.png}
+  {Struktur folder repo di VS Code Explorer.}
+  {Buka \texttt{VS Code} $\rightarrow$ \texttt{Explorer} $\rightarrow$ periksa bahwa seluruh folder dan file sudah sesuai.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 4. IDENTIFIKASI WEBSITE TARGET
+% ---------------------------------------------------------------------
+\section{Identifikasi Website Target}
+\label{sec:website-target}
+
+\begin{langkah}
+  \item Pilih satu halaman dari website \emph{e-governance} / layanan publik, contoh:
+  \begin{itemize}
+    \item Portal layanan perizinan daerah.
+    \item Halaman pendaftaran online instansi pemerintah.
+    \item Portal informasi desa/kelurahan.
+    \item Halaman pengaduan masyarakat \emph{online}.
+  \end{itemize}
+  \item Dokumentasikan informasi umum di \texttt{research/heuristic-evaluation.md} --- nama website, URL, halaman yang diriset, tanggal, dan anggota kelompok beserta peran masing-masing.
+  \item Ambil \emph{screenshot} halaman asli dari berbagai ukuran layar (desktop dan mobile) menggunakan \emph{Developer Tools} (F12) $\rightarrow$ \emph{toggle device toolbar}.
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-14/halaman-target-desktop-mobile.png}
+  {Tampilan halaman website target --- versi desktop dan mobile.}
+  {Buka halaman target di browser, ambil \emph{screenshot} versi desktop, lalu gunakan \emph{Device Toolbar} di \emph{DevTools} untuk versi mobile.}
+\end{tangkapanlayar}
+
+\begin{tip}
+Jika sulit menentukan website target, pilih website pemerintah daerah (portal layanan disdukcapil, BPJS, atau website desa). Hindari website yang sudah sangat modern.
+\end{tip}
+
+% ---------------------------------------------------------------------
+% 5. HEURISTIC EVALUATION
+% ---------------------------------------------------------------------
+\section{Heuristic Evaluation}
+\label{sec:heuristic-evaluation}
+
+Gunakan 10 \emph{Usability Heuristics} dari Nielsen Norman Group berikut sebagai panduan evaluasi.
+
+\begin{table}[htbp]
+\centering
+\caption{10 Usability Heuristics --- Nielsen Norman Group}
+\label{tab:heuristik-nng}
+\small
+\begin{tabular}{@{}clp{7cm}@{}}
+\toprule
+\textbf{\#} & \textbf{Heuristik} & \textbf{Pertanyaan Panduan} \\
+\midrule
+1 & Visibility of System Status & Apakah pengguna tahu apa yang sedang terjadi di halaman? \\
+2 & Match Between System and Real World & Apakah bahasa dan istilah sesuai dunia nyata pengguna? \\
+3 & User Control and Freedom & Apakah pengguna bisa membatalkan aksi atau navigasi dengan mudah? \\
+4 & Consistency and Standards & Apakah tampilan dan interaksi konsisten di seluruh halaman? \\
+5 & Error Prevention & Apakah ada perlindungan untuk mencegah kesalahan pengguna? \\
+6 & Recognition Rather Than Recall & Apakah pengguna perlu mengingat informasi dari satu bagian ke bagian lain? \\
+7 & Flexibility and Efficiency of Use & Apakah ada cara cepat untuk pengguna yang sudah terbiasa? \\
+8 & Aesthetic and Minimalist Design & Apakah antarmuka bebas dari elemen yang tidak perlu? \\
+9 & Help Users Recognize, Diagnose, and Recover from Errors & Apakah pesan \emph{error} jelas dan membantu? \\
+10 & Help and Documentation & Apakah ada panduan atau bantuan jika pengguna kebingungan? \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Langkah Evaluasi}
+\label{subsec:langkah-evaluasi}
+
+Untuk setiap heuristik, diskusikan secara berkelompok dan catat di \texttt{research/heuristic-evaluation.md}. Tuliskan: skor pelanggaran (0--4, di mana 0 = tidak ada masalah dan 4 = masalah kritis), temuan, \emph{screenshot} bukti, dampak ke pengguna, serta saran perbaikan yang akan diterapkan di desain ulang.
+
+\begin{langkah}
+  \item Buka \emph{heuristic checklist} di atas satu per satu.
+  \item Untuk setiap heuristik, identifikasi apakah ada pelanggaran pada halaman target.
+  \item Catat temuan beserta \emph{screenshot} bukti.
+  \item Uraikan dampak temuan terhadap pengalaman pengguna.
+  \item Hubungkan setiap temuan dengan rekomendasi desain yang akan diterapkan.
+\end{langkah}
+
+\begin{tip}
+Jangan khawatir soal skor yang ``benar'' --- yang penting adalah kemampuan menjelaskan mengapa suatu masalah muncul. Satu heuristik bisa memiliki 0 atau lebih temuan. Jika tidak ada masalah, tulis ``Tidak ditemukan pelanggaran signifikan.''
+\end{tip}
+
+\subsection{Ringkasan Temuan}
+\label{subsec:ringkasan-temuan}
+
+Buat tabel ringkasan di bagian bawah file \texttt{heuristic-evaluation.md} berisi nomor heuristik, skor, dan jumlah temuan. Identifikasi 3 \emph{pain point} terbesar dari seluruh evaluasi.
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-14/heuristic-evaluation-dokumentasi.png}
+  {Dokumentasi heuristic evaluation di Markdown --- tampilan di VS Code atau GitHub.}
+  {Buka file \texttt{research/heuristic-evaluation.md} di VS Code, periksa bahwa seluruh heuristik sudah dievaluasi dan tabel ringkasan sudah dilengkapi.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 6. BENCHMARKING
+% ---------------------------------------------------------------------
+\section{Benchmarking Singkat}
+\label{sec:benchmarking}
+
+Bandingkan halaman target dengan minimal 2--3 website sejenis yang memiliki fitur serupa.
+
+\begin{langkah}
+  \item Pilih minimal 2 website untuk dibandingkan (misalnya website pemerintah daerah lain atau layanan publik modern).
+  \item Buat file \texttt{research/benchmarking.md} yang memuat:
+  \begin{itemize}
+    \item Informasi setiap website: URL, halaman sejenis, kelebihan, kekurangan, dan \emph{screenshot}.
+    \item Tabel perbandingan fitur antara website target, website pembanding, dan rencana desain ulang.
+    \item Daftar pelajaran dari \emph{benchmarking} (fitur yang ingin diadopsi, yang perlu dihindari, dan peluang diferensiasi).
+  \end{itemize}
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-14/benchmarking-perbandingan.png}
+  {Perbandingan visual antara website target dan website pembanding.}
+  {Buka file \texttt{research/benchmarking.md} dan pastikan tabel perbandingan fitur sudah terisi lengkap.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 7. PERENCANAAN DESAIN DI FIGMA
+% ---------------------------------------------------------------------
+\section{Perencanaan Desain di Figma}
+\label{sec:desain-figma}
+
+\subsection{Membuat Frame Wireframe}
+\label{subsec:wireframe}
+
+\begin{langkah}
+  \item Buka Figma (\emph{desktop app} atau browser), klik \textbf{``New design file''}.
+  \item Buat \emph{frame} --- tekan \texttt{F} lalu pilih ukuran: Desktop 1440$\times$900, Mobile 375$\times$812. Beri nama ``Wireframe --- Desktop'' dan ``Wireframe --- Mobile''.
+  \item Sketsa tata letak \textbf{tanpa warna}, hanya menggunakan:
+  \begin{itemize}
+    \item Kotak untuk area konten.
+    \item Garis atau garis putus untuk teks \emph{placeholder}.
+    \item Ikon sederhana untuk elemen navigasi.
+    \item Anotasi singkat di sebelah setiap elemen.
+  \end{itemize}
+\end{langkah}
+
+\begin{tip}
+Gunakan hanya warna abu-abu, hitam, dan putih pada wireframe. Jangan tambahkan warna, gambar, atau font khusus. Fokus pada struktur dan alur pengguna, bukan visual.
+\end{tip}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-14/wireframe-desktop-mobile.png}
+  {Wireframe desktop dan mobile di Figma --- tampilan keseluruhan.}
+  {Buka file Figma, periksa bahwa \emph{frame} wireframe sudah dibuat untuk versi desktop dan mobile dengan anotasi yang jelas.}
+\end{tangkapanlayar}
+
+\subsection{Membuat Mockup}
+\label{subsec:mockup}
+
+\begin{langkah}
+  \item Duplikat \emph{frame} wireframe $\rightarrow$ rename menjadi ``Mockup --- Desktop'' dan ``Mockup --- Mobile''.
+  \item Terapkan visual pada \emph{mockup}:
+  \begin{itemize}
+    \item Warna merek (maksimal 3--4 warna).
+    \item Font yang sudah dipilih (\emph{Google Fonts} atau \emph{font system}).
+    \item Gambar/ikon asli.
+    \item Spasi dan tipografi yang konsisten.
+  \end{itemize}
+  \item Pastikan konsistensi antar halaman --- header/footer identik, tipografi konsisten, spasi antar elemen seragam.
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-14/mockup-desktop-overview.png}
+  {Mockup desktop di Figma --- tampilan keseluruhan.}
+  {Periksa bahwa \emph{mockup} sudah menerapkan warna merek, tipografi, dan spasi secara konsisten.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-14/mockup-mobile-overview.png}
+  {Mockup mobile di Figma --- tampilan keseluruhan.}
+  {Periksa bahwa versi mobile memiliki tata letak yang responsif dan konsisten dengan versi desktop.}
+\end{tangkapanlayar}
+
+\subsection{Menulis Rasional Desain}
+\label{subsec:rasional-desain}
+
+\begin{langkah}
+  \item Buat file \texttt{research/rasional-desain.md} atau tulis langsung di \texttt{README.md}.
+  \item Isi tabel yang menghubungkan temuan riset dengan keputusan desain: nomor, temuan riset, keputusan desain, dan penjelasan mengapa keputusan tersebut diambil.
+  \item Daftar prinsip desain yang diterapkan (misalnya \emph{Consistency}, \emph{Minimalism}, \emph{Error Prevention}).
+\end{langkah}
+
+\begin{catatan}
+Kaitan antara temuan riset dan keputusan desain merupakan komponen kunci yang akan dinilai pada presentasi minggu 16. Pastikan setiap keputusan desain dapat ditelusuri kembali ke minimal satu temuan riset.
+\end{catatan}
+
+% ---------------------------------------------------------------------
+% 8. COMMIT \& PUSH
+% ---------------------------------------------------------------------
+\section{Commit dan Push}
+\label{sec:commit-push}
+
+\begin{langkah}
+  \item Kembali ke VS Code, buka terminal.
+  \item Pastikan semua file sudah tersimpan di folder yang benar.
+  \item \emph{Commit} dan \emph{push}:
+\begin{lstlisting}[language=bash, caption={Commit hasil riset}]
+git add .
+git commit -m "feat: hasil riset heuristic evaluation, benchmarking, dan wireframe/mockup"
+git push
+\end{lstlisting}
+  \item Buka \emph{pull request} di GitHub (opsional, tetapi disarankan) dengan deskripsi singkat mengenai isi \emph{commit}.
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-14/commit-history-github.png}
+  {Commit history di GitHub --- terlihat branch final-project.}
+  {Buka \emph{repository} di GitHub, navigasi ke tab ``Commits'' untuk memastikan \emph{commit} berhasil.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 9. OUTPUT YANG DIHARAPKAN
+% ---------------------------------------------------------------------
+\section{Output yang Diharapkan}
+\label{sec:output-minggu-14}
+
+Setelah sesi ini, setiap kelompok harus memiliki:
+\begin{itemize}
+  \item Dokumen \emph{heuristic evaluation} (\texttt{research/heuristic-evaluation.md}).
+  \item Dokumen \emph{benchmarking} (\texttt{research/benchmarking.md}).
+  \item \emph{Wireframe} (desktop \& mobile) di Figma.
+  \item \emph{Mockup} (desktop \& mobile) di Figma.
+  \item Rasional desain (\texttt{research/rasional-desain.md} atau \texttt{README.md}).
+  \item \emph{Screenshot} halaman asli di folder \texttt{assets/} atau \texttt{research/}.
+  \item \emph{Commit} di GitHub pada branch \texttt{final-project}.
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% 10. TROUBLESHOOTING
+% ---------------------------------------------------------------------
+\section{Troubleshooting}
+\label{sec:troubleshooting-minggu-14}
+
+\begin{table}[htbp]
+\centering
+\caption{Masalah Umum dan Solusi --- Minggu 14}
+\label{tab:troubleshooting-14}
+\small
+\begin{tabular}{@{}p{5.5cm}p{8cm}@{}}
+\toprule
+\textbf{Masalah} & \textbf{Solusi} \\
+\midrule
+Website target tidak bisa diakses & Gunakan Wayback Machine (\texttt{web.archive.org}) untuk versi terakhir yang bisa diakses, atau pilih website lain. \\
+Tidak yakin bagaimana mengisi \emph{heuristic evaluation} & Lihat contoh di Nielsen Norman Group --- fokus pada kemampuan menjelaskan, bukan skor sempurna. \\
+Figma tidak bisa dibuka di browser & Gunakan \emph{Figma desktop app} (download dari \texttt{figma.com}), atau pastikan browser versi terbaru. \\
+Anggota kelompok di lokasi berbeda & Semua file riset ada di GitHub --- akses dari mana saja. Desain Figma bisa di-\emph{share} via tautan. \\
+Tidak bisa membuat \emph{branch} di Git & Pastikan sudah \emph{clone} \emph{repository} ke lokal. Jika masih gagal, cek \texttt{git status}. \\
+Pekerjaan terasa terlalu banyak untuk 1 pertemuan & Fokus pada \emph{heuristic evaluation} dan \emph{wireframe} terlebih dahulu. \emph{Mockup} bisa dilanjutkan di minggu 15. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------
+% 11. TAUTAN REFERENSI
+% ---------------------------------------------------------------------
+\section{Tautan Referensi}
+\label{sec:referensi-minggu-14}
+
+\begin{itemize}
+  \item 10 Usability Heuristics (NNGroup): \href{https://www.nngroup.com/articles/ten-usability-heuristics/}{nngroup.com/articles/ten-usability-heuristics}
+  \item Figma Getting Started: \href{https://help.figma.com/hc/en-us/articles/360040319993}{help.figma.com/hc/en-us/articles/360040319993}
+  \item Heuristic Evaluation Template (NNGroup): \href{https://www.nngroup.com/articles/how-to-conduct-a-heuristic-evaluation/}{nngroup.com/articles/how-to-conduct-a-heuristic-evaluation}
+  \item Wayback Machine: \href{https://web.archive.org}{web.archive.org}
+  \item Contoh Website E-Governance: \url{https://www.go.id}, \url{https://jakartasatu.jakarta.go.id}
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% 12. PERSIAPAN UNTUK MINGGU 15
+% ---------------------------------------------------------------------
+\section{Persiapan untuk Minggu 15}
+\label{sec:persiapan-minggu-15}
+
+Sebelum pertemuan minggu depan, pastikan:
+\begin{enumerate}
+  \item Semua dokumen riset sudah \emph{ter-commit} dan \emph{ter-push} ke GitHub.
+  \item Desain Figma sudah selesai (\emph{wireframe} + \emph{mockup}).
+  \item Anggota kelompok sudah berbagi peran untuk implementasi:
+  \begin{itemize}
+    \item Anggota A: header, navigasi, \emph{hero section}.
+    \item Anggota B: bagian tengah (konten utama, formulir, informasi).
+    \item Anggota C: footer, bagian bawah, optimasi responsif.
+  \end{itemize}
+  \item File \texttt{index.html} sudah mulai disiapkan (kosong atau \emph{skeleton} HTML sudah ada di branch \texttt{final-project}).
+\end{enumerate}
+
+% ---------------------------------------------------------------------
+% 13. LATIHAN
+% ---------------------------------------------------------------------
+\section{Latihan Mandiri}
+\label{sec:latihan-minggu-14}
+
+\begin{latihan}[Eksplorasi Heuristik]
+\begin{enumerate}[label=\alph*., leftmargin=2em, itemsep=2pt]
+  \item Pilih salah satu heuristik dari tabel, lalu buka 3 website berbeda. Catat minimal 1 temuan per website yang berkaitan dengan heuristik tersebut.
+  \item Bandingkan kemudahan penggunaan antara kedua website --- tuliskan alasan Anda secara singkat.
+\end{enumerate}
+\end{latihan}

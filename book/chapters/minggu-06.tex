@@ -1,0 +1,624 @@
+% =====================================================================
+%  chapters/minggu-06.tex
+%  Bab 6 — CSS Layout: Flexbox
+% =====================================================================
+
+\chapter{CSS Layout: Flexbox}
+\label{chap:flexbox}
+
+% ---------------------------------------------------------------------
+% 1. CAPAIAN PEMBELAJARAN
+% ---------------------------------------------------------------------
+\begin{capaian}
+Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu:
+\begin{itemize}
+  \item menjelaskan konsep \emph{flexbox} sebagai alat \emph{layout} satu dimensi;
+  \item menggunakan properti \texttt{display: flex} pada kontainer;
+  \item mengatur arah, pembungkusan, dan perataan item \emph{flex};
+  \item mengatur ukuran dan urutan item \emph{flex};
+  \item membangun \emph{layout} sederhana (\emph{navbar}, kartu, galeri) dengan \emph{flexbox}.
+\end{itemize}
+\end{capaian}
+
+% ---------------------------------------------------------------------
+% 2. TUJUAN PRAKTIK
+% ---------------------------------------------------------------------
+\begin{tujuanpraktik}
+Pada sesi praktik ini, mahasiswa akan:
+\begin{itemize}
+  \item menyiapkan folder proyek \texttt{latihan-flexbox};
+  \item mempraktikkan properti utama \emph{flexbox};
+  \item membangun \emph{navbar} dan galeri foto dengan \emph{flexbox}.
+\end{itemize}
+\end{tujuanpraktik}
+
+% ---------------------------------------------------------------------
+% 3. RINGKASAN TEORI
+% ---------------------------------------------------------------------
+\section{Pengantar Flexbox}
+\label{sec:pengantar-flexbox}
+
+\emph{Flexbox} (\emph{Flexible Box}) adalah cara mengatur \textbf{tata letak satu dimensi}---baik baris (horizontal) maupun kolom (vertikal). \emph{Flexbox} sangat berguna untuk menyusun elemen secara sejajar dan merata.
+
+\subsection{Konsep Utama}
+\label{subsec:konsep-flexbox}
+
+\begin{itemize}
+  \item \textbf{Flex container} --- elemen induk yang diberi \texttt{display: flex}.
+  \item \textbf{Flex item} --- elemen anak di dalam \emph{flex container}.
+\end{itemize}
+
+\begin{lstlisting}[caption={Ilustrasi flex container dan flex items}, label={lst:flexbox-illust}]
++--------------------------------------------------+
+|  Flex Container (display: flex)                  |
+|  +--------+  +--------+  +--------+             |
+|  | item 1 |  | item 2 |  | item 3 |             |
+|  +--------+  +--------+  +--------+             |
++--------------------------------------------------+
+\end{lstlisting}
+
+\subsection{Properti Penting}
+\label{subsec:properti-flexbox}
+
+\begin{table}[h!]
+\centering
+\caption{Properti utama \emph{flexbox}}
+\label{tab:properti-flexbox}
+\begin{tabular}{|l|p{9cm}|}
+\hline
+\textbf{Properti} & \textbf{Fungsi} \\
+\hline
+\texttt{display: flex} & Mengaktifkan \emph{flexbox} pada kontainer \\
+\hline
+\texttt{flex-direction} & Arah item: \texttt{row}, \texttt{column}, \texttt{row-reverse}, \texttt{column-reverse} \\
+\hline
+\texttt{justify-content} & Perataan item pada sumbu utama (horizontal untuk \texttt{row}) \\
+\hline
+\texttt{align-items} & Perataan item pada sumbu silang (vertikal untuk \texttt{row}) \\
+\hline
+\texttt{flex-wrap} & Membolehkan item pindah baris (\texttt{wrap}) \\
+\hline
+\texttt{gap} & Jarak antar item \\
+\hline
+\texttt{flex} & Mengatur ukuran relatif item \\
+\hline
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------
+% 4. PRAKTIKUM 1 — MENYIAPKAN PROYEK
+% ---------------------------------------------------------------------
+\section{Praktikum 1 --- Menyiapkan Proyek}
+\label{sec:flex-praktik-1}
+
+\begin{langkah}
+  \item Buat folder \texttt{latihan-flexbox} di VSCode.
+  \item Buat file \texttt{index.html}.
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Struktur index.html}, label={lst:flex-index}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Latihan Flexbox</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+</body>
+</html>
+\end{lstlisting}
+
+\begin{langkah}
+  \item Buat file \texttt{style.css}:
+\end{langkah}
+
+\begin{lstlisting}[language=CSS, caption={Gaya dasar flexbox}, label={lst:flex-style}]
+.container {
+    display: flex;
+    background-color: #ddd;
+    padding: 10px;
+}
+
+.item {
+    background-color: lightblue;
+    border: 2px solid navy;
+    padding: 20px;
+    margin: 5px;
+    font-size: 20px;
+}
+\end{lstlisting}
+
+\begin{langkah}
+  \item Buka dengan Live Server. Ketiga item tampil \textbf{sejajar horizontal} karena \texttt{display: flex}.
+\end{langkah}
+
+% ---------------------------------------------------------------------
+% 5. PRAKTIKUM 2 — FLEX DIRECTION
+% ---------------------------------------------------------------------
+\section{Praktikum 2 --- Flex Direction}
+\label{sec:flex-praktik-2}
+
+\begin{langkah}
+  \item Tambahkan properti berikut pada \texttt{.container}:
+\end{langkah}
+
+\begin{lstlisting}[language=CSS, caption={flex-direction: row (default)}, label={lst:flex-direction}]
+.container {
+    display: flex;
+    flex-direction: row;
+    background-color: #ddd;
+    padding: 10px;
+}
+\end{lstlisting}
+
+\begin{langkah}
+  \item Ubah \texttt{row} menjadi \texttt{column} dan amati hasilnya (item tersusun vertikal).
+  \item Coba juga \texttt{row-reverse} dan \texttt{column-reverse}. Amati urutan item berubah.
+\end{langkah}
+
+\begin{catatan}
+\texttt{flex-direction} menentukan \textbf{sumbu utama}. \texttt{row} = sumbu utama horizontal, \texttt{column} = sumbu utama vertikal.
+\end{catatan}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-06/flex-direction-row.png}
+  {Hasil \texttt{index.html} dengan 3 item sejajar horizontal (\texttt{flex-direction: row}).}
+  {Buka \texttt{index.html} di peramban dan amati posisi item.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-06/flex-direction-column.png}
+  {Hasil \texttt{index.html} setelah \texttt{flex-direction: column} (item tersusun vertikal).}
+  {Ubah \texttt{flex-direction} menjadi \texttt{column}, simpan, dan perbarui peramban.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 6. PRAKTIKUM 3 — JUSTIFY CONTENT & ALIGN ITEMS
+% ---------------------------------------------------------------------
+\section{Praktikum 3 --- Justify Content \& Align Items}
+\label{sec:flex-praktik-3}
+
+\begin{langkah}
+  \item Kembalikan \texttt{flex-direction} menjadi \texttt{row}.
+  \item Tambahkan \texttt{justify-content} dengan berbagai nilai. Coba satu per satu.
+\end{langkah}
+
+\begin{lstlisting}[language=CSS, caption={justify-content}, label={lst:justify-content}]
+.container {
+    display: flex;
+    justify-content: center;
+    background-color: #ddd;
+    padding: 10px;
+}
+\end{lstlisting}
+
+Amati perbedaan:
+\begin{itemize}
+  \item \texttt{flex-start} --- item di kiri.
+  \item \texttt{flex-end} --- item di kanan.
+  \item \texttt{center} --- item di tengah.
+  \item \texttt{space-between} --- jarak merata, item ujung menempel tepi.
+  \item \texttt{space-around} --- jarak merata dengan ruang di tepi.
+  \item \texttt{space-evenly} --- jarak benar-benar merata.
+\end{itemize}
+
+\begin{langkah}
+  \item Atur tinggi kontainer dan coba \texttt{align-items}.
+\end{langkah}
+
+\begin{lstlisting}[language=CSS, caption={align-items}, label={lst:align-items}]
+.container {
+    display: flex;
+    height: 200px;
+    align-items: center;
+    background-color: #ddd;
+    padding: 10px;
+}
+\end{lstlisting}
+
+\begin{tip}
+\texttt{justify-content} mengatur sumbu utama, \texttt{align-items} mengatur sumbu silang. Jangan tertukar!
+\end{tip}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-06/justify-space-between.png}
+  {Hasil \texttt{justify-content: space-between} (item ujung menempel tepi).}
+  {Ubah nilai \texttt{justify-content}, simpan, dan amati posisi item di peramban.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 7. PRAKTIKUM 4 — FLEX WRAP & GAP
+% ---------------------------------------------------------------------
+\section{Praktikum 4 --- Flex Wrap \& Gap}
+\label{sec:flex-praktik-4}
+
+\begin{langkah}
+  \item Tambahkan lebih banyak item di HTML (misal 6 item).
+  \item Atur lebar item agar sempit:
+\end{langkah}
+
+\begin{lstlisting}[language=CSS, caption={Lebar tetap pada item}, label={lst:item-width}]
+.item {
+    width: 150px;
+    background-color: lightblue;
+    border: 2px solid navy;
+    padding: 20px;
+    margin: 5px;
+}
+\end{lstlisting}
+
+\begin{langkah}
+  \item Tanpa \texttt{flex-wrap}, item akan menyempit agar muat satu baris. Tambahkan:
+\end{langkah}
+
+\begin{lstlisting}[language=CSS, caption={flex-wrap dan gap}, label={lst:flex-wrap}]
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: #ddd;
+    padding: 10px;
+}
+\end{lstlisting}
+
+\begin{langkah}
+  \item Hapus \texttt{margin} pada \texttt{.item} dan gunakan \texttt{gap} pada kontainer. Amati hasilnya lebih rapi.
+\end{langkah}
+
+\begin{catatan}
+\texttt{gap} lebih modern dan rapi daripada \texttt{margin} untuk jarak antar item \emph{flex}.
+\end{catatan}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-06/flex-wrap.png}
+  {Hasil \texttt{flex-wrap: wrap} dengan 6 item yang pindah baris.}
+  {Ubah ukuran peramban dan amati item berpindah baris secara otomatis.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 8. PRAKTIKUM 5 — PROPERTI FLEX PADA ITEM
+% ---------------------------------------------------------------------
+\section{Praktikum 5 --- Properti Flex pada Item}
+\label{sec:flex-praktik-5}
+
+\begin{langkah}
+  \item Buat file baru \texttt{flex-item.html}:
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Struktur flex-item.html}, label={lst:flex-item-html}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Flex Item</title>
+    <link rel="stylesheet" href="flex-item.css">
+</head>
+<body>
+    <div class="container">
+        <div class="item a">A</div>
+        <div class="item b">B</div>
+        <div class="item c">C</div>
+    </div>
+</body>
+</html>
+\end{lstlisting}
+
+\begin{langkah}
+  \item Buat \texttt{flex-item.css}:
+\end{langkah}
+
+\begin{lstlisting}[language=CSS, caption={Proporsi flex item}, label={lst:flex-item-css}]
+.container {
+    display: flex;
+    background-color: #ddd;
+    padding: 10px;
+}
+
+.item {
+    background-color: lightgreen;
+    border: 2px solid green;
+    padding: 20px;
+    margin: 5px;
+}
+
+/* Item A mengambil 1 bagian */
+.a { flex: 1; }
+
+/* Item B mengambil 2 bagian */
+.b { flex: 2; }
+
+/* Item C mengambil 1 bagian */
+.c { flex: 1; }
+\end{lstlisting}
+
+\begin{langkah}
+  \item Buka di Live Server. Item B tampil dua kali lebih lebar dari A dan C.
+  \item Coba ubah nilai \texttt{flex} pada masing-masing item dan amati perbandingan lebarnya.
+\end{langkah}
+
+\begin{tip}
+\texttt{flex: 1} berarti ``ambil ruang yang tersisa secara proporsional''. Ini sangat berguna untuk \emph{layout} yang fleksibel.
+\end{tip}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-06/flex-item.html.png}
+  {Hasil \texttt{flex-item.html} dengan item B lebih lebar (\texttt{flex: 2}).}
+  {Buka \texttt{flex-item.html} di peramban dan bandingkan lebar masing-masing item.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 9. PRAKTIKUM 6 — NAVBAR DENGAN FLEXBOX
+% ---------------------------------------------------------------------
+\section{Praktikum 6 --- Membangun Navbar dengan Flexbox}
+\label{sec:flex-praktik-navbar}
+
+\begin{langkah}
+  \item Buat file \texttt{navbar.html}:
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Struktur navbar.html}, label={lst:navbar-html}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar Flexbox</title>
+    <link rel="stylesheet" href="navbar.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">MySite</div>
+        <ul class="menu">
+            <li><a href="#">Beranda</a></li>
+            <li><a href="#">Tentang</a></li>
+            <li><a href="#">Kontak</a></li>
+        </ul>
+        <a href="#" class="btn">Login</a>
+    </nav>
+</body>
+</html>
+\end{lstlisting}
+
+\begin{langkah}
+  \item Buat \texttt{navbar.css}:
+\end{langkah}
+
+\begin{lstlisting}[language=CSS, caption={Gaya navbar dengan flexbox}, label={lst:navbar-css}]
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c3e50;
+    color: white;
+    padding: 15px 30px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.menu {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    color: #3498db;
+}
+
+.btn {
+    background-color: #3498db;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+\end{lstlisting}
+
+\begin{langkah}
+  \item Buka di Live Server. Anda memiliki \emph{navbar} dengan logo di kiri, menu di tengah, dan tombol \emph{login} di kanan.
+  \item Coba ubah \texttt{justify-content} menjadi \texttt{center} dan amati perubahannya.
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-06/navbar.html.png}
+  {Hasil \texttt{navbar.html} (logo kiri, menu tengah, tombol kanan).}
+  {Buka \texttt{navbar.html} di peramban dan amati posisi elemen.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 10. PRAKTIKUM 7 — GALERI FOTO DENGAN FLEXBOX
+% ---------------------------------------------------------------------
+\section{Praktikum 7 --- Galeri Foto dengan Flexbox}
+\label{sec:flex-praktik-galeri}
+
+\begin{langkah}
+  \item Buat file \texttt{galeri.html}:
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Struktur galeri.html}, label={lst:galeri-html}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Galeri Flexbox</title>
+    <link rel="stylesheet" href="galeri.css">
+</head>
+<body>
+    <h1>Galeri Foto</h1>
+    <div class="galeri">
+        <div class="foto">Foto 1</div>
+        <div class="foto">Foto 2</div>
+        <div class="foto">Foto 3</div>
+        <div class="foto">Foto 4</div>
+        <div class="foto">Foto 5</div>
+        <div class="foto">Foto 6</div>
+    </div>
+</body>
+</html>
+\end{lstlisting}
+
+\begin{langkah}
+  \item Buat \texttt{galeri.css}:
+\end{langkah}
+
+\begin{lstlisting}[language=CSS, caption={Gaya galeri dengan flexbox}, label={lst:galeri-css}]
+.galeri {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.foto {
+    width: 200px;
+    height: 150px;
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    font-size: 18px;
+}
+\end{lstlisting}
+
+\begin{langkah}
+  \item Buka di Live Server. Foto-foto tersusun rapi dan otomatis pindah baris saat jendela dipersempit.
+  \item Persempit jendela browser dan amati bagaimana item berpindah baris (karena \texttt{flex-wrap: wrap}).
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-06/galeri.html.png}
+  {Hasil \texttt{galeri.html} dengan foto-foto tersusun rapi.}
+  {Buka \texttt{galeri.html} di peramban, lalu ubah ukuran jendela untuk melihat \emph{wrapping}.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 11. LATIHAN MANDIRI
+% ---------------------------------------------------------------------
+\section{Latihan Mandiri}
+\label{sec:flex-latihan}
+
+\begin{latihan}[Kartu Produk]
+Buat halaman kartu produk dengan \emph{flexbox}. Ketentuan:
+\begin{itemize}
+  \item Buat file \texttt{produk.html} dan \texttt{produk.css}.
+  \item Halaman berisi judul ``Produk Kami'' dan 3 kartu produk sejajar.
+  \item Setiap kartu berisi nama produk, harga, dan tombol ``Beli''.
+  \item Gunakan \texttt{display: flex} untuk menyusun kartu sejajar.
+  \item Gunakan \texttt{justify-content: space-between} atau \texttt{center}.
+  \item Gunakan \texttt{gap} untuk jarak antar kartu.
+  \item Gunakan \texttt{flex-direction: column} di dalam kartu agar isi tersusun vertikal.
+  \item Gunakan \texttt{align-items: center} untuk menengahkan isi kartu.
+\end{itemize}
+\end{latihan}
+
+Struktur HTML yang disarankan:
+
+\begin{lstlisting}[language=HTML, caption={Kerangka kartu produk}, label={lst:produk-kartu}]
+<div class="produk-list">
+    <div class="kartu">
+        <h3>Produk A</h3>
+        <p class="harga">Rp 50.000</p>
+        <button>Beli</button>
+    </div>
+    <div class="kartu">
+        <h3>Produk B</h3>
+        <p class="harga">Rp 75.000</p>
+        <button>Beli</button>
+    </div>
+    <div class="kartu">
+        <h3>Produk C</h3>
+        <p class="harga">Rp 100.000</p>
+        <button>Beli</button>
+    </div>
+</div>
+\end{lstlisting}
+
+% ---------------------------------------------------------------------
+% 12. HASIL YANG DIHARAPKAN
+% ---------------------------------------------------------------------
+\section{Hasil yang Diharapkan}
+\label{sec:flex-hasil}
+
+Setelah menyelesaikan semua praktikum, Anda memiliki:
+\begin{itemize}
+  \item Folder \texttt{latihan-flexbox} berisi file: \texttt{index.html}, \texttt{style.css}, \texttt{flex-item.html}, \texttt{flex-item.css}, \texttt{navbar.html}, \texttt{navbar.css}, \texttt{galeri.html}, \texttt{galeri.css}.
+  \item Halaman \texttt{index.html} dengan 3 item sejajar yang bisa diubah arah dan perataannya.
+  \item Halaman \texttt{flex-item.html} dengan item B dua kali lebih lebar dari A dan C.
+  \item Halaman \texttt{navbar.html} dengan \emph{navbar} rapi: logo kiri, menu tengah, tombol kanan.
+  \item Halaman \texttt{galeri.html} dengan foto-foto yang otomatis pindah baris saat jendela dipersempit.
+  \item Halaman \texttt{produk.html} (latihan mandiri) dengan 3 kartu produk sejajar.
+\end{itemize}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-06/produk.html.png}
+  {Hasil latihan mandiri \texttt{produk.html} (3 kartu produk sejajar).}
+  {Buat \texttt{produk.html} sesuai ketentuan latihan, lalu bandingkan tampilan Anda.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 13. TROUBLESHOOTING
+% ---------------------------------------------------------------------
+\section{Troubleshooting}
+\label{sec:flex-trouble}
+
+\begin{table}[h!]
+\centering
+\caption{Masalah umum \emph{flexbox} dan solusinya}
+\label{tab:trouble-06}
+\begin{tabular}{|p{3.5cm}|p{4cm}|p{5cm}|}
+\hline
+\textbf{Masalah} & \textbf{Penyebab} & \textbf{Solusi} \\
+\hline
+Item tidak sejajar & \texttt{display: flex} belum ditambahkan & Pastikan properti \texttt{display: flex} ada di kontainer, bukan di item \\
+\hline
+\texttt{justify-content} tidak berpengaruh & Salah sumbu & \texttt{justify-content} bekerja pada sumbu utama; jika \texttt{flex-direction: column}, ia mengatur vertikal \\
+\hline
+Item menyempit saat jendela kecil & \texttt{flex-wrap} belum diaktifkan & Tambahkan \texttt{flex-wrap: wrap} pada kontainer \\
+\hline
+Jarak antar item tidak muncul & Menggunakan \texttt{margin} tapi \texttt{gap} tidak ada & Gunakan \texttt{gap} pada kontainer untuk jarak yang konsisten \\
+\hline
+Item tidak menengahkan teks & \path{align-items/justify-content} belum diatur & Untuk menengahkan, atur keduanya menjadi \texttt{center} \\
+\hline
+\emph{Layout} berantakan & Ada \emph{margin}/\emph{padding} default browser & Tambahkan \texttt{* \{ margin: 0; padding: 0; box-sizing: border-box; \}} di awal CSS \\
+\hline
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------
+% 14. RANGKUMAN
+% ---------------------------------------------------------------------
+\section{Rangkuman}
+\label{sec:flex-rangkuman}
+
+\begin{itemize}
+  \item \emph{Flexbox} mengatur \emph{layout} \textbf{satu dimensi} (baris atau kolom).
+  \item \texttt{display: flex} pada kontainer mengaktifkan \emph{flexbox}.
+  \item \texttt{flex-direction} menentukan sumbu utama.
+  \item \texttt{justify-content} mengatur sumbu utama, \texttt{align-items} mengatur sumbu silang.
+  \item \texttt{flex-wrap: wrap} memungkinkan item pindah baris.
+  \item \texttt{gap} mengatur jarak antar item.
+  \item \texttt{flex: 1} membuat item mengambil ruang secara proporsional.
+\end{itemize}

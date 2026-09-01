@@ -1,0 +1,730 @@
+% =====================================================================
+%  chapters/minggu-13.tex
+%  Minggu 13 -- Pengenalan React: Komponen, JSX & Props
+% =====================================================================
+
+\chapter{Pengenalan React: Komponen, JSX \& Props}
+\label{chap:mjs-13}
+
+% ---------------------------------------------------------------------
+% 1. CAPAIAN PEMBELAJARAN
+% ---------------------------------------------------------------------
+\begin{capaian}
+Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu:
+\begin{itemize}
+  \item menjelaskan mengapa React digunakan dan bagaimana posisinya dalam pengembangan web;
+  \item membaca dan memahami kode React sederhana (komponen, JSX, \emph{props});
+  \item membedakan JSX dari HTML biasa;
+  \item mengidentifikasi struktur komponen, termasuk komponen bersarang dan penggunaan \texttt{map()} untuk daftar.
+\end{itemize}
+\end{capaian}
+
+% ---------------------------------------------------------------------
+% 2. TUJUAN PRAKTIK
+% ---------------------------------------------------------------------
+\begin{tujuanpraktik}
+Pada sesi praktik ini, mahasiswa akan:
+\begin{itemize}
+  \item membaca kode React secara \emph{visual} tanpa menjalankannya;
+  \item mengonstruksi file HTML berisi potongan kode React dengan \emph{syntax highlighting};
+  \item berlatih menjawab pertanyaan pemahaman tentang kode React.
+\end{itemize}
+\end{tujuanpraktik}
+
+\begin{catatan}
+Modul ini \textbf{hanya pengenalan}. Kita \textbf{TIDAK} akan menginstal React, menjalankan \texttt{create-react-app} atau Vite, maupun menggunakan \emph{build tools}. Tujuannya: membaca, memahami, dan ``merasakan'' kode React agar konsepnya tidak asing saat belajar di semester lanjutan.
+\end{catatan}
+
+% =====================================================================
+\section{Mengapa React?}
+\label{sec:13-mengapa-react}
+% =====================================================================
+
+\textbf{React} adalah \emph{JavaScript library} untuk membangun \textbf{antarmuka (UI) berbasis komponen}---artinya, Anda memecah halaman web menjadi potongan-potongan kecil yang bisa digunakan ulang.
+
+\subsection{Perbandingan: Tanpa React vs Dengan React}
+
+\textbf{Tanpa React (vanilla JavaScript):}
+
+\begin{lstlisting}[language=JavaScript, caption={Manipulasi DOM manual tanpa React}, label={lst:13-vanilla}]
+// Anda harus secara manual mencari elemen dan mengubahnya
+const daftar = document.getElementById("daftar-mahasiswa");
+const item = document.createElement("li");
+item.textContent = "Budi";
+daftar.appendChild(item);
+// Jika data berubah -> Anda harus menulis ulang kode manipulasi DOM
+\end{lstlisting}
+
+\textbf{Dengan React:}
+
+\begin{lstlisting}[language=JavaScript, caption={Menulis UI secara deklaratif dengan React}, label={lst:13-react-basic}]
+// Anda cukup mendeskripsikan APA yang ingin ditampilkan
+function DaftarMahasiswa({ mahasiswa }) {
+    return (
+        <ul>
+            {mahasiswa.map((nama, index) => (
+                <li key={index}>{nama}</li>
+            ))}
+        </ul>
+    );
+}
+
+// React yang mengurus bagaimana update DOM saat data berubah
+\end{lstlisting}
+
+\subsection{Mengapa React Populer?}
+
+\begin{table}[htbp]
+\centering
+\caption{Alasan popularitas React}
+\label{tab:13-mengapa-react}
+\begin{tabular}{ll}
+\toprule
+\textbf{Alasan} & \textbf{Penjelasan} \\
+\midrule
+\emph{Komponen} & UI dipecah jadi blok kecil, bisa digunakan ulang \\
+Deklaratif & Tulis ``apa'' yang ingin ditampilkan, bukan ``bagaimana'' update DOM \\
+Ekosistem besar & Banyak library pendukung (routing, \emph{state management}, UI kit) \\
+\emph{Industry standard} & Banyak perusahaan teknologi menggunakan React \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% =====================================================================
+\section{Membaca Kode React (Tanpa Menjalankan)}
+\label{sec:13-membaca-kode}
+% =====================================================================
+
+Tujuan: melihat kode React secara utuh agar terbiasa dengan sintaksnya. Kita \textbf{tidak menjalankan} kode ini---kita membaca dan memahaminya.
+
+\begin{langkah}
+  \item Buat file baru \texttt{react-preview.html}.
+  \item Masukkan kode HTML berikut (berisi empat contoh komponen React).
+  \item Buka di peramban untuk melihat tampilan kode yang sudah diberi warna \emph{syntax highlighting}.
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-13/react-preview-kode.png}
+  {Halaman \emph{preview} kode React dengan \emph{syntax highlighting} yang rapi.}
+  {Buka \texttt{react-preview.html} di peramban setelah menambahkan kode-kode berikut.}
+\end{tangkapanlayar}
+
+\subsection{Kode 1 --- Komponen Paling Sederhana}
+
+\begin{lstlisting}[language=JavaScript, caption={Komponen ``Halo Dunia'' paling sederhana}, label={lst:13-komponen-sederhana}]
+// Dalam React, UI ditulis sebagai FUNCTION
+// yang mengembalikan JSX
+function Sapa() {
+    return (
+        <div className="container">
+            <h1>Halo, Dunia React!</h1>
+            <p>Ini adalah komponen React pertama saya.</p>
+        </div>
+    );
+}
+\end{lstlisting}
+
+\begin{catatan}
+JSX mirip HTML, tapi ada perbedaan kecil---misal: \texttt{class} menjadi \texttt{className}. Komponen harus diawali huruf KAPITAL (misal: \texttt{Sapa}, bukan \texttt{sapa}).
+\end{catatan}
+
+\subsection{Kode 2 --- Komponen dengan Props}
+
+\begin{lstlisting}[language=JavaScript, caption={Komponen yang menerima data melalui \emph{props}}, label={lst:13-komponen-props}]
+// Props = "parameter" untuk komponen React
+function KartuProfil({ nama, jurusan, angkatan }) {
+    return (
+        <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-xl font-bold">{nama}</h2>
+            <p className="text-gray-600">
+                Jurusan: {jurusan}
+            </p>
+            <p className="text-gray-600">
+                Angkatan: {angkatan}
+            </p>
+        </div>
+    );
+}
+
+// Cara menggunakan (memanggil) komponen:
+// <KartuProfil nama="Budi" jurusan="Informatika"
+//              angkatan="2025" />
+// <KartuProfil nama="Ani" jurusan="Informatika"
+//              angkatan="2025" />
+\end{lstlisting}
+
+\begin{tip}
+Fungsi \texttt{KartuProfil} menerima tiga \emph{props} (\texttt{nama}, \texttt{jurusan}, \texttt{angkatan}) dan menggunakannya di dalam JSX. Komponen yang sama bisa digunakan berulang kali dengan data berbeda---itulah kekuatan komponen!
+\end{tip}
+
+\subsection{Kode 3 --- Komponen dengan Daftar (Map)}
+
+\begin{lstlisting}[language=JavaScript, caption={Menampilkan daftar dengan \texttt{map()}}, label={lst:13-komponen-map}]
+function DaftarMahasiswa({ mahasiswa }) {
+    return (
+        <div className="bg-white rounded-lg shadow p-4">
+            <h2 className="text-lg font-bold mb-2">
+                Daftar Mahasiswa
+            </h2>
+            <ul>
+                {mahasiswa.map((nama, index) => (
+                    <li key={index} className="py-1 border-b">
+                        {index + 1}. {nama}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+// Cara menggunakan:
+// <DaftarMahasiswa
+//     mahasiswa={["Budi", "Ani", "Andi", "Sari"]} />
+\end{lstlisting}
+
+\begin{catatan}
+\texttt{map()} dalam JSX mirip \texttt{forEach()} di JavaScript biasa---tetapi mengembalikan nilai (\emph{return}). \texttt{key} diperlukan oleh React untuk mengidentifikasi setiap elemen dalam daftar.
+\end{catatan}
+
+\subsection{Kode 4 --- Komponen Bersarang (Nested)}
+
+\begin{lstlisting}[language=JavaScript, caption={Komponen \texttt{Tombol} yang digunakan di dalam \texttt{HalamanUtama}}, label={lst:13-komponen-nested}]
+// Komponen kecil -- tombol
+function Tombol({ teks, warna }) {
+    return (
+        <button className={
+            `px-4 py-2 rounded text-white font-bold ${warna}`
+        }>
+            {teks}
+        </button>
+    );
+}
+
+// Komponen besar -- menggunakan Tombol
+function HalamanUtama() {
+    return (
+        <div className="p-6">
+            <h1 className="text-2xl font-bold mb-4">
+                Selamat Datang
+            </h1>
+            <p className="mb-4">Pilih aksi berikut:</p>
+            {/* Menggunakan komponen Tombol */}
+            <Tombol teks="Mulai" warna="bg-blue-500" />
+            <span> </span>
+            <Tombol teks="Batal" warna="bg-red-500" />
+        </div>
+    );
+}
+\end{lstlisting}
+
+\begin{tip}
+\texttt{HalamanUtama} menggunakan komponen \texttt{Tombol} dua kali dengan data berbeda. Ini seperti menggunakan fungsi dalam fungsi---komponen React bisa dipanggil berkali-kali dengan data berbeda.
+\end{tip}
+
+% =====================================================================
+\section{JSX: HTML yang ``Bisa Dikode''}
+\label{sec:13-jsx}
+% =====================================================================
+
+\textbf{JSX (JavaScript XML)} adalah sintaks yang mirip HTML tapi ditulis \textbf{di dalam JavaScript}. React menggunakan JSX sebagai cara mendeskripsikan tampilan UI.
+
+\subsection{Perbedaan JSX vs HTML}
+
+\begin{table}[htbp]
+\centering
+\caption{Perbedaan sintaks JSX dan HTML}
+\label{tab:13-jsx-vs-html}
+\begin{tabular}{lll}
+\toprule
+\textbf{Aspek} & \textbf{HTML} & \textbf{JSX} \\
+\midrule
+\emph{class} & \texttt{class="..."} & \texttt{className="..."} \\
+\emph{for} (label) & \texttt{for="..."} & \texttt{htmlFor="..."} \\
+\emph{style} & \texttt{style="color: red;"} & \texttt{style=\{\{ color: 'red' \}\}} \\
+\emph{self-closing} & \texttt{<br>}, \texttt{<img>} & \texttt{<br />}, \texttt{<img />} \\
+Ekspresi & Tidak bisa & Bisa pakai \texttt{\{\}} \\
+Komentar & \texttt{<!-- ... -->} & \texttt{/* ... */} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{JSX Adalah Ekspresi JavaScript}
+
+\begin{lstlisting}[language=JavaScript, caption={Ekspresi JavaScript di dalam JSX}, label={lst:13-jsx-ekspresi}]
+// Anda bisa menulis JavaScript di dalam JSX menggunakan {}
+
+function Profil({ nama, umur }) {
+    return (
+        <div>
+            <h2>Nama: {nama}</h2>
+            <p>Umur: {umur} tahun</p>
+            <p>Status: {umur >= 17 ? 'Dewasa' : 'Anak-anak'}</p>
+            <p>Tahun Lahir: {2025 - umur}</p>
+        </div>
+    );
+}
+
+// {} di JSX = "masukkan hasil ekspresi JavaScript di sini"
+\end{lstlisting}
+
+\begin{catatan}
+Perbandingan dengan JavaScript biasa: \texttt{"<h2>Nama: " + nama + "</h2>"} vs \texttt{<h2>Nama: \{nama\}</h2>}---JSX jauh lebih bersih dan mudah dibaca.
+\end{catatan}
+
+% =====================================================================
+\section{Komponen: Blok Bangunan UI}
+\label{sec:13-komponen}
+% =====================================================================
+
+\textbf{Analogi LEGO:} setiap komponen React adalah bata LEGO---punya bentuk dan warna tersendiri (\emph{props} \& \emph{style}), bisa disusun menjadi struktur lebih besar, dan bisa digunakan berulang kali di tempat berbeda.
+
+\begin{lstlisting}[language=JavaScript, caption={Tiga pola komponen: tanpa props, dengan props, dan komposisi}, label={lst:13-pola-komponen}]
+// 1. Komponen tanpa props (self-contained)
+function Header() {
+    return (
+        <nav className="bg-blue-600 text-white p-4">
+            <h1 className="text-xl font-bold">My Website</h1>
+        </nav>
+    );
+}
+
+// 2. Komponen dengan props
+function Card({ title, description, buttonText }) {
+    return (
+        <div className="bg-white rounded-lg shadow p-4">
+            <h2 className="text-lg font-bold">{title}</h2>
+            <p className="text-gray-600 mb-3">{description}</p>
+            <button className="bg-blue-500 text-white
+                               px-4 py-2 rounded">
+                {buttonText}
+            </button>
+        </div>
+    );
+}
+
+// 3. Komponen menyusun komponen lain (Komposisi)
+function App() {
+    return (
+        <div>
+            <Header />
+            <Card title="Tentang Kami"
+                  description="Kami adalah..."
+                  buttonText="Selengkapnya" />
+            <Card title="Layanan"
+                  description="Kami menyediakan..."
+                  buttonText="Lihat" />
+        </div>
+    );
+}
+\end{lstlisting}
+
+\begin{tip}
+Perubahan di satu definisi komponen berlaku untuk \emph{semua} penggunaannya. Misal: jika Anda mengubah struktur \texttt{Card}, semua kartu otomatis berubah. Tanpa komponen, Anda harus mengubah setiap kartu secara manual.
+\end{tip}
+
+% =====================================================================
+\section{Props: Mengirim Data ke Komponen}
+\label{sec:13-props}
+% =====================================================================
+
+\textbf{Props (properties)} adalah cara mengirim data \textbf{dari luar ke dalam} komponen---seperti parameter fungsi.
+
+\begin{lstlisting}[language=JavaScript, caption={Props sebagai ``parameter'' komponen}, label={lst:13-props-dasar}]
+function Greeting({ nama }) {
+    return <h1>Halo, {nama}!</h1>;
+}
+
+// Menggunakan komponen:
+// <Greeting nama="Budi" />   -> render: <h1>Halo, Budi!</h1>
+// <Greeting nama="Ani" />    -> render: <h1>Halo, Ani!</h1>
+\end{lstlisting}
+
+\subsection{Analogi Fungsi JavaScript}
+
+\begin{lstlisting}[language=JavaScript, caption={Perbandingan fungsi JS biasa dengan komponen React}, label={lst:13-analogi}]
+// JavaScript biasa
+function sapa(nama) {
+    return "Halo, " + nama + "!";
+}
+
+sapa("Budi");  // "Halo, Budi!"
+sapa("Ani");   // "Halo, Ani!"
+
+// React = konsep yang sama, tapi output-nya JSX (UI)
+// <Greeting nama="Budi" /> = sapa("Budi") dalam konteks UI
+\end{lstlisting}
+
+\subsection{Props Bisa Berisi Apa Saja}
+
+\begin{lstlisting}[language=JavaScript, caption={\emph{Props} dengan berbagai tipe data}, label={lst:13-props-lengkap}]
+function ProductCard({ name, price, inStock, rating, image }) {
+    return (
+        <div className="bg-white rounded-lg shadow p-4">
+            <img src={image} alt={name}
+                 className="w-full h-48 object-cover rounded" />
+            <h2 className="text-lg font-bold mt-2">{name}</h2>
+            <p className="text-green-600 font-semibold">
+                Rp {price.toLocaleString('id-ID')}
+            </p>
+            <p className="text-sm text-gray-500">
+                {inStock ? 'Tersedia' : 'Habis'}
+            </p>
+            <p className="text-sm">{rating}/5</p>
+        </div>
+    );
+}
+
+// Menggunakan:
+// <ProductCard name="Laptop ASUS" price={8500000}
+//     inStock={true} rating={4.5} image="/laptop.jpg" />
+\end{lstlisting}
+
+\subsection{Aturan Penting Props}
+
+\begin{lstlisting}[language=JavaScript, caption={Aturan \emph{props}: read-only, default, dan children}, label={lst:13-props-aturan}]
+// 1. Props bersifat READ-ONLY -- komponen TIDAK BOLEH
+//    mengubah props
+function Avatar({ nama }) {
+    // nama = "Hacker";  // JANGAN! Props tidak boleh diubah
+    // Gunakan variabel baru jika perlu
+    const namaBesar = nama.toUpperCase();
+    return <div>{namaBesar}</div>;
+}
+
+// 2. Default props
+function Button({ text = "Klik", color = "blue" }) {
+    return <button className={`bg-${color}-500 text-white p-2`}>
+        {text}
+    </button>;
+}
+
+// 3. Children props -- konten di antara tag pembuka dan penutup
+function Container({ children }) {
+    return <div className="max-w-md mx-auto bg-white
+                           p-6 rounded-lg shadow">
+        {children}
+    </div>;
+}
+
+// Menggunakan children:
+// <Container>
+//     <h1>Judul</h1>
+//     <p>Paragraf di dalam container</p>
+// </Container>
+\end{lstlisting}
+
+% =====================================================================
+\section{Demo Lengkap: Membaca \& Memahami Kode React}
+\label{sec:13-demo-lengkap}
+% =====================================================================
+
+Berikut kode React yang \textbf{lebih realistis}---seperti yang mungkin Anda temui di proyek nyata.
+
+\begin{langkah}
+  \item Tambahkan kode berikut ke \texttt{react-preview.html} (setelah kode-kode sebelumnya).
+  \item Buka di peramban dan baca kode dengan seksama.
+  \item Coba identifikasi pertanyaan-pertanyaan pemahaman di bawah kode.
+\end{langkah}
+
+\begin{lstlisting}[language=JavaScript, caption={Demo lengkap: Halaman Profil Mahasiswa dalam React}, label={lst:13-demo-lengkap}]
+// =============================================
+// File: App.jsx -- Halaman Profil Mahasiswa
+// =============================================
+
+// 1. Komponen kecil: badge status
+function StatusBadge({ aktif }) {
+    if (aktif) {
+        return <span className="bg-green-100 text-green-800
+                     px-3 py-1 rounded-full text-sm">
+            Aktif
+        </span>;
+    }
+    return <span className="bg-red-100 text-red-800
+                 px-3 py-1 rounded-full text-sm">
+        Tidak Aktif
+    </span>;
+}
+
+// 2. Komponen medium: kartu profil
+function KartuProfil({ nama, nim, jurusan, ipk, aktif }) {
+    return (
+        <div className="bg-white rounded-xl shadow-lg
+                        p-6 max-w-sm">
+            {/* Avatar */}
+            <div className="w-20 h-20 rounded-full bg-blue-500
+                flex items-center justify-center text-white
+                text-2xl font-bold mx-auto mb-4">
+                {nama.charAt(0)}
+            </div>
+
+            {/* Info */}
+            <h2 className="text-xl font-bold text-center mb-1">
+                {nama}
+            </h2>
+            <p className="text-gray-500 text-center mb-3">
+                NIM: {nim}
+            </p>
+            <div className="text-center mb-3">
+                <StatusBadge aktif={aktif} />
+            </div>
+
+            {/* Detail */}
+            <div className="border-t pt-3 mt-3 space-y-1
+                            text-sm">
+                <p><strong>Jurusan:</strong> {jurusan}</p>
+                <p><strong>IPK:</strong>
+                    <span className={
+                        ipk >= 3.5
+                            ? "text-green-600"
+                            : "text-red-600"
+                    }>
+                        {ipk}
+                    </span>
+                </p>
+            </div>
+        </div>
+    );
+}
+
+// 3. Komponen utama: halaman
+function HalamanProfil() {
+    const daftarMahasiswa = [
+        { nama: "Budi Santoso", nim: "2401001",
+          jurusan: "Informatika", ipk: 3.8, aktif: true },
+        { nama: "Ani Wijaya", nim: "2401002",
+          jurusan: "Informatika", ipk: 3.2, aktif: true },
+        { nama: "Andi Pratama", nim: "2401003",
+          jurusan: "Sistem Informasi", ipk: 2.9, aktif: false },
+    ];
+
+    return (
+        <div className="min-h-screen bg-gray-100 py-10">
+            <h1 className="text-3xl font-bold text-center mb-8">
+                Daftar Profil Mahasiswa
+            </h1>
+            <div className="flex flex-wrap justify-center
+                            gap-6 px-4">
+                {daftarMahasiswa.map((mhs) => (
+                    <KartuProfil
+                        key={mhs.nim}
+                        nama={mhs.nama}
+                        nim={mhs.nim}
+                        jurusan={mhs.jurusan}
+                        ipk={mhs.ipk}
+                        aktif={mhs.aktif}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+}
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-13/react-kode-lengkap.png}
+  {Kode lengkap di peramban dengan \emph{syntax highlighting}.}
+  {Buka \texttt{react-preview.html} di peramban setelah menambahkan kode di atas.}
+\end{tangkapanlayar}
+
+\textbf{Checklist pemahaman}---centang jika sudah bisa menjawab:
+
+\begin{itemize}
+  \item[$\square$] Komponen \texttt{StatusBadge} menerima \emph{props} apa?
+  \item[$\square$] Di mana \texttt{StatusBadge} digunakan (disebut)?
+  \item[$\square$] Bagaimana cara menentukan warna IPK (hijau/merah)?
+  \item[$\square$] Bagaimana \texttt{HalamanProfil} membuat daftar kartu?
+  \item[$\square$] Apa fungsi \texttt{key} pada \texttt{KartuProfil}?
+\end{itemize}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-13/react-checklist.png}
+  {Checklist pemahaman yang sudah diisi.}
+  {Tuliskan jawaban Anda untuk setiap pertanyaan di atas.}
+\end{tangkapanlayar}
+
+% =====================================================================
+\section{Latihan}
+\label{sec:13-latihan}
+% =====================================================================
+
+\begin{latihan}[Membaca Kode React]
+Baca kode React berikut dan jawab pertanyaan di bawahnya:
+
+\begin{lstlisting}[language=JavaScript, label={lst:13-latihan-kode}]
+function TodoItem({ text, completed }) {
+    return (
+        <div className="flex items-center gap-2 p-2">
+            <input type="checkbox" checked={completed}
+                   readOnly />
+            <span className={
+                completed ? "line-through text-gray-400" : ""
+            }>
+                {text}
+            </span>
+        </div>
+    );
+}
+
+function TodoList() {
+    const todos = [
+        { text: "Belajar HTML", completed: true },
+        { text: "Belajar CSS", completed: true },
+        { text: "Belajar JavaScript", completed: false },
+        { text: "Belajar React", completed: false },
+    ];
+
+    return (
+        <div className="max-w-md mx-auto bg-white p-4
+                        rounded-lg shadow">
+            <h2 className="text-xl font-bold mb-3">
+                To-Do List
+            </h2>
+            {todos.map((todo, index) => (
+                <TodoItem
+                    key={index}
+                    text={todo.text}
+                    completed={todo.completed}
+                />
+            ))}
+        </div>
+    );
+}
+\end{lstlisting}
+
+Pertanyaan:
+\begin{enumerate}
+  \item Komponen \texttt{TodoItem} menerima \emph{props} apa saja?
+  \item Apa yang terjadi pada teks jika \texttt{completed === true}?
+  \item Berapa banyak \texttt{TodoItem} yang akan ditampilkan?
+  \item Berapa banyak item yang sudah selesai (centang)?
+  \item Jika Anda ingin menambah item baru, bagian mana yang perlu diubah?
+\end{enumerate}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-13/latihan1-jawaban.png}
+  {Tuliskan jawaban Anda (boleh di file teks atau di komentar di dalam file HTML).}
+  {Jawab setiap pertanyaan di atas berdasarkan kode yang diberikan.}
+\end{tangkapanlayar}
+\end{latihan}
+
+\begin{latihan}[Menulis Pseudo-Code React]
+Bayangkan Anda diminta membuat komponen \texttt{KartuProduk} untuk toko \emph{online}. \textbf{Tanpa menjalankan kode}, tuliskan (dalam bentuk \emph{pseudo-code} atau kode JSX mentah) komponen yang:
+\begin{enumerate}
+  \item Menerima \emph{props}: \texttt{nama}, \texttt{harga}, \texttt{gambar} (URL), \texttt{diskon} (persen, bisa 0).
+  \item Menampilkan gambar, nama produk, harga asli, dan harga setelah diskon (jika diskon $>$ 0).
+  \item Menggunakan Tailwind CSS untuk \emph{styling} (minimal: \texttt{rounded}, \texttt{shadow}, \texttt{padding}).
+\end{enumerate}
+
+\textbf{Output yang diharapkan (kira-kira tampilan yang Anda bayangkan):}
+
+\begin{lstlisting}
++------------------------+
+|   [Gambar Produk]      |
+|                        |
+|   Laptop ASUS          |
+|   Rp 8.500.000         |
+|   ~~Rp 10.000.000~~    |  <-- hanya jika diskon > 0
+|   (hemat 15%)          |
++------------------------+
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-13/latihan2-pseudocode.png}
+  {Kode JSX \emph{pseudo-code} yang Anda tulis.}
+  {Tuliskan kode JSX untuk komponen \texttt{KartuProduk} Anda.}
+\end{tangkapanlayar}
+\end{latihan}
+
+\begin{latihan}[Peta Pemahaman --- Opsional]
+Buat daftar 5 konsep React yang sudah Anda pahami dan 5 konsep yang masih ingin dipelajari lebih lanjut. Ini akan menjadi acuan saat Anda belajar React di semester lanjutan.
+
+\begin{center}
+\textbf{Tabel: Contoh format peta pemahaman}
+\medskip
+\begin{tabular}{ll}
+\toprule
+\textbf{Sudah Dipahami} & \textbf{Ingin Dipelajari} \\
+\midrule
+Komponen adalah fungsi & \texttt{useState} hook \\
+\emph{Props} = parameter komponen & \texttt{useEffect} (\emph{side effects}) \\
+JSX mirip HTML tapi ada bedanya & React Router (navigasi) \\
+Komponen bisa bersarang & API \emph{calls} di React \\
+\texttt{map()} untuk membuat daftar & Context API (\emph{state} global) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-13/latihan3-peta.png}
+  {Daftar pemahaman Anda.}
+  {Tuliskan 5 konsep yang sudah dipahami dan 5 yang ingin dipelajari.}
+\end{tangkapanlayar}
+\end{latihan}
+
+% =====================================================================
+\section{Troubleshooting \& Catatan}
+\label{sec:13-troubleshooting}
+% =====================================================================
+
+\subsection{FAQ Umum tentang React}
+
+\begin{catatan}
+\textbf{Q: Apakah saya harus menguasai React sekarang?}
+Tidak. Modul ini hanya pengenalan. Anda akan belajar React secara mendalam di semester lanjutan. Yang penting sekarang adalah \textbf{membaca dan memahami konsep dasarnya}.
+\end{catatan}
+
+\begin{catatan}
+\textbf{Q: Kenapa ada banyak simbol aneh di kode React?}
+\begin{itemize}
+  \item \texttt{\{\}} = ekspresi JavaScript di dalam JSX
+  \item \texttt{() => \{\}} = \emph{arrow function} (sudah dipelajari di Minggu 10)
+  \item \texttt{className} = \emph{attribute} di JSX untuk menetapkan class CSS (karena \texttt{class} adalah kata kunci JavaScript)
+\end{itemize}
+\end{catatan}
+
+\begin{catatan}
+\textbf{Q: React vs Vue vs Angular---mana yang terbaik?}
+Tidak ada yang ``terbaik'' secara mutlak. React paling banyak digunakan di industri global. Vue lebih populer di beberapa region. Angular untuk aplikasi \emph{enterprise}. Untuk kuliah, React adalah pilihan aman karena ekosistemnya paling besar.
+\end{catatan}
+
+\subsection{Kosa Kata React}
+
+\begin{table}[htbp]
+\centering
+\caption{Istilah penting dalam React}
+\label{tab:13-kosakata}
+\begin{tabular}{ll}
+\toprule
+\textbf{Istilah} & \textbf{Arti} \\
+\midrule
+\emph{Component} & Blok bangunan UI---fungsi yang mengembalikan JSX \\
+JSX & JavaScript XML---sintaks HTML-\emph{like} di dalam JavaScript \\
+\emph{Props} & Data yang dikirim ke komponen (\emph{read-only}) \\
+\emph{State} & Data internal komponen yang bisa berubah (semester lanjutan) \\
+\emph{Virtual DOM} & Representasi DOM di memori---React update DOM secara efisien \\
+\emph{Hook} & Fitur khusus React (\texttt{useState}, \texttt{useEffect})---semester lanjutan \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Ringkasan Perjalanan Minggu 10--13}
+
+\begin{table}[htbp]
+\centering
+\caption{Topik dan keterampilan yang diperoleh dari Minggu 10--13}
+\label{tab:13-ringkasan}
+\begin{tabular}{lll}
+\toprule
+\textbf{Minggu} & \textbf{Topik} & \textbf{Skill yang Didapat} \\
+\midrule
+10 & JavaScript dasar & Variabel, fungsi, kondisi, DOM selection \\
+11 & JavaScript interaktif & \emph{Event handling}, manipulasi DOM \\
+12 & Tailwind CSS & \emph{Utility-first CSS}, layout \emph{responsive} \\
+13 & React \emph{preview} & Membaca kode komponen, JSX, \emph{props} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{tip}
+\textbf{Next step (semester lanjutan):} Anda akan membangun aplikasi React yang sebenarnya---menggunakan \emph{state}, \emph{effect}, \emph{routing}, dan API. Fondasi dari Minggu 10--13 akan membuat proses itu jauh lebih mudah!
+\end{tip}

@@ -1,0 +1,561 @@
+% =====================================================================
+%  chapters/minggu-15.tex
+%  Minggu 15 — Workshop Proyek Akhir: Implementasi, Deployment &
+%              Progress Clinic
+% =====================================================================
+
+\chapter{Workshop Proyek Akhir --- Implementasi, Deployment \& Progress Clinic}
+\label{chap:minggu-15}
+
+% ---------------------------------------------------------------------
+% 1. CAPAIAN PEMBELAJARAN
+% ---------------------------------------------------------------------
+\begin{capaian}
+Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu:
+\begin{itemize}
+  \item mengimplementasikan halaman web statis (HTML + CSS + JS) sesuai \emph{mockup} Figma yang sudah dibuat;
+  \item mendeplöy website ke GitHub Pages agar bisa diakses publik;
+  \item menyelesaikan kendala teknis melalui sesi \emph{clinic} dengan pengajar;
+  \item memastikan pembagian kerja berjalan merata dan setiap anggota memahami kode tanggung jawabnya.
+\end{itemize}
+\end{capaian}
+
+% ---------------------------------------------------------------------
+% 2. TUJUAN PRAKTIK
+% ---------------------------------------------------------------------
+\begin{tujuanpraktik}
+Pada sesi praktik ini, mahasiswa akan:
+\begin{itemize}
+  \item menyinkronkan \emph{repository} dan memulai implementasi halaman utama;
+  \item menulis struktur HTML semantik dan CSS sesuai \emph{mockup};
+  \item mendeploy website ke GitHub Pages;
+  \item mengikuti sesi \emph{clinic} untuk perbaikan teknis;
+  \item menyiapkan bahan presentasi untuk minggu 16.
+\end{itemize}
+\end{tujuanpraktik}
+
+% ---------------------------------------------------------------------
+% 3. PERALATAN
+% ---------------------------------------------------------------------
+\section{Peralatan yang Dibutuhkan}
+\label{sec:peralatan-15}
+
+\begin{itemize}
+  \item \textbf{VS Code} --- menulis HTML, CSS, JS.
+  \item \textbf{Live Server} (ekstensi VS Code) --- \emph{preview} halaman secara langsung.
+  \item \textbf{Browser} (Chrome/Firefox) --- \emph{testing} dan \emph{debugging}.
+  \item \textbf{Figma} --- referensi desain saat coding.
+  \item \textbf{Git \& GitHub} --- \emph{version control} dan deployment.
+  \item \textbf{GitHub Copilot atau agentic coding tool} (opsional) --- bantuan penulisan kode.
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% 4. SYNCHRONISASI REPOSITORY
+% ---------------------------------------------------------------------
+\section{Synchronisasi Repository}
+\label{sec:sync-repo}
+
+\begin{langkah}
+  \item Buka terminal di VS Code, pastikan berada di \emph{branch} yang benar:
+\begin{lstlisting}[language=bash, caption={Cek branch}]
+git status
+git checkout final-project
+\end{lstlisting}
+  \item Ambil perubahan terbaru dari GitHub:
+\begin{lstlisting}[language=bash, caption={Pull perubahan terbaru}]
+git pull origin final-project
+\end{lstlisting}
+  \item Buka file \texttt{index.html} yang sudah ada (atau buat jika belum).
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-15/terminal-git-status.png}
+  {Terminal di VS Code --- menunjukkan git status branch final-project.}
+  {Buka terminal di VS Code, jalankan \texttt{git status} dan pastikan branch sudah sesuai.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 5. IMPLEMENTASI HALAMAN UTAMA
+% ---------------------------------------------------------------------
+\section{Implementasi Halaman Utama}
+\label{sec:implementasi}
+
+Fokuskan waktu pada satu halaman utama (\emph{landing page} / \emph{homepage}). Multi-halaman bisa ditambahkan jika waktu memungkinkan.
+
+\subsection{Struktur HTML Dasar}
+\label{subsec:html-dasar}
+
+Buka \texttt{src/index.html} dan buat struktur dasar berikut:
+
+\begin{lstlisting}[language=HTML, caption={Struktur dasar HTML semantik}, label={lst:html-struktur}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+  <title>[Nama Website Redesign]</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header & Navigasi -->
+  <header>
+    <nav>
+      <!-- Logo + menu navigasi sesuai mockup -->
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <!-- Judul, deskripsi singkat, tombol CTA -->
+  </section>
+
+  <!-- Konten Utama -->
+  <main>
+    <!-- Bagian-bagian konten sesuai mockup -->
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <!-- Informasi kontak, copyright, tautan -->
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
+\end{lstlisting}
+
+\begin{tip}
+Gunakan tag HTML semantik: \texttt{<header>}, \texttt{<nav>}, \texttt{<main>}, \texttt{<section>}, \texttt{<footer>}. Hindari penggunaan \texttt{<div>} berlebihan tanpa makna. Tambahkan \texttt{lang="id"} di tag \texttt{<html>} untuk aksesibilitas.
+\end{tip}
+
+\subsection{Pembagian Kerja Kelompok}
+\label{subsec:pembagian-kerja}
+
+Agar tidak bentrok, gunakan \emph{branch} terpisah per anggota atau bagian file terpisah.
+
+\textbf{Opsi A: Branch terpisah (disarankan):}
+\begin{lstlisting}[language=bash, caption={Branch per anggota}]
+# Anggota A
+git checkout -b feat/header-navigasi
+
+# Anggota B
+git checkout -b feat/konten-utama
+
+# Anggota C
+git checkout -b feat/footer-responsive
+\end{lstlisting}
+
+Setiap anggota bekerja di \emph{branch} sendiri, lalu \emph{merge} ke \texttt{final-project} setelah selesai.
+
+\textbf{Opsi B: Bagian file terpisah (lebih sederhana):}
+\begin{itemize}
+  \item Anggota A: kerjakan \texttt{index.html} bagian \texttt{<header>} dan \texttt{<nav>}.
+  \item Anggota B: kerjakan \texttt{index.html} bagian \texttt{<main>}.
+  \item Anggota C: kerjakan \texttt{index.html} bagian \texttt{<footer>} + buat \texttt{css/style.css}.
+\end{itemize}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-15/struktur-branch-github.png}
+  {Struktur branch di GitHub --- terlihat branch per anggota.}
+  {Buka \emph{repository} di GitHub, klik dropdown branch untuk memastikan semua branch anggota sudah ada.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-15/html-semantic-tags.png}
+  {Struktur HTML di VS Code dengan semantic tags.}
+  {Buka \texttt{index.html} di VS Code, periksa penggunaan tag semantik.}
+\end{tangkapanlayar}
+
+\subsection{Styling dengan CSS}
+\label{subsec:css-styling}
+
+Buka \texttt{css/style.css} dan mulai \emph{styling} berdasarkan \emph{mockup} Figma.
+
+\begin{lstlisting}[language=CSS, caption={CSS dasar --- reset, header, hero, main, footer, responsive}, label={lst:css-dasar}]
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva,
+               Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Header & Navigation */
+header {
+  background-color: #2c3e50;
+  color: white;
+  padding: 1rem 2rem;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Hero Section */
+.hero {
+  background-color: #3498db;
+  color: white;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+/* Main Content */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Footer */
+footer {
+  background-color: #2c3e50;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  margin-top: 4rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .hero {
+    padding: 2rem 1rem;
+  }
+}
+\end{lstlisting}
+
+\begin{tip}
+Selalu referensikan \emph{mockup} Figma saat menulis CSS --- jangan ``nebak'' ukuran. Gunakan \emph{flexbox} untuk \emph{layout} dan \emph{media query} untuk responsif. Jangan lupa \texttt{box-sizing: border-box} di \emph{reset} --- ini mencegah masalah \emph{layout} umum.
+\end{tip}
+
+\subsection{Interaktivitas JavaScript (Opsional)}
+\label{subsec:javascript}
+
+Jika \emph{mockup} memerlukan elemen interaktif (misal: menu \emph{hamburger}, \emph{accordion} FAQ, tab navigasi):
+
+\begin{lstlisting}[language=JavaScript, caption={Toggle menu mobile (vanilla JS)}, label={lst:js-toggle}]
+// js/script.js
+
+// Contoh: Toggle menu mobile
+const menuToggle =
+  document.querySelector('.menu-toggle');
+const navMenu =
+  document.querySelector('.nav-menu');
+
+if (menuToggle) {
+  menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+  });
+}
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-15/website-desktop-browser.png}
+  {Website tampil di browser (Live Server) --- versi desktop.}
+  {Buka \texttt{index.html} melalui Live Server di VS Code, pastikan tampilan sesuai \emph{mockup}.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-15/website-mobile-browser.png}
+  {Website tampil di browser --- versi mobile (toggle responsive).}
+  {Gunakan DevTools $\rightarrow$ \emph{Toggle Device Toolbar} untuk memeriksa tampilan mobile.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 6. SESI CLINIC / MENTORING
+% ---------------------------------------------------------------------
+\section{Sesi Clinic / Mentoring}
+\label{sec:clinic}
+
+Pengajar berkeliling ke setiap kelompok selama sesi ini. Manfaatkan waktu untuk:
+\begin{itemize}
+  \item review cepat kode dan struktur \emph{repo};
+  \item tanya-jawab tentang bagian kode yang belum dipahami;
+  \item perbaikan masalah teknis yang ditemukan.
+\end{itemize}
+
+\begin{catatan}
+Pastikan setiap kelompok bisa menjawab pertanyaan berikut:
+\begin{enumerate}
+  \item Bagaimana cara website ini mengatasi \emph{pain point} \#1 dari hasil riset?
+  \item Siapa yang mengerjakan bagian apa? Apakah semua anggota sudah punya tanggung jawab?
+  \item Apakah website ini responsif di mobile? Bisa didemo?
+  \item Apakah ada penggunaan \emph{agentic coding tools}? Jika ya, bagian mana?
+\end{enumerate}
+\end{catatan}
+
+% ---------------------------------------------------------------------
+% 7. DEPLOYMENT KE GITHUB PAGES
+% ---------------------------------------------------------------------
+\section{Deployment ke GitHub Pages}
+\label{sec:deployment}
+
+\subsection{Persiapan Repository}
+\label{subsec:persiapan-deploy}
+
+\begin{langkah}
+  \item Pastikan file sudah ter-\emph{commit}:
+\begin{lstlisting}[language=bash, caption={Commit implementasi}]
+git add .
+git commit -m "feat: implementasi halaman utama sesuai mockup Figma"
+git push
+\end{lstlisting}
+  \item Pastikan \emph{branch} \texttt{main} atau \texttt{final-project} berisi kode terbaru. Jika kode di \emph{branch} lain, \emph{merge} terlebih dahulu:
+\begin{lstlisting}[language=bash, caption={Merge ke main}]
+git checkout main
+git merge final-project
+git push origin main
+\end{lstlisting}
+\end{langkah}
+
+\subsection{Aktifkan GitHub Pages}
+\label{subsec:aktifkan-gh-pages}
+
+\begin{langkah}
+  \item Buka \emph{repository} di GitHub.
+  \item Klik tab \textbf{Settings} $\rightarrow$ geser ke bagian kiri $\rightarrow$ klik \textbf{Pages}.
+  \item Di bagian \textbf{Source}:
+  \begin{itemize}
+    \item Pilih \textbf{``Deploy from a branch''}.
+    \item Pilih \emph{branch}: \texttt{main} (atau \texttt{final-project}).
+    \item Pilih folder: \texttt{/ (root)} atau \texttt{/docs} (tergantung struktur).
+    \item Klik \textbf{Save}.
+  \end{itemize}
+  \item Tunggu 1--2 menit, lalu \emph{refresh} halaman Settings $\rightarrow$ Pages.
+  \item Klik tautan yang muncul di bagian atas (contoh: \texttt{https://username.github.io/repo-name/}).
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-15/github-pages-settings.png}
+  {GitHub Settings $\rightarrow$ Pages --- konfigurasi source.}
+  {Buka Settings $\rightarrow$ Pages di \emph{repository} GitHub, pastikan \emph{branch} dan folder sudah benar.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-15/website-deployed-browser.png}
+  {Website yang sudah ter-deploy di browser --- URL GitHub Pages terlihat.}
+  {Buka tautan GitHub Pages di browser, pastikan halaman utama tampil dengan benar.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-15/website-deployed-mobile.png}
+  {Website di mobile view setelah deploy.}
+  {Gunakan DevTools untuk memeriksa tampilan mobile setelah deployment.}
+\end{tangkapanlayar}
+
+\subsection{Update Deployment}
+\label{subsec:update-deploy}
+
+Setiap kali ada perubahan baru, cukup \emph{push} ke \emph{branch} yang sudah dikonfigurasi:
+
+\begin{lstlisting}[language=bash, caption={Push untuk update otomatis}]
+git add .
+git commit -m "fix: perbaikan layout header"
+git push
+\end{lstlisting}
+
+GitHub Pages akan otomatis \emph{update} dalam $\pm$ 1--2 menit.
+
+% ---------------------------------------------------------------------
+% 8. TROUBLESHOOTING DEPLOYMENT
+% ---------------------------------------------------------------------
+\section{Troubleshooting Deployment}
+\label{sec:troubleshooting-deploy}
+
+\begin{table}[htbp]
+\centering
+\caption{Masalah Umum Deployment --- GitHub Pages}
+\label{tab:troubleshooting-deploy}
+\small
+\begin{tabular}{@{}p{5.5cm}p{8cm}@{}}
+\toprule
+\textbf{Masalah} & \textbf{Solusi} \\
+\midrule
+Website tidak muncul setelah deploy & Tunggu 2--3 menit. Jika masih tidak muncul, cek tab \textbf{Actions} di \emph{repo} --- lihat apakah \emph{build} berhasil. \\
+Halaman 404 Not Found & Pastikan file utama bernama \texttt{index.html} dan berada di \emph{folder root} (atau \emph{folder} yang dipilih di Settings). \\
+CSS/JS tidak termuat & Cek path file di HTML --- gunakan \emph{relative path} (\texttt{css/style.css}), bukan \emph{absolute path} (\texttt{/css/style.css}). \\
+Gambar tidak muncul & Pastikan file gambar ada di \emph{repo} dan path-nya benar. Perhatikan huruf besar/kecil (\emph{case-sensitive} di GitHub Pages). \\
+Deploy dari \emph{branch} selain \texttt{main} & Di Settings $\rightarrow$ Pages, ganti \emph{branch source} ke \emph{branch} yang benar. \\
+Subfolder tidak terbaca & Pastikan \texttt{index.html} ada di \emph{root folder} yang dipilih di Settings. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------
+% 9. TROUBLESHOOTING UMUM
+% ---------------------------------------------------------------------
+\section{Troubleshooting Umum}
+\label{sec:troubleshooting-umum}
+
+\begin{table}[htbp]
+\centering
+\caption{Masalah Umum Implementasi dan Solusi}
+\label{tab:troubleshooting-umum}
+\small
+\begin{tabular}{@{}p{5.5cm}p{8cm}@{}}
+\toprule
+\textbf{Masalah} & \textbf{Solusi} \\
+\midrule
+CSS tidak ter-apply & Cek \texttt{<link>} di HTML --- pastikan path benar. Cek juga apakah file CSS benar-benar ada di folder yang tepat. \\
+Gambar tidak tampil & Gunakan path relatif: \texttt{assets/gambar.png}. Pastikan nama file tepat (\emph{case-sensitive}). \\
+Layout pecah di mobile & Pastikan \texttt{<meta name="viewport">} ada di \texttt{<head>}. Cek \emph{media query} di CSS. Gunakan DevTools $\rightarrow$ \emph{Toggle Device Toolbar}. \\
+JavaScript tidak jalan & Buka Console di DevTools (F12 $\rightarrow$ Console). Cek \emph{error message}. Pastikan file JS sudah di-\emph{link} di HTML sebelum \texttt{</body>}. \\
+Git \emph{merge conflict} & Buka file yang conflict $\rightarrow$ cari \texttt{<<<<<<<} $\rightarrow$ pilih versi yang benar $\rightarrow$ hapus marker conflict $\rightarrow$ \emph{commit}. \\
+Flexbox tidak bekerja & Pastikan \emph{parent element} punya \texttt{display: flex}. Cek apakah ada \texttt{width} atau \texttt{height} yang membatasi. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------
+% 10. PERSIAPAN PRESENTASI
+% ---------------------------------------------------------------------
+\section{Persiapan Presentasi}
+\label{sec:persiapan-presentasi}
+
+\subsection{Struktur Presentasi}
+\label{subsec:struktur-presentasi}
+
+Buat file \texttt{docs/presentasi-outline.md} dengan struktur berikut:
+\begin{enumerate}
+  \item \textbf{Pembukaan (1 menit)} --- Perkenalan kelompok \& nama website; URL asli vs URL redesign.
+  \item \textbf{Riset UI/UX (3 menit)} --- \emph{Screenshot} halaman asli; top 3 \emph{pain point}; temuan \emph{benchmarking}.
+  \item \textbf{Desain Ulang (3 menit)} --- \emph{Screenshot mockup} Figma; 3 keputusan desain utama beserta kaitannya dengan temuan riset.
+  \item \textbf{Implementasi (3 menit)} --- \emph{Live demo} website; teknologi yang digunakan; demo responsif.
+  \item \textbf{Pembagian Kerja \& Penggunaan AI (2 menit)} --- Tabel kontribusi; dokumentasi penggunaan \emph{agentic coding tools}.
+  \item \textbf{Penutup (1 menit)} --- Refleksi dan Q\&A.
+\end{enumerate}
+
+\subsection{Bagikan Peran Presentasi}
+\label{subsec:peran-presentasi}
+
+\begin{itemize}
+  \item Anggota 1: Pembukaan \& Riset.
+  \item Anggota 2: Desain Ulang.
+  \item Anggota 3: Implementasi \& Demo.
+  \item Pembagian Kerja \& Penutup: diskusikan sendiri.
+\end{itemize}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-15/outline-presentasi.png}
+  {Outline presentasi di Markdown.}
+  {Buka \texttt{docs/presentasi-outline.md} di VS Code, pastikan seluruh segmen sudah terisi.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 11. FINAL COMMIT \& DOKUMENTATION
+% ---------------------------------------------------------------------
+\section{Final Commit dan Documentation}
+\label{sec:final-commit}
+
+\begin{langkah}
+  \item Pastikan \texttt{README.md} di \emph{root repo} sudah lengkap --- nama website, anggota kelompok (beserta NIM dan tugas), \emph{tech stack}, cara menjalankan, tautan deploy, tautan Figma, dan dokumentasi penggunaan \emph{agentic coding tools} (jika ada).
+  \item \emph{Commit} dan \emph{push}:
+\begin{lstlisting}[language=bash, caption={Final commit documentation}]
+git add .
+git commit -m "docs: lengkapi README dan siapkan bahan presentasi"
+git push
+\end{lstlisting}
+\end{langkah}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-15/readme-lengkap-github.png}
+  {README.md yang sudah lengkap di GitHub.}
+  {Buka \emph{repository} di GitHub, pastikan \texttt{README.md} menampilkan seluruh informasi yang diperlukan.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-15/commit-history-contributors.png}
+  {Commit history --- terlihat kontribusi per anggota.}
+  {Buka tab Insights $\rightarrow$ Contributors di \emph{repository} GitHub untuk memastikan kontribusi merata.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 12. PANDUAN AGENTIC CODING TOOLS (OPSIONAL)
+% ---------------------------------------------------------------------
+\section{Panduan Agentic Coding Tools (Opsional)}
+\label{sec:agentic-coding}
+
+Jika kelompok menggunakan GitHub Copilot, Claude Code, atau tools serupa, dokumentasikan penggunaannya.
+
+\begin{catatan}
+Tips penggunaan yang bertanggung jawab:
+\begin{enumerate}
+  \item Selalu \emph{review} kode yang dihasilkan --- jangan langsung \emph{copy-paste}.
+  \item Pahami setiap baris --- siapkan diri untuk menjelaskan saat sesi tanya-jawab minggu 16.
+  \item Gunakan sebagai bantuan, bukan pengganti --- anggota harus bisa memodifikasi kode sendiri.
+  \item Dokumentasikan semua \emph{prompt} di \texttt{README.md} atau file terpisah.
+\end{enumerate}
+\end{catatan}
+
+% ---------------------------------------------------------------------
+% 13. OUTPUT YANG DIHARAPKAN
+% ---------------------------------------------------------------------
+\section{Output yang Diharapkan}
+\label{sec:output-minggu-15}
+
+Setelah sesi ini, setiap kelompok harus memiliki:
+\begin{itemize}
+  \item Halaman HTML/CSS/JS utama (\texttt{src/index.html}, \texttt{src/css/}, \texttt{src/js/}).
+  \item Website ter-deploy (tautan GitHub Pages).
+  \item Responsif di mobile \& desktop (sudah diuji di browser).
+  \item \texttt{README.md} lengkap di \emph{root repository}.
+  \item \emph{Commit history} per anggota (terlihat di GitHub $\rightarrow$ Insights $\rightarrow$ Contributors).
+  \item \emph{Outline} presentasi (\texttt{docs/presentasi-outline.md}).
+  \item Semua perubahan ter-\emph{push} ke \emph{branch} \texttt{final-project} atau \texttt{main}.
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% 14. TAUTAN REFERENSI
+% ---------------------------------------------------------------------
+\section{Tautan Referensi}
+\label{sec:referensi-minggu-15}
+
+\begin{itemize}
+  \item GitHub Pages Docs: \url{https://docs.github.com/en/pages}
+  \item MDN: HTML Semantics: \url{https://developer.mozilla.org/en-US/docs/Guide/HTML/Sections_and_outlines_of_an_HTML5_document}
+  \item CSS Flexbox Guide: \url{https://css-tricks.com/snippets/css/a-guide-to-flexbox/}
+  \item CSS Media Queries: \url{https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries}
+  \item Figma to Code: \url{https://www.figma.com/best-practices/from-design-to-code/}
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% 15. PERSIAPAN UNTUK MINGGU 16
+% ---------------------------------------------------------------------
+\section{Persiapan untuk Minggu 16 (Presentasi)}
+\label{sec:persiapan-minggu-16}
+
+Sebelum pertemuan minggu depan, pastikan:
+\begin{enumerate}
+  \item Website sudah ter-deploy dan bisa diakses semua orang.
+  \item Semua anggota bisa menjelaskan kode bagian masing-masing.
+  \item \emph{Outline} presentasi sudah final dan semua anggota tahu siapa bicara kapan.
+  \item Siapkan demo langsung --- buka website di browser, siap untuk \emph{resize} dan navigasi.
+  \item Latihan presentasi --- coba presentasikan dalam waktu $\pm$ 10 menit.
+\end{enumerate}
+
+% ---------------------------------------------------------------------
+% 16. LATIHAN
+% ---------------------------------------------------------------------
+\section{Latihan Mandiri}
+\label{sec:latihan-minggu-15}
+
+\begin{latihan}[Eksplorasi Deployment]
+\begin{enumerate}[label=\alph*., leftmargin=2em, itemsep=2pt]
+  \item Buat \emph{branch} terpisah di \emph{repository} pribadi, tambahkan perubahan kecil pada file HTML, lalu \emph{merge} ke \texttt{main}. Amati apakah GitHub Pages ter-\emph{update} secara otomatis.
+  \item Buka DevTools di browser, resize jendela dari 1440px ke 375px, dan identifikasi setidaknya 2 masalah \emph{layout} pada halaman Anda. Perbaiki menggunakan \emph{media query}.
+\end{enumerate}
+\end{latihan}

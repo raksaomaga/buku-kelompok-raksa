@@ -1,0 +1,123 @@
+% =====================================================================
+%  chapters/chapter-template.tex
+%  Kerangka (skeleton) bab modul. Salin file ini menjadi
+%  chapters/bab-XX.tex lalu isi konten. Jangan tulis konten penuh di sini.
+%
+%  Konvensi penamaan bab: chapters/bab-01.tex, bab-02.tex, dst.
+%  Daftarkan di main.tex dengan \input{chapters/bab-XX.tex}.
+% =====================================================================
+
+\chapter{Pengantar Desain Web}
+\label{chap:pengantar}
+
+% ---------------------------------------------------------------------
+% 1. CAPAIAN PEMBELAJARAN
+% ---------------------------------------------------------------------
+\begin{capaian}
+Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu:
+\begin{itemize}
+  \item menjelaskan konsep dasar \emph{World Wide Web} dan cara kerja HTTP;
+  \item membedakan peran HTML, CSS, dan JavaScript dalam pengembangan web;
+  \item membuat halaman web statis sederhana dengan struktur HTML yang valid;
+  \item menerapkan gaya dasar CSS pada elemen halaman.
+\end{itemize}
+\end{capaian}
+
+% ---------------------------------------------------------------------
+% 2. TUJUAN PRAKTIK
+% ---------------------------------------------------------------------
+\begin{tujuanpraktik}
+Pada sesi praktik ini, mahasiswa akan:
+\begin{itemize}
+  \item menyiapkan lingkungan kerja (editor teks dan peramban);
+  \item membuat berkas HTML pertama dan membukanya di peramban;
+  \item memvalidasi struktur dokumen HTML.
+\end{itemize}
+\end{tujuanpraktik}
+
+% ---------------------------------------------------------------------
+% 3. ISI MATERI (uraian singkat — tulis konten penuh di sini)
+% ---------------------------------------------------------------------
+\section{Konsep Dasar}
+\label{sec:konsep-dasar}
+
+Tulis paragraf pengantar materi di sini. Gunakan \emph{italic} untuk istilah
+asing dan \texttt{monospace} untuk nama berkas atau perintah.
+
+\subsection{Sub-bagian Materi}
+\label{subsec:sub-bagian}
+
+Tulis uraian materi di sini.
+
+% ---------------------------------------------------------------------
+% 4. LANGKAH KERJA (praktik)
+% ---------------------------------------------------------------------
+\section{Praktik: Membuat Halaman Pertama}
+\label{sec:praktik-pertama}
+
+\begin{langkah}
+  \item Buka editor teks dan buat berkas baru bernama \texttt{index.html}.
+  \item Ketik kerangka dokumen HTML berikut.
+  \item Simpan berkas dan buka di peramban.
+  \item Amati hasilnya dan bandingkan dengan struktur kode.
+\end{langkah}
+
+% --- Contoh blok kode (listings sudah dimuat ElegantBook) ---
+\begin{lstlisting}[language=HTML, caption={Struktur dasar HTML}, label={lst:html-dasar}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Halaman Pertama</title>
+</head>
+<body>
+  <h1>Halo, Dunia!</h1>
+</body>
+</html>
+\end{lstlisting}
+
+% ---------------------------------------------------------------------
+% 5. TANGKAPAN LAYAR (placeholder non-gambar)
+%    Input: {jalur aset}{keterangan}{instruksi mahasiswa}
+% ---------------------------------------------------------------------
+\begin{tangkapanlayar}
+  {assets/images/bab-01/hasil-halaman-pertama.png}
+  {Hasil halaman pertama yang ditampilkan di peramban.}
+  {Buka \texttt{index.html} di peramban, lalu bandingkan tampilan Anda
+   dengan contoh pada gambar.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 6. CATATAN / TIPS / PERINGATAN
+% ---------------------------------------------------------------------
+\begin{catatan}
+Tulis catatan penting di sini, misalnya perbedaan antara tag blok dan tag sebaris.
+\end{catatan}
+
+\begin{tip}
+Tulis kiat praktis di sini, misalnya penggunaan pintasan editor.
+\end{tip}
+
+\begin{peringatan}
+Tulis peringatan di sini, misalnya kesalahan umum yang sering terjadi.
+\end{peringatan}
+
+% ---------------------------------------------------------------------
+% 7. LATIHAN
+% ---------------------------------------------------------------------
+\section{Latihan}
+\label{sec:latihan}
+
+\begin{latihan}
+  \item Buat halaman HTML berisi judul, paragraf, dan daftar.
+  \item Tambahkan tautan ke halaman lain.
+  \item Validasi berkas Anda menggunakan validator HTML.
+\end{latihan}
+
+% ---------------------------------------------------------------------
+% 8. RANGKUMAN (opsional)
+% ---------------------------------------------------------------------
+\section{Rangkuman}
+\label{sec:rangkuman}
+
+Tulis ringkasan poin-poin penting bab ini.

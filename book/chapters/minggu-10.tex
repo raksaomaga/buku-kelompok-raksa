@@ -1,0 +1,525 @@
+% =====================================================================
+%  chapters/minggu-10.tex
+%  Minggu 10 — JavaScript Dasar: Variabel, Fungsi, Kondisi & DOM Selection
+% =====================================================================
+
+\chapter{JavaScript Dasar: Variabel, Fungsi, Kondisi \& DOM Selection}
+\label{chap:mjs-10}
+
+% ---------------------------------------------------------------------
+% 1. CAPAIAN PEMBELAJARAN
+% ---------------------------------------------------------------------
+\begin{capaian}
+Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu:
+\begin{itemize}
+  \item menulis skrip JavaScript pertama dan menjalankannya di peramban;
+  \item mendeklarasikan variabel dengan \texttt{let} dan \texttt{const}, serta membedakan tipe data dasar;
+  \item mendefinisikan dan memanggil fungsi, termasuk \emph{arrow function};
+  \item menggunakan percabangan \texttt{if}/\texttt{else} untuk pengambilan keputusan;
+  \item memilih elemen HTML melalui \emph{DOM selection} (\texttt{getElementById}, \texttt{querySelector}, dsb.).
+\end{itemize}
+\end{capaian}
+
+% ---------------------------------------------------------------------
+% 2. TUJUAN PRAKTIK
+% ---------------------------------------------------------------------
+\begin{tujuanpraktik}
+Pada sesi praktik ini, mahasiswa akan:
+\begin{itemize}
+  \item membuat file \texttt{.html} yang mengandung skrip JavaScript;
+  \item berlatih menulis variabel, fungsi, dan kondisi;
+  \item memanipulasi elemen HTML melalui \emph{DOM selection}.
+\end{itemize}
+\end{tujuanpraktik}
+
+% =====================================================================
+\section{Persiapan}
+\label{sec:10-persiapan}
+% =====================================================================
+
+Yang Anda butuhkan:
+\begin{itemize}
+  \item VSCode (sudah terinstal dari minggu sebelumnya).
+  \item File HTML dari minggu-minggu sebelumnya (atau buat file baru \texttt{index.html}).
+  \item Peramban (Chrome atau Firefox).
+\end{itemize}
+
+\begin{catatan}
+Untuk modul ini kita \textbf{TIDAK} membutuhkan Node.js. Kita menulis JavaScript langsung di dalam file HTML.
+\end{catatan}
+
+% =====================================================================
+\section{Menulis Skrip Pertama}
+\label{sec:10-srip-pertama}
+% =====================================================================
+
+\begin{langkah}
+  \item Buat file baru bernama \texttt{minggu10.html} di folder proyek Anda.
+  \item Isi dengan kode berikut.
+  \item Buka file ini di peramban (klik kanan di VSCode $\rightarrow$ \textbf{Open with Live Server}).
+  \item Buka \textbf{Console} peramban: tekan \texttt{F12} $\rightarrow$ tab \textbf{Console}.
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Skrip JavaScript pertama}, label={lst:10-srip-pertama}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minggu 10 -- JavaScript Pertama</title>
+</head>
+<body>
+    <h1 id="judul">Halo, Dunia!</h1>
+    <p id="paragraf">Ini adalah paragraf pertama saya.</p>
+
+    <script>
+        console.log("JavaScript berhasil dimuat!");
+        document.getElementById("judul").style.color = "blue";
+    </script>
+</body>
+</html>
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-10/console-srip-pertama.png}
+  {Console peramban menampilkan pesan ``JavaScript berhasil dimuat!''}
+  {Buka file \texttt{minggu10.html} di peramban, lalu buka Console (\texttt{F12}) dan bandingkan hasilnya.}
+\end{tangkapanlayar}
+
+\subsection{Yang Terjadi}
+\begin{itemize}
+  \item \texttt{<script>} di dalam HTML adalah tempat menulis kode JavaScript.
+  \item \texttt{console.log(...)} mencetak pesan ke Console peramban---sangat berguna untuk \emph{debugging}.
+  \item \texttt{document.getElementById("judul")} mencari elemen HTML dengan \texttt{id="judul"}.
+  \item \texttt{.style.color = "blue"} mengubah warna teks menjadi biru.
+\end{itemize}
+
+% =====================================================================
+\section{Variabel \& Tipe Data}
+\label{sec:10-variabel}
+% =====================================================================
+
+\subsection{Deklarasi Variabel}
+
+Variabel adalah \textbf{wadah} untuk menyimpan data. Di JavaScript modern ada tiga cara mendeklarasikan variabel:
+
+\begin{table}[htbp]
+\centering
+\caption{Perbandingan kata kunci deklarasi variabel}
+\label{tab:10-variabel}
+\begin{tabular}{lll}
+\toprule
+\textbf{Kata Kunci} & \textbf{Bisa Diubah?} & \textbf{Kapan Dipakai} \\
+\midrule
+\texttt{let}    & Ya   & Nilai yang mungkin berubah \\
+\texttt{const}  & Tidak & Nilai yang tetap (konstanta) \\
+\texttt{var}    & Ya   & HINDARI---cara lama, bermasalah pada \emph{scope} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{tip}
+Selalu pakai \texttt{const}. Ganti ke \texttt{let} hanya jika nilai perlu diubah. Jangan pakai \texttt{var}.
+\end{tip}
+
+\begin{langkah}
+  \item Tambahkan script berikut \textbf{sebelum} tag \texttt{</script>} yang sudah ada.
+  \item \emph{Refresh} halaman dan lihat hasilnya di Console.
+\end{langkah}
+
+\begin{lstlisting}[language=JavaScript, caption={Deklarasi variabel dan perubahan nilai}, label={lst:10-variabel}]
+// Variabel dengan const (tidak bisa diubah)
+const nama = "Budi";
+const umur = 19;
+
+// Variabel dengan let (bisa diubah)
+let IPK = 3.5;
+
+console.log("Nama:", nama);
+console.log("Umur:", umur);
+console.log("IPK:", IPK);
+
+// Mengubah nilai let
+IPK = 3.8;
+console.log("IPK setelah update:", IPK);
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-10/console-variabel.png}
+  {Console menampilkan output nama, umur, IPK, dan IPK setelah \emph{update}.}
+  {Bandingkan output Console Anda dengan contoh di atas.}
+\end{tangkapanlayar}
+
+\subsection{Tipe Data Dasar}
+
+\begin{lstlisting}[language=JavaScript, caption={Tipe data dasar JavaScript}, label={lst:10-tipedata}]
+// String (teks) -- pakai tanda kutip
+const pesan = "Halo Dunia";
+
+// Number (angka) -- tanpa tanda kutip
+const nilai = 100;
+
+// Boolean (benar/salah)
+const lulus = true;
+
+// Array (daftar)
+const buku = ["HTML", "CSS", "JavaScript"];
+
+// Object (kumpulan properti)
+const mahasiswa = {
+    nama: "Budi",
+    nim: "12345",
+    jurusan: "Informatika"
+};
+
+console.log(pesan);           // "Halo Dunia"
+console.log(nilai);           // 100
+console.log(lulus);           // true
+console.log(buku[0]);         // "HTML" (indeks mulai dari 0)
+console.log(mahasiswa.nama);  // "Budi"
+\end{lstlisting}
+
+% =====================================================================
+\section{Fungsi}
+\label{sec:10-fungsi}
+% =====================================================================
+
+Fungsi adalah \textbf{blok kode yang bisa dipanggil berulang kali}. Bayangkan seperti resep masakan---Anda menulis resepnya sekali, lalu bisa dipakai kapan saja.
+
+\begin{langkah}
+  \item Tambahkan kode berikut ke dalam tag \texttt{<script>}.
+  \item \emph{Refresh} halaman, lihat hasil di Console.
+\end{langkah}
+
+\begin{lstlisting}[language=JavaScript, caption={Fungsi deklarasi, nilai kembali, dan \emph{arrow function}}, label={lst:10-fungsi}]
+// Fungsi sederhana -- deklarasi
+function sapa(nama) {
+    console.log("Halo, " + nama + "! Selamat belajar JavaScript.");
+}
+
+// Memanggil fungsi
+sapa("Budi");
+sapa("Ani");
+sapa("Andi");
+
+// Fungsi dengan nilai kembali (return)
+function hitungLuas(panjang, lebar) {
+    const luas = panjang * lebar;
+    return luas;
+}
+
+const hasil = hitungLuas(10, 5);
+console.log("Luas persegi panjang:", hasil);
+
+// Fungsi panah (arrow function) -- cara modern
+const kalikan = (a, b) => {
+    return a * b;
+};
+
+console.log("3 x 4 =", kalikan(3, 4));
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-10/console-fungsi.png}
+  {Console menampilkan output pemanggilan fungsi \texttt{sapa()}, \texttt{hitungLuas()}, dan \texttt{kalikan()}.}
+  {Bandingkan output Console Anda dengan contoh di atas.}
+\end{tangkapanlayar}
+
+\begin{itemize}
+  \item \texttt{function sapa(nama)} mendefinisikan fungsi bernama \texttt{sapa} yang menerima satu parameter \texttt{nama}.
+  \item \texttt{sapa("Budi")} memanggil fungsi dengan nilai \texttt{"Budi"} untuk parameter \texttt{nama}.
+  \item \texttt{return luas} mengembalikan nilai hasil perhitungan agar bisa digunakan di luar fungsi.
+  \item \emph{Arrow function} \texttt{=>} adalah cara menulis fungsi yang lebih singkat.
+\end{itemize}
+
+% =====================================================================
+\section{Kondisi (If/Else)}
+\label{sec:10-kondisi}
+% =====================================================================
+
+Kondisi membuat program bisa \textbf{mengambil keputusan}---seperti ``Jika hujan, bawa payung; jika tidak, bawa topi.''
+
+\begin{langkah}
+  \item Tambahkan kode berikut ke dalam tag \texttt{<script>}.
+  \item \emph{Refresh} dan lihat output di Console.
+\end{langkah}
+
+\begin{lstlisting}[language=JavaScript, caption={Percabangan if/else dan operator perbandingan}, label={lst:10-kondisi}]
+// Kondisi sederhana
+const suhu = 32;
+
+if (suhu > 30) {
+    console.log("Panas! Minum air yang banyak.");
+} else if (suhu >= 20) {
+    console.log("Nyaman. Cocok untuk belajar.");
+} else {
+    console.log("Dingin! Pakai jaket.");
+}
+
+// Kondisi dengan string
+const namaMahasiswa = "Budi";
+
+if (namaMahasiswa === "Budi") {
+    console.log("Halo Budi, selamat datang!");
+} else {
+    console.log("Siapa kamu?");
+}
+
+// Operator perbandingan
+// ===  sama dengan (nilai DAN tipe sama)
+// !==  tidak sama dengan
+// >    lebih besar dari
+// <    lebih kecil dari
+// >=   lebih besar atau sama dengan
+// <=   lebih kecil atau sama dengan
+
+console.log(5 === 5);    // true
+console.log(5 === "5");  // false (angka vs string)
+console.log(5 == "5");   // true (hati-hati, bisa menyesatkan)
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-10/console-kondisi.png}
+  {Console menampilkan output kondisi if/else dan perbandingan.}
+  {Bandingkan output Console Anda dengan contoh di atas.}
+\end{tangkapanlayar}
+
+% =====================================================================
+\section{DOM Selection}
+\label{sec:10-dom}
+% =====================================================================
+
+\textbf{DOM (Document Object Model)} adalah representasi struktur HTML sebagai ``pohon'' yang bisa diakses oleh JavaScript. \emph{DOM Selection} adalah cara JavaScript \textbf{mencari elemen} di halaman HTML.
+
+\begin{langkah}
+  \item Ganti isi file \texttt{minggu10.html} dengan versi lengkap berikut.
+  \item Buka dengan Live Server dan lihat hasilnya.
+  \item Buka Console (\texttt{F12} $\rightarrow$ Console) untuk melihat semua \emph{log}.
+\end{langkah}
+
+\begin{lstlisting}[language=HTML, caption={Demonstrasi DOM Selection}, label={lst:10-dom}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minggu 10 -- DOM Selection</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .kotak { border: 2px solid #333; padding: 10px;
+                 margin: 10px 0; border-radius: 5px; }
+        .highlight { background-color: yellow; }
+    </style>
+</head>
+<body>
+    <h1 id="judul">Belajar DOM Selection</h1>
+    <p class="teks">Paragraf pertama -- class="teks"</p>
+    <p class="teks">Paragraf kedua -- class="teks"</p>
+    <p id="paragraf-khusus">Paragraf khusus dengan ID</p>
+
+    <div class="kotak" id="kotak1">Kotak 1</div>
+    <div class="kotak" id="kotak2">Kotak 2</div>
+    <div class="kotak" id="kotak3">Kotak 3</div>
+
+    <ul id="daftar-mahasiswa">
+        <li>Budi</li>
+        <li>Ani</li>
+        <li>Andi</li>
+        <li>Sari</li>
+    </ul>
+
+    <script>
+        // Cara 1: getElementById
+        const judul = document.getElementById("judul");
+        console.log("Judul:", judul.textContent);
+        judul.style.color = "purple";
+
+        // Cara 2: querySelector
+        const paragrafKhusus =
+            document.querySelector("#paragraf-khusus");
+        console.log("Paragraf khusus:", paragrafKhusus.textContent);
+
+        // Cara 3: querySelectorAll
+        const semuaTeks = document.querySelectorAll(".teks");
+        console.log("Jumlah paragraf .teks:", semuaTeks.length);
+        semuaTeks.forEach((el, index) => {
+            console.log(`  Teks ${index + 1}:`, el.textContent);
+        });
+
+        // Cara 4: getElementsByClassName
+        const semuaKotak =
+            document.getElementsByClassName("kotak");
+        console.log("Jumlah kotak:", semuaKotak.length);
+        for (let i = 0; i < semuaKotak.length; i++) {
+            semuaKotak[i].style.backgroundColor = "lightblue";
+            semuaKotak[i].style.padding = "15px";
+        }
+
+        // Cara 5: selector campuran
+        const itemPertama = document.querySelector(
+            "#daftar-mahasiswa li:first-child"
+        );
+        console.log("Mahasiswa pertama:", itemPertama.textContent);
+        itemPertama.style.fontWeight = "bold";
+        itemPertama.style.color = "red";
+    </script>
+</body>
+</html>
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-10/dom-selection-halaman.png}
+  {Halaman web setelah dieksekusi: judul ungu, kotak biru, item pertama daftar mahasiswa berwarna merah tebal.}
+  {Buka \texttt{minggu10.html} di peramban dan bandingkan tampilan Anda.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-10/dom-selection-console.png}
+  {Console menampilkan semua \emph{log} DOM selection.}
+  {Buka Console (\texttt{F12}) dan pastikan semua \emph{log} muncul.}
+\end{tangkapanlayar}
+
+\subsection{Ringkasan Metode DOM Selection}
+
+\begin{table}[htbp]
+\centering
+\caption{Metode DOM Selection}
+\label{tab:10-dom}
+\begin{tabular}{lll}
+\toprule
+\textbf{Metode} & \textbf{Mencari} & \textbf{Mengembalikan} \\
+\midrule
+\texttt{getElementById("id")} & 1 elemen & Element \\
+\texttt{querySelector("sel")} & 1 elemen (pertama cocok) & Element \\
+\texttt{querySelectorAll("sel")} & Semua elemen & NodeList \\
+\texttt{getElementsByClassName("cls")} & Semua elemen & HTMLCollection \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{tip}
+\texttt{querySelector} dan \texttt{querySelectorAll} paling fleksibel---bisa pakai semua \emph{selector} CSS (\texttt{id}, \texttt{class}, \texttt{tag}, \texttt{attribute}, bahkan \texttt{:nth-child}).
+\end{tip}
+
+% =====================================================================
+\section{Latihan}
+\label{sec:10-latihan}
+% =====================================================================
+
+\begin{latihan}[Variabel dan Fungsi]
+Buat file baru \texttt{latihan10-1.html} dan buatlah:
+\begin{enumerate}
+  \item Variabel \texttt{const} untuk menyimpan nama lengkap Anda dan NIM.
+  \item Variabel \texttt{let} untuk menyimpan nilai ujian (angka).
+  \item Fungsi \texttt{beriNilai(skor)} yang mencetak ke Console:
+  \begin{itemize}
+    \item Jika skor $\geq$ 85: \texttt{"Excellent! Nilai Anda: [skor]"}
+    \item Jika skor $\geq$ 70: \texttt{"Bagus! Nilai Anda: [skor]"}
+    \item Jika skor $<$ 70: \texttt{"Perlu belajar lagi. Nilai Anda: [skor]"}
+  \end{itemize}
+  \item Panggil fungsi tersebut dengan tiga nilai berbeda.
+\end{enumerate}
+
+\textbf{Output yang diharapkan di Console:}
+\begin{lstlisting}[language=JavaScript]
+Excellent! Nilai Anda: 90
+Bagus! Nilai Anda: 75
+Perlu belajar lagi. Nilai Anda: 60
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-10/latihan1-expected.png}
+  {Console menampilkan output pencarian nilai sesuai skor.}
+  {Jalankan file \texttt{latihan10-1.html} di peramban dan pastikan output sesuai.}
+\end{tangkapanlayar}
+\end{latihan}
+
+\begin{latihan}[DOM Selection]
+Buat file baru \texttt{latihan10-2.html} dengan HTML berikut:
+
+\begin{lstlisting}[language=HTML, label={lst:10-latihan2-html}]
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan 10-2</title>
+</head>
+<body>
+    <h1 id="sapa">Selamat Datang</h1>
+    <p class="info">Mata kuliah: Desain Web</p>
+    <p class="info">Dosen: [Nama Dosen]</p>
+    <p class="info">Hari: [Hari Kuliah]</p>
+    <div class="kartu">Kartu Mahasiswa</div>
+    <div class="kartu">Kartu UKT</div>
+    <div class="kartu">Kartu Perpustakaan</div>
+</body>
+</html>
+\end{lstlisting}
+
+Tugas JavaScript:
+\begin{enumerate}
+  \item Ambil elemen \texttt{\#sapa} dan ubah teksnya menjadi nama Anda.
+  \item Ambil semua elemen \texttt{.info} dan ubah warna setiap paragraf menjadi biru.
+  \item Ambil semua elemen \texttt{.kartu} dan tambahkan \texttt{border 1px solid gray} pada setiap kartu.
+\end{enumerate}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-10/latihan2-expected.png}
+  {Halaman setelah JavaScript berjalan---judul berganti nama, paragraf info biru, kartu ada border.}
+  {Jalankan file \texttt{latihan10-2.html} di peramban dan pastikan tampilan sesuai.}
+\end{tangkapanlayar}
+\end{latihan}
+
+\begin{latihan}[Tantangan --- Opsional]
+Buat file \texttt{latihan10-3.html} yang berisi:
+\begin{itemize}
+  \item Sebuah \emph{array} berisi minimal 5 nama mahasiswa.
+  \item Fungsi \texttt{cariMahasiswa(namaArray, namaDicari)} yang mencetak ke Console:
+  \begin{itemize}
+    \item \texttt{"[nama] ditemukan di indeks [indeks]!"} jika ketemu.
+    \item \texttt{"[nama] tidak ditemukan di daftar."} jika tidak ketemu.
+  \end{itemize}
+  \item Panggil fungsi dengan nama yang ada di \emph{array} dan nama yang tidak ada.
+\end{itemize}
+
+\textbf{Output yang diharapkan di Console:}
+\begin{lstlisting}[language=JavaScript]
+Budi ditemukan di indeks 0!
+Siti tidak ditemukan di daftar.
+\end{lstlisting}
+
+\begin{tangkapanlayar}
+  {assets/images/minggu-10/latihan3-expected.png}
+  {Console menampilkan hasil pencarian nama dalam \emph{array}.}
+  {Jalankan file \texttt{latihan10-3.html} di peramban.}
+\end{tangkapanlayar}
+\end{latihan}
+
+% =====================================================================
+\section{Troubleshooting}
+\label{sec:10-troubleshooting}
+% =====================================================================
+
+\begin{peringatan}
+\textbf{JavaScript tidak berjalan / Console kosong} --- pastikan \texttt{<script>} berada \textbf{sebelum} \texttt{</body>}, perhatikan huruf besar-kecil nama fungsi/variabel, dan tekan \texttt{Ctrl+S} sebelum \emph{refresh}.
+\end{peringatan}
+
+\begin{catatan}
+\textbf{``Uncaught TypeError: Cannot read properties of null''} --- elemen belum ada di DOM saat script dijalankan. Pindahkan script ke akhir \texttt{<body>} atau bungkus dengan \texttt{DOMContentLoaded}.
+\end{catatan}
+
+\begin{lstlisting}[language=JavaScript, caption={Penanganan elemen belum tersedia}, label={lst:10-trouble}]
+// Salah -- elemen belum ada di DOM
+document.getElementById("judul").style.color = "red";
+
+// Benar -- pindahkan script ke akhir body
+// atau pakai DOMContentLoaded
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("judul").style.color = "red";
+});
+\end{lstlisting}
+
+\begin{tip}
+\textbf{Selector tidak menemukan elemen} --- buka DevTools $\rightarrow$ tab Elements $\rightarrow$ periksa apakah elemen yang dicari benar-benar ada di DOM. Pastikan \texttt{\#} untuk ID dan \texttt{.} untuk \emph{class}.
+\end{tip}

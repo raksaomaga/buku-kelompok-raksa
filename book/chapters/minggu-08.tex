@@ -1,0 +1,494 @@
+% =====================================================================
+%  chapters/minggu-08.tex
+%  Bab 8 — Git & GitHub Dasar: Init, Commit, Push, Pull
+% =====================================================================
+
+\chapter{Git \& GitHub Dasar: Init, Commit, Push, Pull}
+\label{chap:git-dasar}
+
+% ---------------------------------------------------------------------
+% 1. CAPAIAN PEMBELAJARAN
+% ---------------------------------------------------------------------
+\begin{capaian}
+Setelah menyelesaikan bab ini, mahasiswa diharapkan mampu:
+\begin{itemize}
+  \item menjelaskan kegunaan Git dan GitHub;
+  \item menginstal dan mengonfigurasi Git di komputer;
+  \item menginisialisasi \emph{repository} Git (\texttt{git init});
+  \item melakukan \emph{commit} dengan pesan yang baik;
+  \item membuat \emph{repository} di GitHub dan menghubungkannya;
+  \item melakukan \emph{push} dan \emph{pull}.
+\end{itemize}
+\end{capaian}
+
+% ---------------------------------------------------------------------
+% 2. TUJUAN PRAKTIK
+% ---------------------------------------------------------------------
+\begin{tujuanpraktik}
+Pada sesi praktik ini, mahasiswa akan:
+\begin{itemize}
+  \item memeriksa instalasi Git dan mengonfigurasi identitas;
+  \item menginisialisasi \emph{repository} dan melakukan \emph{commit} pertama;
+  \item membuat \emph{repository} di GitHub dan menghubungkannya dengan \emph{repository} lokal;
+  \item mempraktikkan alur kerja \texttt{git add} $\rightarrow$ \texttt{git commit} $\rightarrow$ \texttt{git push} $\rightarrow$ \texttt{git pull}.
+\end{itemize}
+\end{tujuanpraktik}
+
+% ---------------------------------------------------------------------
+% 3. RINGKASAN TEORI
+% ---------------------------------------------------------------------
+\section{Apa itu Git?}
+\label{sec:apa-itu-git}
+
+Git adalah \textbf{sistem kontrol versi} (\emph{version control system}). Git melacak setiap perubahan pada file, sehingga Anda bisa:
+\begin{itemize}
+  \item melihat riwayat perubahan;
+  \item kembali ke versi sebelumnya;
+  \item bekerja bersama orang lain tanpa menimpa pekerjaan.
+\end{itemize}
+
+\section{Apa itu GitHub?}
+\label{sec:apa-itu-github}
+
+GitHub adalah \textbf{layanan hosting} untuk \emph{repository} Git di internet. GitHub memungkinkan Anda menyimpan kode di cloud, berkolaborasi, dan (nanti) men-\emph{deploy} website.
+
+\section{Alur Kerja Dasar}
+\label{sec:alur-kerja}
+
+\begin{lstlisting}[caption={Alur kerja Git}, label={lst:alur-git}]
+Working Directory -> (git add) -> Staging Area
+  -> (git commit) -> Repository Lokal
+  -> (git push) -> GitHub
+\end{lstlisting}
+
+\begin{itemize}
+  \item \textbf{Working directory} --- file yang sedang Anda edit.
+  \item \textbf{Staging area} --- file yang ``dipilih'' untuk di-\emph{commit}.
+  \item \textbf{Repository lokal} --- riwayat \emph{commit} di komputer Anda.
+  \item \textbf{GitHub} --- salinan \emph{repository} di internet.
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% 4. PRAKTIKUM 1 — MEMERIKSA INSTALASI GIT
+% ---------------------------------------------------------------------
+\section{Praktikum 1 --- Memeriksa Instalasi Git}
+\label{sec:git-praktik-1}
+
+\begin{langkah}
+  \item Buka terminal di VSCode (menu \emph{Terminal} $\rightarrow$ \emph{New Terminal}).
+  \item Ketik perintah berikut untuk memeriksa versi Git.
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Memeriksa versi Git}, label={lst:git-version}]
+git --version
+\end{lstlisting}
+
+\begin{langkah}
+  \item Jika muncul versi (mis.\ \texttt{git version 2.40.0}), Git sudah terinstal. Jika belum, unduh dari \url{https://git-scm.com/downloads}, instal dengan pengaturan default, lalu ulangi Langkah~2.
+\end{langkah}
+
+\begin{catatan}
+Saat instalasi, pilih editor default sesuai keinginan (mis.\ VSCode) dan biarkan opsi lain default.
+\end{catatan}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-08/git-version.png}
+  {Hasil \texttt{git --version} di terminal (menunjukkan versi Git terinstal).}
+  {Jalankan \texttt{git --version} di terminal dan pastikan muncul nomor versi.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 5. PRAKTIKUM 2 — KONFIGURASI GIT
+% ---------------------------------------------------------------------
+\section{Praktikum 2 --- Konfigurasi Git}
+\label{sec:git-praktik-2}
+
+Sebelum mulai, Git perlu tahu \textbf{siapa Anda}. Ini akan tercatat di setiap \emph{commit}.
+
+\begin{langkah}
+  \item Di terminal, ketik (ganti dengan nama dan email Anda):
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Konfigurasi identitas Git}, label={lst:git-config}]
+git config --global user.name "Nama Anda"
+git config --global user.email "email@contoh.com"
+\end{lstlisting}
+
+\begin{langkah}
+  \item Gunakan email yang sama dengan akun GitHub Anda.
+  \item Periksa konfigurasi:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Memeriksa konfigurasi}, label={lst:git-config-list}]
+git config --list
+\end{lstlisting}
+
+\begin{langkah}
+  \item Pastikan \texttt{user.name} dan \texttt{user.email} muncul dengan benar.
+\end{langkah}
+
+\begin{tip}
+Konfigurasi \texttt{--global} berlaku untuk semua proyek di komputer Anda. Lakukan sekali saja.
+\end{tip}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-08/git-config-list.png}
+  {Hasil \texttt{git config --list} (menampilkan \texttt{user.name} dan \texttt{user.email}).}
+  {Jalankan \texttt{git config --list} dan pastikan identitas Anda tercatat.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 6. PRAKTIKUM 3 — INISIALISASI REPOSITORY
+% ---------------------------------------------------------------------
+\section{Praktikum 3 --- Inisialisasi Repository}
+\label{sec:git-praktik-3}
+
+\begin{langkah}
+  \item Buka folder proyek yang sudah ada, misalnya \texttt{latihan-css} dari Bab~5.
+  \item Di terminal, pastikan Anda berada di folder proyek. Periksa dengan:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Memeriksa direktori kerja}, label={lst:git-pwd}]
+pwd
+\end{lstlisting}
+
+\begin{langkah}
+  \item Inisialisasi \emph{repository} Git:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Inisialisasi repository}, label={lst:git-init}]
+git init
+\end{lstlisting}
+
+\begin{langkah}
+  \item Periksa status \emph{repository}:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Memeriksa status repository}, label={lst:git-status-1}]
+git status
+\end{lstlisting}
+
+\begin{catatan}
+\texttt{git init} membuat folder tersembunyi \texttt{.git} yang berisi riwayat versi. Jangan hapus folder ini.
+\end{catatan}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-08/git-status-untracked.png}
+  {Hasil \texttt{git status} setelah \texttt{git init} (file untracked).}
+  {Jalankan \texttt{git status} setelah \texttt{git init} dan amati daftar file.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 7. PRAKTIKUM 4 — MEMBUAT FILE .GITIGNORE
+% ---------------------------------------------------------------------
+\section{Praktikum 4 --- Membuat File \texttt{.gitignore}}
+\label{sec:git-praktik-4}
+
+\begin{langkah}
+  \item Buat file bernama \texttt{.gitignore} di folder proyek.
+  \item Isi dengan file/folder yang \textbf{tidak perlu} di-\emph{commit}:
+\end{langkah}
+
+\begin{lstlisting}[caption={Isi .gitignore}, label={lst:gitignore}]
+node_modules/
+.DS_Store
+*.log
+\end{lstlisting}
+
+\begin{langkah}
+  \item Simpan file.
+\end{langkah}
+
+\begin{catatan}
+\texttt{.gitignore} memberi tahu Git file mana yang harus diabaikan. Berguna untuk file sementara atau sensitif.
+\end{catatan}
+
+% ---------------------------------------------------------------------
+% 8. PRAKTIKUM 5 — COMMIT PERTAMA
+% ---------------------------------------------------------------------
+\section{Praktikum 5 --- Commit Pertama}
+\label{sec:git-praktik-5}
+
+\begin{langkah}
+  \item Tambahkan semua file ke \emph{staging area}:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Menambahkan file ke staging area}, label={lst:git-add}]
+git add .
+\end{lstlisting}
+
+\begin{langkah}
+  \item Periksa status:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Memeriksa status setelah git add}, label={lst:git-status-2}]
+git status
+\end{lstlisting}
+
+\begin{langkah}
+  \item File yang berwarna hijau (\emph{staged}) siap di-\emph{commit}. Lakukan \emph{commit} pertama:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Commit pertama}, label={lst:git-commit}]
+git commit -m "Proyek awal latihan CSS"
+\end{lstlisting}
+
+\begin{langkah}
+  \item Periksa riwayat \emph{commit}:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Melihat riwayat commit}, label={lst:git-log}]
+git log --oneline
+\end{lstlisting}
+
+\begin{tip}
+\textbf{Tips penulisan pesan \emph{commit} yang baik:}
+\begin{itemize}
+  \item Singkat dan jelas (maksimal $\sim$50 karakter).
+  \item Jelaskan \textbf{apa} yang diubah, bukan sekadar ``update''.
+  \item Contoh: ``Menambahkan halaman profil'', ``Memperbaiki bug navbar'', ``Mengubah warna tombol''.
+\end{itemize}
+\end{tip}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-08/git-status-staged.png}
+  {Hasil \texttt{git status} setelah \texttt{git add .} (file \emph{staged}, berwarna hijau).}
+  {Jalankan \texttt{git add .} lalu \texttt{git status} dan amati status file.}
+\end{tangkapanlayar}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-08/git-log.png}
+  {Hasil \texttt{git log --oneline} (riwayat \emph{commit}).}
+  {Jalankan \texttt{git log --oneline} dan pastikan \emph{commit} pertama tercatat.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 9. PRAKTIKUM 6 — MEMBUAT REPOSITORY DI GITHUB
+% ---------------------------------------------------------------------
+\section{Praktikum 6 --- Membuat Repository di GitHub}
+\label{sec:git-praktik-6}
+
+\begin{langkah}
+  \item Buka \url{https://github.com} dan \emph{login}.
+  \item Klik tombol \textbf{+} di pojok kanan atas, lalu pilih \textbf{New repository}.
+  \item Isi:
+\end{langkah}
+
+\begin{itemize}
+  \item \textbf{Repository name:} \texttt{latihan-css} (atau nama proyek Anda).
+  \item \textbf{Description:} (opsional) ``Latihan CSS minggu 5''.
+  \item \textbf{Visibility:} pilih \textbf{Public}.
+  \item \textbf{Jangan centang} ``Add a README file'' (karena kita sudah punya file).
+\end{itemize}
+
+\begin{langkah}
+  \item Klik \textbf{Create repository}.
+  \item Anda akan melihat halaman berisi perintah untuk menghubungkan \emph{repository} lokal ke GitHub. Simpan halaman ini---kita akan menggunakannya di praktikum berikutnya.
+\end{langkah}
+
+\begin{catatan}
+Jangan tutup halaman ini dulu. Perhatikan bagian ``\ldots or push an existing repository from the command line''.
+\end{catatan}
+
+% ---------------------------------------------------------------------
+% 10. PRAKTIKUM 7 — MENGHUBUNGKAN DAN PUSH
+% ---------------------------------------------------------------------
+\section{Praktikum 7 --- Menghubungkan dan Push}
+\label{sec:git-praktik-7}
+
+\begin{langkah}
+  \item Kembali ke terminal VSCode.
+  \item Tambahkan \emph{remote} (alamat \emph{repository} GitHub). Ganti \texttt{USERNAME} dan \texttt{NAMA-REPO} sesuai milik Anda:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Menambahkan remote origin}, label={lst:git-remote}]
+git remote add origin https://github.com/USERNAME/NAMA-REPO.git
+\end{lstlisting}
+
+\begin{langkah}
+  \item Periksa \emph{remote}:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Memeriksa remote}, label={lst:git-remote-v}]
+git remote -v
+\end{lstlisting}
+
+\begin{langkah}
+  \item \emph{Push} \emph{commit} ke GitHub. Ganti \texttt{main} dengan nama branch Anda jika berbeda:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Push ke GitHub}, label={lst:git-push}]
+git branch -M main
+git push -u origin main
+\end{lstlisting}
+
+\begin{langkah}
+  \item Jika diminta \emph{login}, ikuti petunjuk (\emph{browser} akan terbuka untuk autentikasi GitHub).
+  \item Buka halaman \emph{repository} di GitHub dan \emph{refresh}. File-file Anda sekarang ada di GitHub!
+\end{langkah}
+
+\begin{catatan}
+\texttt{-u} (\emph{upstream}) membuat Git mengingat bahwa branch \texttt{main} terhubung ke \texttt{origin/main}, sehingga \emph{push} berikutnya cukup \texttt{git push}.
+\end{catatan}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-08/github-repo-setelah-push.png}
+  {Halaman \emph{repository} di GitHub setelah \emph{push} pertama (berisi file proyek).}
+  {Buka halaman \emph{repository} di GitHub dan pastikan file sudah muncul.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 11. PRAKTIKUM 8 — MENGUBAH FILE DAN COMMIT LAGI
+% ---------------------------------------------------------------------
+\section{Praktikum 8 --- Mengubah File dan Commit Lagi}
+\label{sec:git-praktik-8}
+
+\begin{langkah}
+  \item Ubah salah satu file di proyek Anda (mis.\ tambahkan paragraf baru di \texttt{index.html}).
+  \item Lihat perubahan yang terjadi:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Melihat perubahan}, label={lst:git-diff}]
+git status
+git diff
+\end{lstlisting}
+
+\begin{langkah}
+  \item Tambahkan dan \emph{commit} perubahan:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Commit perubahan baru}, label={lst:git-commit-2}]
+git add .
+git commit -m "Menambahkan paragraf baru di index"
+\end{lstlisting}
+
+\begin{langkah}
+  \item \emph{Push} ke GitHub:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Push ke GitHub}, label={lst:git-push-2}]
+git push
+\end{lstlisting}
+
+\begin{langkah}
+  \item \emph{Refresh} halaman GitHub dan lihat bahwa perubahan sudah masuk.
+\end{langkah}
+
+\begin{catatan}
+\textbf{Alur yang benar:} \texttt{git add} $\rightarrow$ \texttt{git commit} $\rightarrow$ \texttt{git push}. Ulangi setiap kali selesai mengerjakan sesuatu.
+\end{catatan}
+
+% ---------------------------------------------------------------------
+% 12. PRAKTIKUM 9 — PULL (MENGAMBIL PERUBAHAN)
+% ---------------------------------------------------------------------
+\section{Praktikum 9 --- Pull (Mengambil Perubahan)}
+\label{sec:git-praktik-9}
+
+\begin{langkah}
+  \item Buka halaman \emph{repository} di GitHub.
+  \item Klik file \texttt{index.html}, lalu klik ikon pensil (\emph{edit}) di kanan atas.
+  \item Ubah sesuatu (mis.\ ganti judul), lalu klik \textbf{Commit changes} di bagian bawah.
+  \item Kembali ke terminal VSCode. Ambil perubahan dari GitHub:
+\end{langkah}
+
+\begin{lstlisting}[language=bash, caption={Pull dari GitHub}, label={lst:git-pull}]
+git pull
+\end{lstlisting}
+
+\begin{langkah}
+  \item Buka \texttt{index.html} di VSCode---perubahan yang Anda buat di GitHub sekarang ada di komputer lokal.
+\end{langkah}
+
+\begin{catatan}
+\texttt{git pull} mengambil perubahan terbaru dari GitHub ke komputer Anda. Lakukan ini sebelum mulai bekerja jika bekerja bersama tim.
+\end{catatan}
+
+\begin{tangkapanlayar}
+  {assets/images/bab-08/git-pull.png}
+  {Hasil \texttt{git pull} yang berhasil mengambil perubahan dari GitHub.}
+  {Jalankan \texttt{git pull} dan pastikan perubahan dari GitHub sudah sinkron.}
+\end{tangkapanlayar}
+
+% ---------------------------------------------------------------------
+% 13. LATIHAN MANDIRI
+% ---------------------------------------------------------------------
+\section{Latihan Mandiri}
+\label{sec:git-latihan}
+
+\begin{latihan}[Repository Flexbox]
+\begin{itemize}
+  \item Buat \emph{repository} baru di GitHub bernama \texttt{latihan-flexbox}.
+  \item Hubungkan folder \texttt{latihan-flexbox} (dari Bab~6) ke \emph{repository} tersebut.
+  \item Lakukan \emph{commit} dengan pesan yang jelas untuk semua file.
+  \item \emph{Push} ke GitHub.
+  \item Ubah satu file, \emph{commit}, dan \emph{push} lagi.
+  \item Buat perubahan di GitHub (edit langsung), lalu \texttt{git pull} di komputer.
+  \item Periksa \texttt{git log --oneline} dan pastikan semua \emph{commit} tercatat.
+\end{itemize}
+\end{latihan}
+
+% ---------------------------------------------------------------------
+% 14. HASIL YANG DIHARAPKAN
+% ---------------------------------------------------------------------
+\section{Hasil yang Diharapkan}
+\label{sec:git-hasil}
+
+Setelah menyelesaikan semua praktikum, Anda memiliki:
+\begin{itemize}
+  \item Git terinstal dan terkonfigurasi dengan nama dan email Anda.
+  \item \emph{Repository} lokal \texttt{latihan-css} dengan minimal 2 \emph{commit}.
+  \item \emph{Repository} di GitHub bernama \texttt{latihan-css} berisi semua file proyek.
+  \item Kemampuan untuk melakukan \texttt{git add}, \texttt{git commit}, \texttt{git push}, dan \texttt{git pull}.
+  \item Riwayat \emph{commit} yang bisa dilihat di \texttt{git log --oneline} dan di halaman GitHub.
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% 15. TROUBLESHOOTING
+% ---------------------------------------------------------------------
+\section{Troubleshooting}
+\label{sec:git-trouble}
+
+\begin{table}[h!]
+\centering
+\caption{Masalah umum Git dan solusinya}
+\label{tab:trouble-08}
+\begin{tabular}{|p{3.5cm}|p{4cm}|p{5cm}|}
+\hline
+\textbf{Masalah} & \textbf{Penyebab} & \textbf{Solusi} \\
+\hline
+\texttt{git} bukan perintah yang dikenali & Git belum terinstal / tidak di PATH & Instal Git dari git-scm.com, \emph{restart} terminal/VSCode \\
+\hline
+\texttt{git push} meminta \emph{password} terus & Autentikasi belum diatur & Gunakan \emph{login browser} saat diminta, atau atur \emph{Personal Access Token} \\
+\hline
+\texttt{fatal: remote origin already exists} & \emph{Remote} sudah pernah ditambahkan & Gunakan \texttt{git remote set-url origin <URL>} untuk mengganti \\
+\hline
+\texttt{fatal: not a git repository} & Bukan di folder proyek & Pastikan berada di folder yang sudah \texttt{git init} (periksa dengan \texttt{pwd}) \\
+\hline
+\emph{Push} ditolak (\emph{rejected}) & \emph{Remote} punya \emph{commit} yang tidak ada di lokal & Jalankan \texttt{git pull} dulu, lalu \texttt{git push} lagi \\
+\hline
+File tidak muncul di GitHub & Belum di-\emph{commit} / di-\emph{push} & Jalankan \texttt{git add .}, \texttt{git commit -m "..."}, lalu \texttt{git push} \\
+\hline
+\emph{Commit} tidak tercatat & Belum \texttt{git add} & Jalankan \texttt{git add .} sebelum \texttt{git commit} \\
+\hline
+Branch bernama \texttt{master} bukan \texttt{main} & Versi Git lama & Jalankan \texttt{git branch -M main} sebelum \emph{push} \\
+\hline
+\end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------
+% 16. RANGKUMAN
+% ---------------------------------------------------------------------
+\section{Rangkuman}
+\label{sec:git-rangkuman}
+
+\begin{itemize}
+  \item Git = kontrol versi lokal; GitHub = hosting \emph{repository} di internet.
+  \item \texttt{git init} --- mulai \emph{repository}.
+  \item \texttt{git add .} --- pindahkan file ke \emph{staging area}.
+  \item \texttt{git commit -m "pesan"} --- simpan \emph{snapshot} perubahan.
+  \item \texttt{git push} --- kirim \emph{commit} ke GitHub.
+  \item \texttt{git pull} --- ambil perubahan dari GitHub.
+  \item \texttt{git status} --- lihat kondisi \emph{repository}.
+  \item \texttt{git log --oneline} --- lihat riwayat \emph{commit}.
+  \item Tulis pesan \emph{commit} yang jelas dan singkat.
+\end{itemize}
