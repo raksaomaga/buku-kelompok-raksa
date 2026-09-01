@@ -154,20 +154,25 @@ Lakukan langkah berikut dan pastikan hasilnya sesuai:
 Buka **Terminal** di VS Code (**Ctrl + `** atau menu **Terminal → New Terminal**), lalu ketik perintah berikut **satu per satu**:
 
 ```bash
-# 1. Inisialisasi Git di folder lokal
+# 1. Buat file README.md pertama kali
+echo "# latihan-web-1" >> README.md
+
+# 2. Inisialisasi Git di folder lokal
 git init
 
-# 2. Hubungkan ke remote repository (ganti NAMA_USER dengan username GitHub-mu)
-git remote add origin https://github.com/NAMA_USER/latihan-web-1.git
-
-# 3. Tambahkan semua file untuk di-commit
-git add .
+# 3. Tambahkan file README.md untuk di-commit
+git add README.md
 
 # 4. Buat commit pertama
-git commit -m "Commit pertama: Halo Dunia"
+git commit -m "first commit"
 
-# 5. Push ke GitHub
+# 5. Ubah nama branch ke main
 git branch -M main
+
+# 6. Hubungkan ke remote repository (ganti NAMA_USER dengan username GitHub-mu)
+git remote add origin https://github.com/NAMA_USER/latihan-web-1.git
+
+# 7. Push ke GitHub
 git push -u origin main
 ```
 
