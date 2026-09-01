@@ -7,7 +7,7 @@
 | **Minggu ke-** | 3 |
 | **Topik** | HTML dasar: struktur dokumen, elemen, atribut, semantic tag |
 | **Output** | Halaman HTML statis (multi-section) yang valid dan terstruktur |
-| **Durasi** | 2 jam (1 jam workshop + 1 jam praktikum mandiri) |
+| **Durasi** | 3 jam kelas: 1 jam teori dan 2 jam praktik |
 | **Prasyarat** | VS Code + Live Server terinstal (Minggu 1), akun GitHub |
 | **Tools** | VS Code, Live Server, browser, W3C Validator (https://validator.w3.org) |
 

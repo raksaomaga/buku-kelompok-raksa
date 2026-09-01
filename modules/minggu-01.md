@@ -7,7 +7,7 @@
 | **Minggu ke-** | 1 |
 | **Topik** | Pengantar web & workflow design-to-code, instalasi tools |
 | **Output** | Lingkungan kerja (VS Code, browser, akun GitHub) siap digunakan |
-| **Durasi** | 3 jam (1 jam workshop + 2 jam praktikum mandiri) |
+| **Durasi** | 3 jam kelas: 1 jam teori dan 2 jam praktik |
 | **Prasyarat** | Laptop/PC dengan akses internet |
 | **Tools** | VS Code, browser (Chrome/Firefox), akun GitHub, Terminal/PowerShell |
 

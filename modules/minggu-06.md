@@ -2,7 +2,7 @@
 
 **Mata Kuliah:** Pengenalan Workshop Desain Web
 **Program Studi:** D3 Informatika — Semester 1
-**Durasi:** 1 pertemuan praktikum (3 jam)
+**Durasi:** 3 jam kelas: 1 jam teori dan 2 jam praktik
 
 ---
 

@@ -7,7 +7,7 @@
 | **Minggu ke-** | 4 |
 | **Topik** | HTML form, tabel, elemen multimedia |
 | **Output** | Halaman HTML dengan form interaktif, tabel data, dan elemen multimedia |
-| **Durasi** | 2 jam (1 jam workshop + 1 jam praktikum mandiri) |
+| **Durasi** | 3 jam kelas: 1 jam teori dan 2 jam praktik |
 | **Prasyarat** | Pemahaman HTML dasar & semantic tags (Minggu 3) |
 | **Tools** | VS Code, Live Server, browser, W3C Validator |
 

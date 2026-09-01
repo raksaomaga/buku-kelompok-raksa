@@ -1,7 +1,7 @@
 # Minggu 14: Workshop Proyek Akhir — Riset UI/UX & Perencanaan Desain
 
 **Topik:** Heuristic evaluation, benchmarking, dan perancangan ulang halaman e-governance di Figma  
-**Durasi:** 1 pertemuan (± 120 menit)  
+**Durasi:** 3 jam kelas: 1 jam teori dan 2 jam praktik
 **Format:** Workshop kelompok (3 orang) dengan sesi mentoring
 
 ---

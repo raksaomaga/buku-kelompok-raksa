@@ -2,6 +2,7 @@
 
 > **Topik:** Pengenalan JavaScript — dari variabel sampai membaca elemen HTML.
 > **Output akhir:** Skrip JavaScript sederhana yang bisa Anda tambahkan ke halaman HTML yang sudah dibuat di minggu-minggu sebelumnya.
+> **Durasi:** 3 jam kelas: 1 jam teori dan 2 jam praktik
 
 ---
 

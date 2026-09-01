@@ -2,6 +2,7 @@
 
 > **Topik:** Berkenalan dengan Tailwind CSS — framework CSS utility-first yang mengubah cara menulis style.
 > **Output akhir:** Satu halaman HTML yang sebelumnya ditulis dengan CSS manual diubah menggunakan Tailwind CSS.
+> **Durasi:** 3 jam kelas: 1 jam teori dan 2 jam praktik
 
 ---
 

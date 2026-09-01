@@ -2,6 +2,7 @@
 
 > **Topik:** Berkenalan dengan React — framework JavaScript terpopuler. Kita memahami **konsep** komponen, JSX, dan props secara teori ringan + demo visual, **tanpa** membuat aplikasi React yang berjalan penuh.
 > **Output akhir:** Pemahaman konseptual tentang bagaimana React bekerja, kemampuan membaca kode React sederhana, dan gambaran apa yang akan dipelajari di semester lanjut.
+> **Durasi:** 3 jam kelas: 1 jam teori dan 2 jam praktik
 
 ---
 

@@ -7,7 +7,7 @@
 | **Minggu ke-** | 2 |
 | **Topik** | Figma dasar (wireframe & mockup), prinsip dasar UI/UX (heuristik, hierarchy, aksesibilitas) |
 | **Output** | Wireframe 1 halaman web di Figma |
-| **Durasi** | 3 jam (1 jam workshop + 2 jam praktikum mandiri) |
+| **Durasi** | 3 jam kelas: 1 jam teori dan 2 jam praktik |
 | **Prasyarat** | Akun Figma gratis (https://www.figma.com), akun GitHub (dari Minggu 1) |
 | **Tools** | Figma (browser atau desktop app), browser untuk referensi |
 

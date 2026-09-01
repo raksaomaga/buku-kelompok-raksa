@@ -1,7 +1,7 @@
 # Minggu 16: Presentasi, Refleksi & Finalisasi Proyek Akhir
 
 **Topik:** Presentasi hasil proyek redesign, sesi tanya-jawab individual, refleksi pembelajaran semester  
-**Durasi:** 1 pertemuan (± 120 menit)  
+**Durasi:** 3 jam kelas: 1 jam teori dan 2 jam praktik
 **Format:** Presentasi kelompok + tanya-jawab + refleksi individu
 
 ---

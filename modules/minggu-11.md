@@ -2,6 +2,7 @@
 
 > **Topik:** Membuat halaman web interaktif — merespons klik, input pengguna, dan mengubah isi halaman secara dinamis.
 > **Output akhir:** Halaman web interaktif (misal: toggle menu, form sederhana, atau daftar tugas yang bisa ditambah/dihapus).
+> **Durasi:** 3 jam kelas: 1 jam teori dan 2 jam praktik
 
 ---
 

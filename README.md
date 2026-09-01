@@ -2,6 +2,8 @@
 
 Panduan kerja kelompok 3 orang untuk mata kuliah **Pengenalan Workshop Desain Web** — D3 Informatika, Semester 1.
 
+**Durasi:** 3 jam kelas per pertemuan: 1 jam teori dan 2 jam praktik (14–16 pertemuan per semester).
+
 > **Dibaca sekali, dipraktikkan setiap minggu.** Dokumen ini menjelaskan cara kerja kelompok Anda di repositories ini (modul Markdown) dan di repositories buku LaTeX (`buku-desain-web`) yang akan di-fork.
 
 ---

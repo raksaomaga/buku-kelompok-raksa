@@ -1,7 +1,7 @@
 # Minggu 15: Workshop Proyek Akhir — Implementasi, Deployment & Progress Clinic
 
 **Topik:** Implementasi HTML/CSS/JS sesuai mockup Figma, deployment ke GitHub Pages, dan klinik progress kelompok  
-**Durasi:** 1 pertemuan (± 120 menit)  
+**Durasi:** 3 jam kelas: 1 jam teori dan 2 jam praktik
 **Format:** Workshop kelompok (3 orang) dengan sesi mentoring & clinic
 
 ---
