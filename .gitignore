@@ -1,2 +1,12 @@
 # Dokumen perencanaan internal; dipertahankan lokal, tidak dipublikasikan.
 PRD_Modul_Pengenalan_Workshop_Desain_Web.md
+# File bantu kompilasi LaTeX
+/book/*.aux
+/book/*.bcf
+/book/*.lof
+/book/*.log
+/book/*.lot
+/book/*.out
+/book/*.run.xml
+/book/*.synctex.gz
+/book/*.toc
