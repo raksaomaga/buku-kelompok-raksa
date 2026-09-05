@@ -1,16 +1,16 @@
 # Fdb version 4
-["biber main"] 1788600042.43796 "main.bcf" "main.bbl" "main" 1788600069.25091 0
-  "main.bcf" 1788600068 108251 f74dcffcc0efe2e1f3361acc69990e68 "pdflatex"
+["biber main"] 1788612105.38964 "main.bcf" "main.bbl" "main" 1788612138.66511 0
+  "main.bcf" 1788612138 108251 f74dcffcc0efe2e1f3361acc69990e68 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1788600057.19901 "c:/Users/raksa/Desktop/buku-desain-web/buku-kelompok-raksa/book/main.tex" "main.pdf" "main" 1788600069.25177 0
-  "assets/images/minggu-01/browser-halo-dunia.png" 1788250767 131900 41ddc8533ab31ad1ee47b86be21a55f5 ""
-  "assets/images/minggu-01/dashboard-github.png" 1788250822 350818 4b9484a46883508ab4e4a9944a03b547 ""
-  "assets/images/minggu-01/perbandingan-url.png" 1788599851 149042 75f2081d646a791ce80fd7c7cd2f813a ""
-  "assets/images/minggu-01/repository-github.png" 1788253373 242016 c57098fd4d749939aa5d58cf74a0cde5 ""
-  "assets/images/minggu-01/vs-code-index.html.png" 1788250756 231534 50f4049f3f0654bdddf406e26f4b1071 ""
+["pdflatex"] 1788612126.47429 "c:/Users/raksa/Desktop/buku-desain-web/buku-kelompok-raksa/book/main.tex" "main.pdf" "main" 1788612138.6659 0
+  "assets/images/minggu-01/browser-halo-dunia.png" 1788612108 131900 41ddc8533ab31ad1ee47b86be21a55f5 ""
+  "assets/images/minggu-01/dashboard-github.png" 1788612108 350818 4b9484a46883508ab4e4a9944a03b547 ""
+  "assets/images/minggu-01/perbandingan-url.png" 1788612108 149042 75f2081d646a791ce80fd7c7cd2f813a ""
+  "assets/images/minggu-01/repository-github.png" 1788612108 242016 c57098fd4d749939aa5d58cf74a0cde5 ""
+  "assets/images/minggu-01/vs-code-index.html.png" 1788612108 231534 50f4049f3f0654bdddf406e26f4b1071 ""
   "c:/Users/raksa/Desktop/buku-desain-web/buku-kelompok-raksa/book/main.tex" 1788587049 2191 46732040935091215520f5da5a12aed7 ""
   "c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-rmtt.enc" 1788542848 2359 de53213020575850c8f8debc35095765 ""
   "c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc" 1788542848 3031 6c4d3515bf7115d8518af1c9ab97ca44 ""
@@ -298,7 +298,7 @@
   "c:/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1788548502 5655996 795b756740562267ad2ae16e70168a76 ""
   "c:/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1788548679 3658228 fc85aff7504a650a490b6b4a634bd5f8 ""
   "c:/texlive/2026/texmf.cnf" 1788548475 713 e69b156964470283e0530f5060668171 ""
-  "chapters/minggu-01.tex" 1788600017 13022 30ef50d1f9510fae7559e0e6ed16e71c ""
+  "chapters/minggu-01.tex" 1788612108 13022 30ef50d1f9510fae7559e0e6ed16e71c ""
   "chapters/minggu-02.tex" 1788587049 16051 704ac6cbef68166698f0d2ad07314efa ""
   "chapters/minggu-03.tex" 1788587049 22108 4fc8b127756c14840ebe3e1e7d0807ee ""
   "chapters/minggu-04.tex" 1788587049 36478 255ca8f2466a1379877f1639c7a789f3 ""
@@ -315,14 +315,14 @@
   "chapters/minggu-15.tex" 1788587049 22787 1b784f12732ca311e62c4b178ee4496b ""
   "chapters/minggu-16.tex" 1788587049 18713 841a0be5f3824c2d2161f049af327d98 ""
   "elegantbook.cls" 1788587049 52151 d75222ca4b914556aac81fe6ecf1f6eb ""
-  "main.aux" 1788600068 107442 436d02b9336749f6dc61272c6f140486 "pdflatex"
-  "main.bbl" 1788600044 0 d41d8cd98f00b204e9800998ecf8427e "biber main"
-  "main.lof" 1788600068 822 810fa052a46c272588c0d1d2d8c9961e "pdflatex"
-  "main.lot" 1788600068 5189 dc622f3639c117b95b922168ac2aa502 "pdflatex"
-  "main.out" 1788600068 37571 f50409ef939a31bb924193bb205a9821 "pdflatex"
-  "main.run.xml" 1788600068 2229 1f920f575f235547f648927b704ca30c "pdflatex"
+  "main.aux" 1788612138 107442 436d02b9336749f6dc61272c6f140486 "pdflatex"
+  "main.bbl" 1788612112 0 d41d8cd98f00b204e9800998ecf8427e "biber main"
+  "main.lof" 1788612138 822 810fa052a46c272588c0d1d2d8c9961e "pdflatex"
+  "main.lot" 1788612138 5189 dc622f3639c117b95b922168ac2aa502 "pdflatex"
+  "main.out" 1788612138 37571 f50409ef939a31bb924193bb205a9821 "pdflatex"
+  "main.run.xml" 1788612138 2229 1f920f575f235547f648927b704ca30c "pdflatex"
   "main.tex" 1788587049 2191 46732040935091215520f5da5a12aed7 ""
-  "main.toc" 1788600068 26184 03c5f3ff7d7a5537cc87256d556cfa06 "pdflatex"
+  "main.toc" 1788612138 26184 03c5f3ff7d7a5537cc87256d556cfa06 "pdflatex"
   "preamble.tex" 1788587049 9316 655a062fe4b88fb44b3b06ffeb5277a3 ""
   (generated)
   "main.aux"
