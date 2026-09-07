@@ -57,11 +57,12 @@ Figma bisa digunakan langsung di peramban, tapi lebih nyaman menggunakan \textbf
   \item Di panel \textbf{Design} (kanan), atur ukuran frame: pilih preset \textbf{Web 1920} (1920\,$\times$\,1080\,px) atau \textbf{MacBook Air}.
 \end{langkah}
 
-\begin{tangkapanlayar}
-  {assets/images/minggu-02/figma-frame-kosong.png}
-  {Canvas Figma dengan satu frame kosong berukuran Web 1920.}
-  {Pastikan panel Design di kanan menunjukkan ukuran frame yang benar.}
-\end{tangkapanlayar}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\linewidth]{minggu-02/figma-frame-kosong.png}
+  \caption{Canvas Figma dengan satu frame kosong berukuran Web 1920.}
+  \label{fig:figma-frame-kosong}
+\end{figure}
 
 \subsection{Alat Dasar Figma}
 
@@ -184,11 +185,12 @@ Kita mulai dari \textbf{wireframe} (tingkat rendah) karena fokusnya adalah struk
   \item Tambahkan teks: \texttt{© 2026 Nama Kamu}.
 \end{langkah}
 
-\begin{tangkapanlayar}
-  {assets/images/minggu-02/wireframe-profil-diri.png}
-  {Wireframe halaman ``Profil Diri'' di Figma.}
-  {Pastikan terlihat section: Header, Foto Profil, Tentang Saya, Keahlian, dan Footer dengan rapi.}
-\end{tangkapanlayar}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\linewidth]{minggu-02/wireframe-profil-diri.png}
+  \caption{Wireframe halaman ``Profil Diri'' di Figma.}
+  \label{fig:wireframe-profil-diri}
+\end{figure}  
 
 % ---------------------------------------------------------------------
 % 5. TIGA KONSEP DASAR UI/UX
@@ -295,12 +297,12 @@ Buat wireframe baru untuk halaman portofolio di Figma dengan spesifikasi:
 \end{itemize}
 \end{latihan}
 
-\begin{tangkapanlayar}
-  {assets/images/minggu-02/wireframe-portofolio.png}
-  {Wireframe halaman Portfolio di Figma (tampilan penuh).}
-  {Pastikan terlihat Navbar, Hero, Grid Proyek, Tentang Saya, dan Footer.}
-\end{tangkapanlayar}
-
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\linewidth]{minggu-02/wireframe-portofolio.png}
+  \caption{Wireframe halaman Portfolio di Figma (tampilan penuh).}
+  \label{fig:wireframe-portofolio}
+\end{figure} 
 \begin{latihan}[Evaluasi Heuristik pada Website Nyata]
 \begin{enumerate}
   \item Buka salah satu website berikut: \texttt{google.com}, \texttt{tokopedia.com}, atau \texttt{instagram.com} (halaman login).
@@ -308,17 +310,30 @@ Buat wireframe baru untuk halaman portofolio di Figma dengan spesifikasi:
 \end{enumerate}
 \end{latihan}
 
-\begin{table}[ht]
+\begin{table}[htbp]
 \centering
-\caption{Template evaluasi heuristik}
+\caption{Evaluasi heuristik Google Penelusuran}
 \label{tab:m02-eval}
-\begin{tabular}{p{4.5cm}cp{5cm}}
-\toprule
-\textbf{Heuristik} & \textbf{Ya/Tidak} & \textbf{Bukti / Contoh} \\
-\midrule
-Visibility of System Status & & \\
-Match Between System and Real World & & \\
-Error Prevention & & \\
+\renewcommand{\arraystretch}{1.4}
+
+\begin{tabular}{p{4cm}p{1.5cm}p{5cm}}
+\hline
+\textbf{Heuristik} &
+\textbf{Ya/Tidak} &
+\textbf{Bukti / Contoh} \\
+\hline
+
+Visibility of System Status &
+Ya &
+Prediksi pencarian muncul ketika pengguna mulai mengetik.
+Respons ini memberikan umpan balik bahwa sistem menerima
+dan merespons masukan pengguna. \\
+
+Match Between System and Real World &
+Ya &
+Pengguna dapat mencari informasi menggunakan bahasa
+sehari-hari. Ikon mikrofon pada pencarian suara sesuai
+dengan aktivitas berbicara sehingga mudah dipahami. \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -332,11 +347,13 @@ Error Prevention & & \\
 \end{enumerate}
 \end{latihan}
 
-\begin{tangkapanlayar}
-  {assets/images/minggu-02/webaim-contrast-checker.png}
-  {WebAIM Contrast Checker dengan hasil pengecekan.}
-  {Pastikan terlihat rasio kontras dan status ``Pass'' atau ``Fail''.}
-\end{tangkapanlayar}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\linewidth]{minggu-02/webaim-contrast-checker.png}
+  \caption{WebAIM Contrast Checker dengan hasil pengecekan.}
+  \label{fig:webaim-contrast-checker}
+\end{figure}
+
 
 % ---------------------------------------------------------------------
 % 7. TROUBLESHOOTING
