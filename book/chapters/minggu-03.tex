@@ -151,11 +151,12 @@ Simpan file (\textbf{Ctrl + S}) $\rightarrow$ buka dengan \emph{Live Server}.
 Periksa di peramban: apakah terlihat 3 \emph{heading} (h1, h2, h3) dengan ukuran berbeda, 2 paragraf, 1 tautan, 1 gambar \emph{placeholder}, 1 daftar \emph{bullet}, 1 daftar bernomor, 1 garis horizontal, 1 teks tebal, dan 1 teks miring?
 \end{tip}
 
-\begin{tangkapanlayar}
-  {assets/images/minggu-03/browser-elemen-dasar.png}
-  {Peramban yang menampilkan hasil elemen HTML dasar.}
-  {Pastikan terlihat heading, paragraph, link, gambar, lists, strong, em.}
-\end{tangkapanlayar}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\linewidth]{minggu-03/browser-elemen-dasar.png}
+  \caption{Hasil \texttt{index.html} yang menampilkan elemen-elemen dasar HTML di peramban.}
+  \label{fig:m03-elemen-dasar}
+\end{figure}
 
 % ---------------------------------------------------------------------
 % 5. SEMANTIC HTML
@@ -493,11 +494,12 @@ Di file \texttt{profil.html}, tambahkan tag \texttt{<link>} di dalam \texttt{<he
 
 Simpan kedua file $\rightarrow$ buka \texttt{profil.html} via \emph{Live Server}.
 
-\begin{tangkapanlayar}
-  {assets/images/minggu-03/profil-dengan-css.png}
-  {Halaman \texttt{profil.html} di peramban dengan CSS.}
-  {Pastikan terlihat \emph{header} berwarna gelap, layout terpusat, dan \emph{footer} berwarna gelap.}
-\end{tangkapanlayar}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\linewidth]{minggu-03/profil-dengan-css.png}
+  \caption{Halaman \texttt{profil.html} di peramban setelah dihubungkan dengan \texttt{style.css}.}
+  \label{fig:m03-profil-css}
+\end{figure}
 
 % ---------------------------------------------------------------------
 % 8. VALIDASI HTML
@@ -513,11 +515,12 @@ Simpan kedua file $\rightarrow$ buka \texttt{profil.html} via \emph{Live Server}
   \item Pastikan hasil: ``Document checking completed. No errors or warnings to show.''
 \end{langkah}
 
-\begin{tangkapanlayar}
-  {assets/images/minggu-03/w3c-validasi.png}
-  {W3C HTML Validator yang menunjukkan hasil validasi tanpa error.}
-  {Pastikan terlihat pesan ``No errors or warnings to show''.}
-\end{tangkapanlayar}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\linewidth]{minggu-03/w3c-validasi.png}
+  \caption{Hasil pemeriksaan \texttt{profil.html} pada W3C HTML Validator tanpa \emph{error} atau \emph{warning}.}
+  \label{fig:m03-w3c-validasi}
+\end{figure}
 
 Jika ada error, perbaiki berdasarkan pesan yang diberikan validator, lalu cek ulang.
 
@@ -539,6 +542,13 @@ Buat file baru bernama \texttt{tips.html} dengan struktur \emph{semantic} HTML y
 \end{enumerate}
 Persyaratan teknis: gunakan hanya tag \emph{semantic}; tidak boleh ada \texttt{<div>} sebagai \emph{section placeholder}; semua gambar harus punya \texttt{alt} yang deskriptif; file harus valid di W3C Validator.
 \end{latihan}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\linewidth]{minggu-03/tips-belajar-html.png}
+  \caption{Hasil latihan mandiri halaman \texttt{tips.html} di peramban.}
+  \label{fig:m03-tips-html}
+\end{figure}
 
 \begin{latihan}[Push ke GitHub]
 \begin{enumerate}
