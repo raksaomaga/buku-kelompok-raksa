@@ -307,11 +307,12 @@ Coba:
   \item Isi \emph{password} kurang dari 8 karakter $\rightarrow$ peramban harus menolak.
 \end{enumerate}
 
-\begin{tangkapanlayar}
-  {assets/images/minggu-04/form-pendaftaran.png}
-  {Form pendaftaran di peramban.}
-  {Pastikan terlihat semua field (Data Diri, Info Akademik, Pesan) dan tombol ``Daftar Sekarang''.}
-\end{tangkapanlayar}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.78\linewidth]{minggu-04/form-pendaftaran.png}
+  \caption{Form pendaftaran akun yang memuat data diri, informasi akademik, dan catatan tambahan.}
+  \label{fig:m04-form-pendaftaran}
+\end{figure}
 
 % ---------------------------------------------------------------------
 % 4. TABEL HTML
@@ -507,11 +508,12 @@ Simpan $\rightarrow$ buka dengan \emph{Live Server}.
 Atribut \texttt{scope} membantu \emph{screen reader} menavigasi tabel dengan benar.
 \end{catatan}
 
-\begin{tangkapanlayar}
-  {assets/images/minggu-04/tabel-data.png}
-  {Tabel data mahasiswa di peramban.}
-  {Pastikan terlihat 2 tabel: Jadwal Kuliah dan Perbandingan Nilai, dengan \emph{styling} yang rapi.}
-\end{tangkapanlayar}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\linewidth]{minggu-04/tabel-data.png}
+  \caption{Tabel jadwal kuliah dan perbandingan nilai UTS di peramban.}
+  \label{fig:m04-tabel-data}
+\end{figure}
 
 % ---------------------------------------------------------------------
 % 5. MULTIMEDIA
@@ -863,17 +865,19 @@ Pastikan di peramban:
 \end{itemize}
 \end{tip}
 
-\begin{tangkapanlayar}
-  {assets/images/minggu-04/praktikum-section-form.png}
-  {Section Form di halaman praktikum.}
-  {Pastikan terlihat label, input field, select \emph{dropdown}, textarea, dan tombol \emph{submit}.}
-\end{tangkapanlayar}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\linewidth]{minggu-04/praktikum-section-form.png}
+  \caption{Bagian form pada halaman gabungan Praktikum Minggu 4.}
+  \label{fig:m04-praktikum-form}
+\end{figure}
 
-\begin{tangkapanlayar}
-  {assets/images/minggu-04/praktikum-section-tabel-multimedia.png}
-  {Section Tabel dan Multimedia.}
-  {Pastikan terlihat tabel perbandingan, gambar dengan \emph{caption}, video \emph{player}, dan audio \emph{player}.}
-\end{tangkapanlayar}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\linewidth]{minggu-04/praktikum-section-tabel-multimedia.png}
+  \caption{Bagian tabel dan multimedia yang memuat gambar, video, serta audio.}
+  \label{fig:m04-praktikum-multimedia}
+\end{figure}
 
 % ---------------------------------------------------------------------
 % 7. VALIDASI & PUSH KE GITHUB
@@ -924,6 +928,13 @@ Buat halaman \texttt{survei.html} yang berisi form survei kepuasan mahasiswa ter
 Gunakan minimal 2 \texttt{<fieldset>} untuk mengelompokkan field. Setiap field harus punya \texttt{<label>} yang terhubung (\texttt{for} = \texttt{id}). Gunakan \texttt{<main>}, \texttt{<header>}, \texttt{<footer>} (\emph{semantic HTML}).
 \end{latihan}
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\linewidth]{minggu-04/latihan-survei-kepuasan.png}
+  \caption{Hasil latihan mandiri form Survei Kepuasan mahasiswa terhadap layanan kampus.}
+  \label{fig:m04-latihan-survei}
+\end{figure}
+
 \begin{latihan}[Tabel ``Data Buku'']
 Buat halaman \texttt{buku.html} yang berisi tabel daftar buku dengan kolom: No, Judul Buku, Pengarang, Tahun, Harga. Persyaratan:
 \begin{itemize}
@@ -935,6 +946,13 @@ Buat halaman \texttt{buku.html} yang berisi tabel daftar buku dengan kolom: No, 
   \item Sertakan minimal 1 gambar (misal: sampul buku \emph{placeholder}) di atas tabel dengan \texttt{<figure>} + \texttt{<figcaption>}.
 \end{itemize}
 \end{latihan}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\linewidth]{minggu-04/latihan-data-buku.png}
+  \caption{Hasil latihan mandiri tabel Data Buku yang dilengkapi sampul, delapan data buku, dan rata-rata harga.}
+  \label{fig:m04-latihan-data-buku}
+\end{figure}
 
 \begin{latihan}[Push \& Screenshot]
 \begin{enumerate}
